@@ -198,6 +198,67 @@ footer a.fl:hover{color:var(--gold)}
   .story-logo{max-width:280px}
 }
 @media (max-width:560px){.founders{grid-template-columns:1fr}}
+
+/* ===== VERSÃO MOBILE (só celular — desktop intacto) ===== */
+@media (max-width:600px){
+  /* espaçamento geral mais enxuto */
+  section{padding-block:46px}
+  .sec-head{margin-bottom:30px}
+  .sec-head h2{font-size:24px;margin:10px 0 12px}
+  .sec-head p{font-size:14px}
+  .eyebrow{font-size:11px;margin-bottom:16px}
+
+  .logo,.brand-name .lux,.brand-name .dot{font-size:17px}
+
+  /* hero mais curto */
+  .hero{min-height:auto;padding-top:104px;padding-bottom:40px}
+  .hero h1{font-size:27px;margin-bottom:16px}
+  .hero p{font-size:14px;margin-bottom:24px}
+  .acts{gap:10px}
+  .btn{font-size:13px;padding:13px 20px}
+  .hero-meta{gap:8px 20px;margin-top:30px;font-size:12px}
+
+  /* ticker menor */
+  .ticker{padding:12px 0}
+  .ticker span{font-size:17px}
+  .ticker-track{gap:30px}
+  .ticker span::after{margin-left:30px}
+
+  /* história: corta o miolo técnico, mantém intro + fecho */
+  .story-txt p:nth-child(2),
+  .story-txt p:nth-child(3){display:none}
+  .story-txt p{font-size:14px;margin-bottom:12px}
+  .story-logo{max-width:200px;margin:0 auto}
+  .founders{gap:14px;margin-top:28px}
+  .founder{flex-direction:column}
+  .fphoto{width:100%;min-height:0;aspect-ratio:4/3}
+  .finfo{padding:18px 20px}
+  .finfo .fname{font-size:18px}
+  .quals li{font-size:12.5px}
+  .quals li:nth-child(n+3){display:none}   /* só os 2 principais */
+
+  /* pilares + faixa IA */
+  .pillar{padding:26px 22px 28px}
+  .pillar h3{font-size:20px}
+  .pillar p{font-size:14px}
+  .pillar .pic{width:44px;height:44px;margin:16px 0 18px}
+  .aiband{padding:26px 22px;gap:20px}
+  .aiband h3{font-size:22px}
+  .aiband p{font-size:14px}
+
+  /* trabalho: descrição enxuta (3 linhas) */
+  .filters{gap:8px;margin-bottom:26px}
+  .filters button{font-size:12px;padding:8px 14px}
+  .case-body{padding:18px 18px 20px}
+  .case-body h3{font-size:18px}
+  .case-body .cdesc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;margin-top:8px}
+
+  /* contato + footer */
+  .cta p{font-size:15px}
+  .contacts{flex-direction:column;gap:12px;font-size:13px}
+  footer{padding-top:40px;padding-bottom:36px;gap:18px}
+  .fmeta{font-size:11px;gap:6px 16px}
+}
 </style>
 </head>
 <body>
