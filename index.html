@@ -196,11 +196,13 @@ footer a.fl:hover{color:var(--gold)}
 .quals li{position:relative;padding-left:16px;font-size:13px;color:var(--ink-2);line-height:1.35}
 .quals li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
 .quals b{color:var(--ink);font-weight:500}
-.spec{margin-top:20px;display:flex;align-items:center;gap:14px;padding:15px 20px;
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.spec{display:flex;align-items:center;gap:14px;padding:15px 20px;
   border:1px solid var(--line);border-radius:14px;background:var(--bg-2)}
 .spec i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--gold);font-style:normal}
 .spec p{font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:0}
 .spec b{color:var(--ink);font-weight:500}
+@media (max-width:820px){.specs{grid-template-columns:1fr}}
 
 /* reveal */
 [data-rv]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -325,8 +327,8 @@ footer a.fl:hover{color:var(--gold)}
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>Landing Pages</span><span>Sistemas de Gestão</span><span>Agentes de IA</span><span>Ferramentas sob medida</span><span>Tráfego Pago</span><span>SEO</span>
-    <span>Landing Pages</span><span>Sistemas de Gestão</span><span>Agentes de IA</span><span>Ferramentas sob medida</span><span>Tráfego Pago</span><span>SEO</span>
+    <span>Landing Pages</span><span>Sistemas de Gestão</span><span>Agentes de IA</span><span>Ferramentas sob medida</span><span>Tráfego Pago</span><span>Social Media</span><span>SEO</span>
+    <span>Landing Pages</span><span>Sistemas de Gestão</span><span>Agentes de IA</span><span>Ferramentas sob medida</span><span>Tráfego Pago</span><span>Social Media</span><span>SEO</span>
   </div>
 </div>
 
@@ -380,9 +382,15 @@ footer a.fl:hover{color:var(--gold)}
       </div>
     </div>
 
-    <div class="spec" data-rv>
-      <i></i>
-      <p>Além dos sócios, a Lux conta com <b>especialistas em tráfego pago</b> para as empresas que precisam vender já.</p>
+    <div class="specs" data-rv>
+      <div class="spec">
+        <i></i>
+        <p>Além dos sócios, a Lux conta com <b>especialistas em tráfego pago</b> para as empresas que precisam vender já.</p>
+      </div>
+      <div class="spec">
+        <i></i>
+        <p>E com <b>social media</b>: produção de <b>foto e vídeo</b> e cuidado do <b>Instagram</b> no dia a dia.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -402,7 +410,7 @@ footer a.fl:hover{color:var(--gold)}
         <div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
         <h3>Aumentar a visibilidade</h3>
         <p>Colocar a empresa no radar de quem procura. Site que aparece no Google, landing page que converte visita em cliente e presença que passa credibilidade.</p>
-        <div class="tags"><span>Sites</span><span>Landing Pages</span><span>SEO</span><span>Tráfego</span></div>
+        <div class="tags"><span>Sites</span><span>Landing Pages</span><span>SEO</span><span>Tráfego</span><span>Social Media</span></div>
       </div>
       <div class="pillar" data-rv>
         <span class="pn">02</span>
@@ -464,14 +472,6 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">O hambúrguer se monta na tela conforme a pessoa rola a página: são 85 quadros trocados quadro a quadro, sem vídeo. A montagem vira o próprio argumento de venda do produto.</p>
         </div>
       </div>
-      <div class="case" data-pillar="otimizacao organizacao">
-        <div class="thumb"><img src="shots/atendimento.png" alt="Sistema Mesa — atendimento digital" loading="lazy"></div>
-        <div class="case-body">
-          <div class="cb-head"><h3>Mesa</h3><span class="pill">Otimização</span></div>
-          <div class="cat">Tecnologia · Sistema de atendimento · Protótipo</div>
-          <p class="cdesc">Atendimento de restaurante feito de forma automática, sem depender do garçom. Pelo QR Code na mesa, o cliente abre o site do próprio restaurante, monta o pedido e ele cai direto na cozinha, em tempo real.</p>
-        </div>
-      </div>
       <div class="case" data-pillar="visibilidade">
         <div class="thumb"><img src="shots/vendacarros.png" alt="AutoCar Motors — concessionária" loading="lazy"></div>
         <div class="case-body">
@@ -494,14 +494,6 @@ footer a.fl:hover{color:var(--gold)}
           <div class="cb-head"><h3>Ana Maria · Psicóloga</h3><span class="pill">Visibilidade</span></div>
           <div class="cat">Saúde &amp; bem-estar · Landing page</div>
           <p class="cdesc">Landing page de uma psicóloga especializada em avaliação de TEA e TDAH. Explica os atendimentos com acolhimento e clareza e facilita o contato e o agendamento pelo WhatsApp.</p>
-        </div>
-      </div>
-      <div class="case" data-pillar="visibilidade">
-        <div class="thumb"><img src="shots/escola.png" alt="Escola Pequeno Céu" loading="lazy"></div>
-        <div class="case-body">
-          <div class="cb-head"><h3>Escola Pequeno Céu</h3><span class="pill">Visibilidade</span></div>
-          <div class="cat">Educação · Site institucional</div>
-          <p class="cdesc">Site institucional de uma escola. Mostra estrutura, proposta pedagógica e valores para transmitir confiança às famílias e atrair novas matrículas.</p>
         </div>
       </div>
       <div class="case" data-pillar="visibilidade">
