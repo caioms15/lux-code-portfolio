@@ -20,7 +20,7 @@
   --ease:cubic-bezier(.2,.75,.2,1);
   --gut:clamp(22px,6vw,88px);
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
@@ -57,21 +57,35 @@ img,svg{display:block;max-width:100%}
 .burger{display:none;background:none;border:none;color:var(--ink);font-size:26px;cursor:pointer;line-height:1}
 
 /* hero */
-.hero{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding-top:130px;padding-bottom:56px}
+.hero{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding-top:130px;padding-bottom:56px;text-align:center}
+.hero .wrap>*{margin-inline:auto}
 .eyebrow{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.08em;display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.hero .eyebrow{justify-content:center}
 .eyebrow i{width:24px;height:1px;background:var(--gold);display:inline-block}
 .hero h1{font-family:var(--display);font-weight:700;line-height:1.06;letter-spacing:-.015em;
-  font-size:clamp(30px,4.4vw,54px);margin-bottom:24px;max-width:16ch}
+  font-size:clamp(30px,4.4vw,54px);margin-bottom:24px;max-width:18ch}
 .hero h1 em{font-style:italic;color:var(--gold)}
 .hero p{max-width:600px;font-size:clamp(15px,1.7vw,18px);color:var(--ink-2);margin-bottom:34px}
-.acts{display:flex;flex-wrap:wrap;gap:14px}
+.acts{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+
+/* brasão */
+.crest{width:clamp(104px,13vw,164px);margin:0 auto 30px;position:relative;display:grid;place-items:center}
+.crest::before{content:'';position:absolute;width:230%;height:230%;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,197,24,.20),transparent 65%);filter:blur(18px);
+  animation:halo 6s var(--ease) infinite alternate}
+.crest img{position:relative;width:100%;filter:drop-shadow(0 12px 34px rgba(245,197,24,.28));
+  animation:float 7s var(--ease) infinite alternate}
+@keyframes halo{to{opacity:.45;transform:scale(1.12)}}
+@keyframes float{to{transform:translateY(-7px)}}
+.crest-rule{width:min(320px,62%);height:1px;margin:0 auto 26px;
+  background:linear-gradient(90deg,transparent,var(--line-2),transparent)}
 .btn{font-family:var(--mono);font-size:14px;padding:15px 26px;border-radius:100px;display:inline-flex;align-items:center;gap:10px;transition:transform .25s var(--ease),background .3s,color .3s,border-color .3s}
 .btn svg{width:13px;height:13px}
 .btn-a{background:var(--gold);color:#000}
 .btn-a:hover{background:var(--gold-2);transform:translateY(-2px)}
 .btn-b{border:1px solid var(--line-2);color:var(--ink)}
 .btn-b:hover{border-color:var(--gold);color:var(--gold)}
-.hero-meta{display:flex;flex-wrap:wrap;gap:14px 34px;margin-top:52px;font-size:13px;color:var(--ink-3);font-family:var(--mono)}
+.hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 34px;margin-top:52px;font-size:13px;color:var(--ink-3);font-family:var(--mono)}
 .hero-meta b{color:var(--ink-2);font-weight:400}
 
 /* ticker */
@@ -182,6 +196,11 @@ footer a.fl:hover{color:var(--gold)}
 .quals li{position:relative;padding-left:16px;font-size:13px;color:var(--ink-2);line-height:1.35}
 .quals li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
 .quals b{color:var(--ink);font-weight:500}
+.spec{margin-top:20px;display:flex;align-items:center;gap:14px;padding:15px 20px;
+  border:1px solid var(--line);border-radius:14px;background:var(--bg-2)}
+.spec i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--gold);font-style:normal}
+.spec p{font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:0}
+.spec b{color:var(--ink);font-weight:500}
 
 /* reveal */
 [data-rv]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -211,7 +230,9 @@ footer a.fl:hover{color:var(--gold)}
   .logo,.brand-name .lux,.brand-name .dot{font-size:17px}
 
   /* hero mais curto */
-  .hero{min-height:auto;padding-top:104px;padding-bottom:40px}
+  .hero{min-height:auto;padding-top:96px;padding-bottom:40px}
+  .crest{width:92px;margin-bottom:20px}
+  .crest-rule{margin-bottom:18px}
   .hero h1{font-size:27px;margin-bottom:16px}
   .hero p{font-size:14px;margin-bottom:24px}
   .acts{gap:10px}
@@ -284,6 +305,8 @@ footer a.fl:hover{color:var(--gold)}
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="wrap">
+    <div class="crest"><img src="brasao.png" alt="Brasão Lux Code"></div>
+    <div class="crest-rule"></div>
     <p class="eyebrow"><i></i>Portfólio · Lux Code</p>
     <h1>A gente <em>resolve o problema</em> da sua empresa com tecnologia.</h1>
     <p data-rv>Landing pages, sistemas de gestão e ferramentas com inteligência artificial. Abaixo, alguns <b>exemplos de projetos</b> — cada um pensado pra fazer a empresa aparecer, produzir ou se organizar melhor.</p>
@@ -318,8 +341,8 @@ footer a.fl:hover{color:var(--gold)}
       <div class="story-logo" data-rv><img src="logo-cut.png" alt="Logo Lux Code"></div>
       <div class="story-txt" data-rv>
         <p>A <b>Lux Code</b> nasceu da parceria de <b>Caio Souza</b> e <b>Rafael Nunes</b> — amigos desde a infância que decidiram unir tecnologia e ambição no mesmo projeto.</p>
-        <p><b>Caio</b> trabalha nas duas pontas do desenvolvimento: no <b>back-end</b>, com curso certificado em linguagem C; e no <b>front-end</b> — a camada que o cliente vê e usa —, onde vem se especializando em JavaScript e linguagens de marcação. Soma a isso conhecimento aprofundado em <b>inteligência artificial</b> e vivência prática em <b>vendas</b>, com curso na área.</p>
-        <p><b>Rafael</b> tem sólido conhecimento em <b>Python</b> e em <b>inteligência artificial</b>, aplicados à automação de processos. Também traz curso e experiência em <b>vendas</b>, somando visão comercial à parte técnica.</p>
+        <p><b>Caio</b> é mais forte no <b>front-end com JavaScript</b> — a camada que o cliente vê e usa. Trabalha também com <b>banco de dados</b> e <b>segurança de dados</b>, e soma a isso conhecimento aprofundado em <b>inteligência artificial</b>, <b>gestão de empresas</b> e vivência prática em <b>vendas</b>, com curso na área.</p>
+        <p><b>Rafael</b> é mais forte em <b>automação de processos</b> e <b>inteligência artificial</b>. Traz ainda <b>gestão de empresas</b> e curso e experiência em <b>vendas</b>, somando visão comercial à parte técnica.</p>
         <p>Os dois cursam <b>Engenharia de Software</b> — e é justamente da engenharia que vem uma das suas maiores forças: uma capacidade apurada de <b>resolver problemas</b>. São dois perfis <b>focados</b>, que levam essa mentalidade para cada projeto, transformando o gargalo de cada empresa em solução de tecnologia.</p>
       </div>
     </div>
@@ -332,9 +355,11 @@ footer a.fl:hover{color:var(--gold)}
           <div class="frole">CO-FUNDADOR · DESENVOLVIMENTO WEB &amp; IA</div>
           <ul class="quals">
             <li>Cursando <b>Engenharia de Software</b></li>
-            <li><b>Front-End</b> — especializando-se em JavaScript e linguagens de marcação</li>
-            <li><b>Back-End</b> — curso certificado em linguagem C</li>
-            <li>Conhecimento aprofundado em <b>inteligência artificial</b></li>
+            <li><b>Front-End</b> com JavaScript</li>
+            <li><b>Banco de dados</b></li>
+            <li><b>Segurança de dados</b></li>
+            <li><b>Inteligência artificial</b></li>
+            <li><b>Gestão de empresas</b></li>
             <li>Curso e experiência em <b>vendas</b></li>
           </ul>
         </div>
@@ -346,12 +371,18 @@ footer a.fl:hover{color:var(--gold)}
           <div class="frole">CO-FUNDADOR · AUTOMAÇÃO &amp; IA</div>
           <ul class="quals">
             <li>Cursando <b>Engenharia de Software</b></li>
-            <li>Conhecimento em <b>Python</b> para automação de processos</li>
-            <li>Conhecimento aprofundado em <b>inteligência artificial</b></li>
+            <li><b>Automação</b> de processos</li>
+            <li><b>Inteligência artificial</b></li>
+            <li><b>Gestão de empresas</b></li>
             <li>Curso e experiência em <b>vendas</b></li>
           </ul>
         </div>
       </div>
+    </div>
+
+    <div class="spec" data-rv>
+      <i></i>
+      <p>Além dos sócios, a Lux conta com <b>especialistas em tráfego pago</b> para as empresas que precisam vender já.</p>
     </div>
   </div>
 </section>
@@ -417,6 +448,22 @@ footer a.fl:hover{color:var(--gold)}
     </div>
 
     <div class="grid" id="grid">
+      <div class="case" data-pillar="visibilidade">
+        <div class="thumb"><img src="shots/orfeve.png" alt="Orfève — site de alta joalheria" loading="lazy"></div>
+        <div class="case-body">
+          <div class="cb-head"><h3>Orfève</h3><span class="pill">Visibilidade</span></div>
+          <div class="cat">Alta joalheria · Site de marca</div>
+          <p class="cdesc">Site feito para vender percepção antes de vender peça. Dois vídeos se revezam no topo em sequência, e nas joias o cursor percorre a peça, que troca de ângulo conforme o movimento do mouse — no celular, com o dedo.</p>
+        </div>
+      </div>
+      <div class="case" data-pillar="visibilidade">
+        <div class="thumb"><img src="shots/brasa.png" alt="Brasa 66 — hamburgueria artesanal" loading="lazy"></div>
+        <div class="case-body">
+          <div class="cb-head"><h3>Brasa 66</h3><span class="pill">Visibilidade</span></div>
+          <div class="cat">Alimentação · Hamburgueria</div>
+          <p class="cdesc">O hambúrguer se monta na tela conforme a pessoa rola a página: são 85 quadros trocados quadro a quadro, sem vídeo. A montagem vira o próprio argumento de venda do produto.</p>
+        </div>
+      </div>
       <div class="case" data-pillar="otimizacao organizacao">
         <div class="thumb"><img src="shots/atendimento.png" alt="Sistema Mesa — atendimento digital" loading="lazy"></div>
         <div class="case-body">
