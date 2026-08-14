@@ -1,0 +1,22 @@
+# ============================================================
+# NASSER & COUTINHO — arquivos que não vão para o repositório
+# (todos continuam existindo normalmente no computador local)
+# ============================================================
+
+# Vídeos: apenas o banner usado pelo site vai para o repositório.
+# Isso exclui a cópia duplicada na raiz ("vídeo teatro amazonas.mp4"),
+# que é byte-idêntica a assets/banner.mp4.
+*.mp4
+!assets/banner.mp4
+
+# Logo duplicada na raiz — o site usa assets/logo.jpg
+/LOGO.jpg
+
+# Artes não referenciadas por nenhuma página
+/Arte abstrata 2.png
+/arte abstrata.png
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,476 @@
+/* ===== Motion — a linguagem da escrita =====
+   Toda animação daqui deriva do gesto do lápis (traço, sublinhado, texto que
+   se escreve). Nada de fade-in genérico por seção. Cada efeito é disparado
+   uma única vez por IntersectionObserver (js/motion.js) ou pela coreografia
+   pós-splash. Easings: ease-out-quart/quint/expo — sem bounce. */
+
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== Coreografia do hero (pós-splash) =====
+   body.vh-pre-hero: splash em curso, itens do hero aguardam invisíveis.
+   body.vh-hero-ready: entrada em cascata — a página "continua" o gesto do
+   lápis do splash. Sem JS, nenhuma classe é aplicada e tudo fica visível. */
+
+body.vh-pre-hero .hero-copy > *,
+body.vh-pre-hero .hero-foto-frame {
+  opacity: 0;
+}
+
+body.vh-hero-ready .hero-copy > *,
+body.vh-hero-ready .hero-foto-frame {
+  animation: vh-rise 0.55s var(--ease-out-quint) both;
+}
+
+body.vh-hero-ready .hero-copy .eyebrow { animation-delay: 0ms; }
+body.vh-hero-ready .hero-title { animation-delay: 100ms; }
+body.vh-hero-ready .hero-subtitle { animation-delay: 220ms; }
+body.vh-hero-ready .hero-ctas { animation-delay: 340ms; }
+body.vh-hero-ready .hero-stats { animation-delay: 460ms; }
+
+body.vh-hero-ready .hero-foto-frame {
+  animation-name: vh-arch-in;
+  animation-duration: 0.65s;
+  animation-delay: 300ms;
+}
+
+@keyframes vh-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vh-arch-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== Sublinhado que se desenha =====
+   js/motion.js injeta um SVG (path ondulado, traço de lápis) dentro dos spans
+   de destaque. O traço se desenha quando o título entra no viewport. */
+
+.vh-sublinhado {
+  position: relative;
+}
+
+.vh-sublinhado .vh-sublinhado-svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.14em;
+  width: 100%;
+  height: 0.26em;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.vh-sublinhado .vh-sublinhado-svg path {
+  fill: none;
+  stroke: var(--laranja);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.55s var(--ease-out-quart) 0.15s;
+}
+
+/* Sobre fundos escuros (hero, metodologia, matrículas), o lápis é o laranja claro */
+.hero .vh-sublinhado .vh-sublinhado-svg path,
+.section-dark .vh-sublinhado .vh-sublinhado-svg path {
+  stroke: #ff8a4c;
+}
+
+.vh-inview .vh-sublinhado .vh-sublinhado-svg path,
+.vh-sublinhado.vh-inview .vh-sublinhado-svg path {
+  stroke-dashoffset: 0;
+}
+
+/* ===== Ícones da metodologia que se desenham =====
+   Os SVGs já são stroke puro; js/motion.js aplica pathLength="1" e o card
+   ganha .vh-inview ao entrar no viewport. Stagger entre cards e entre paths. */
+
+.metodologia-card .metodologia-icon path,
+.metodologia-card .metodologia-icon rect,
+.metodologia-card .metodologia-icon circle {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.6s var(--ease-out-expo);
+}
+
+.metodologia-card.vh-inview .metodologia-icon path,
+.metodologia-card.vh-inview .metodologia-icon rect,
+.metodologia-card.vh-inview .metodologia-icon circle {
+  stroke-dashoffset: 0;
+}
+
+.metodologia-card:nth-child(2).vh-inview .metodologia-icon path { transition-delay: 120ms; }
+.metodologia-card:nth-child(3).vh-inview .metodologia-icon path { transition-delay: 240ms; }
+.metodologia-card.vh-inview .metodologia-icon path + path { transition-delay: 150ms; }
+.metodologia-card:nth-child(2).vh-inview .metodologia-icon path + path { transition-delay: 270ms; }
+.metodologia-card:nth-child(3).vh-inview .metodologia-icon path + path { transition-delay: 390ms; }
+
+/* ===== A frase do ambiente que se escreve =====
+   js/motion.js quebra a frase em spans por palavra (aria preservado) e a
+   seção .vh-inview dispara a cadência. Delays inline via --i. */
+
+.ambiente-frase .vh-palavra {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.12em);
+  transition: opacity 0.22s var(--ease-out-quart), transform 0.22s var(--ease-out-quart);
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+
+.ambiente.vh-inview .ambiente-frase .vh-palavra {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ambiente-assinatura.vh-clip {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.4s var(--ease-out-quint);
+  /* espera a frase terminar de se escrever */
+  transition-delay: var(--vh-assinatura-delay, 0.9s);
+}
+
+.ambiente.vh-inview .ambiente-assinatura.vh-clip {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ===== Barra de progresso de leitura (traço de lápis) ===== */
+
+.vh-progresso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.vh-progresso-traco {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  /* grão de grafite sutil — variações leves de alpha, sem virar tracejado */
+  background: repeating-linear-gradient(
+    90deg,
+    var(--laranja) 0px,
+    var(--laranja) 14px,
+    rgba(228, 87, 30, 0.88) 14px,
+    rgba(228, 87, 30, 0.88) 22px,
+    var(--laranja) 22px,
+    var(--laranja) 41px,
+    rgba(228, 87, 30, 0.93) 41px,
+    rgba(228, 87, 30, 0.93) 48px
+  );
+  border-radius: 0 2px 2px 0;
+}
+
+.vh-progresso-lapis {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  transform: translate(-2px, -50%);
+  color: var(--laranja);
+}
+
+.vh-progresso-lapis svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* ===== Risco de lápis no hover (CTAs e nav) ===== */
+
+.btn-accent {
+  position: relative;
+}
+
+.btn-accent::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 9px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.75);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.18s var(--ease-out-quart);
+}
+
+.btn-accent:hover::after,
+.btn-accent:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.btn-accent:not(:hover):not(:focus-visible)::after {
+  transform-origin: right;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.header-nav a {
+  position: relative;
+}
+
+.header-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--laranja);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.15s var(--ease-out-quart);
+}
+
+.header-nav a:hover::after,
+.header-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ===== Nota circulada (960 do hero) =====
+   js/motion.js envolve o primeiro stat e injeta a elipse desenhada à mão;
+   ela se traça quando o contador termina (.vh-circulada). */
+
+.vh-nota-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.vh-nota-wrap .vh-elipse {
+  position: absolute;
+  inset: -10px -16px -8px -14px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.vh-nota-wrap .vh-elipse path {
+  fill: none;
+  stroke: #ff8a4c;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.vh-nota-wrap.vh-circulada .vh-elipse path {
+  transition: stroke-dashoffset 0.55s var(--ease-out-quart);
+  stroke-dashoffset: 0;
+}
+
+/* ===== Lápis que risca a moldura do professor =====
+   js/motion.js troca o ::before tracejado por um SVG medido no frame; um mask
+   revela o tracejado progressivamente e o lápis segue a ponta via offset-path. */
+
+.hero-foto-arch.vh-arco-js::before {
+  display: none;
+}
+
+.vh-arco-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.vh-arco-svg .vh-arco-traco {
+  stroke: #ff8a4c;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 8 10;
+}
+
+.vh-arco-svg .vh-arco-reveal {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.hero-foto-frame.vh-arco-riscada .vh-arco-reveal {
+  animation: vh-arco-risco 40s var(--ease-out-quart) infinite;
+}
+
+/* Ciclo: risca em 32s (80%), segura o arco completo e recomeça. */
+@keyframes vh-arco-risco {
+  0% { stroke-dashoffset: 1; }
+  80% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Rastro cumulativo: por onde o lápis já passou, o tracejado fica laranja
+   vivo — a camada de brilho é revelada com o mesmo gesto do risco, com um
+   pequeno atraso (2% ≈ 0,8s), então cada dash nasce apagado e "acende". */
+
+.vh-arco-svg .vh-arco-brilho {
+  stroke: #ff8a4c; /* mesma cor do lápis (.vh-arco-lapis) */
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 8 10;
+  opacity: 0;
+}
+
+.vh-arco-svg .vh-arco-reveal-brilho {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.hero-foto-frame.vh-arco-riscada .vh-arco-brilho {
+  opacity: 1;
+}
+
+.hero-foto-frame.vh-arco-riscada .vh-arco-reveal-brilho {
+  animation: vh-arco-brilho-janela 40s var(--ease-out-quart) infinite;
+}
+
+@keyframes vh-arco-brilho-janela {
+  0% { stroke-dashoffset: 1; }
+  2% { stroke-dashoffset: 1; }
+  82% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.vh-arco-lapis {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  z-index: 2; /* acima da foto: o gesto se vê inteiro */
+  color: #ff8a4c;
+  offset-rotate: 0deg;
+  offset-distance: 0%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vh-arco-lapis svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  /* ponta do lápis (canto inferior-esquerdo do glifo) encostada no traço */
+  transform: translate(6px, -7px);
+}
+
+.hero-foto-frame.vh-arco-riscada .vh-arco-lapis {
+  animation: vh-arco-lapis-risco 40s var(--ease-out-quart) infinite;
+}
+
+/* Acompanha a ponta do traço; no fim some e reaparece no início do ciclo. */
+@keyframes vh-arco-lapis-risco {
+  0% { offset-distance: 0%; opacity: 1; }
+  80% { offset-distance: 100%; opacity: 1; }
+  86% { offset-distance: 100%; opacity: 0; }
+  97% { offset-distance: 0%; opacity: 0; }
+  100% { offset-distance: 0%; opacity: 1; }
+}
+
+@supports not (offset-path: path("M0 0 L1 1")) {
+  .vh-arco-lapis {
+    display: none;
+  }
+}
+
+/* ===== Quantidade de alunos em destaque =====
+   js/motion.js injeta o sublinhado de lápis no span e dispara .vh-destacado
+   depois da nota circulada: o número dá um pulso e o traço se desenha. */
+
+.hero-stat-label .stat-destaque.vh-destacado {
+  animation: vh-destaque-pop 0.45s var(--ease-out-quint);
+}
+
+@keyframes vh-destaque-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* ===== Fotos dos aprovados: leve zoom no hover (o card já levanta) ===== */
+
+.aprovado-foto img {
+  transition: transform 0.25s var(--ease-out-quart);
+}
+
+.aprovado-card:hover .aprovado-foto img {
+  transform: scale(1.04);
+}
+
+/* ===== Galeria: easing mais confiante no slide ===== */
+
+.galeria-slides {
+  transition: transform 0.5s var(--ease-out-quint);
+}
+
+/* ===== Reduced motion: tudo visível, nada se move ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  body.vh-pre-hero .hero-copy > *,
+  body.vh-pre-hero .hero-foto-frame,
+  body.vh-hero-ready .hero-copy > *,
+  body.vh-hero-ready .hero-foto-frame {
+    opacity: 1;
+    animation: none;
+  }
+
+  .vh-sublinhado .vh-sublinhado-svg path,
+  .metodologia-card .metodologia-icon path,
+  .metodologia-card .metodologia-icon rect,
+  .metodologia-card .metodologia-icon circle,
+  .vh-nota-wrap .vh-elipse path {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .ambiente-frase .vh-palavra {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ambiente-assinatura.vh-clip {
+    clip-path: none;
+    transition: none;
+  }
+
+  .vh-progresso-lapis { display: none; }
+  .vh-progresso-traco { transition: none; }
+
+  /* Moldura do professor: volta o tracejado estático, sem SVG nem lápis
+     (sob reduzido o JS nem injeta — cinto e suspensório). */
+  .vh-arco-svg,
+  .vh-arco-lapis { display: none; }
+  .hero-foto-arch.vh-arco-js::before { display: block; }
+
+  .hero-stat-label .stat-destaque.vh-destacado { animation: none; }
+
+  .btn-accent::after,
+  .header-nav a::after {
+    transition: none;
+  }
+
+  .aprovado-foto img,
+  .galeria-slides,
+  .carousel-track {
+    transition: none;
+    animation: none;
+  }
+}

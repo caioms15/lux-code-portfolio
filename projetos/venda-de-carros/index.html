@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automais Motors — Seminovos premium em Manaus</title>
+<meta name="description" content="Automais Motors, Manaus-AM. Seleção premium de seminovos e novos: Porsche, Audi, BMW, Jaguar, Toyota e mais. Estoque curado, procedência garantida.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --bg-soft:#101013;
+    --panel:#141418;
+    --panel-2:#1a1a20;
+    --ink:#f5f5f7;
+    --ink-2:#c9c9d1;
+    --muted:#83838f;
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.16);
+    --red:#f10303;
+    --red-soft:rgba(241,3,3,.16);
+    --radius:14px;
+    --maxw:1280px;
+    --nav-h:76px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scrollbar-gutter:stable}
+  body{
+    background:var(--bg);
+    color:var(--ink-2);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body.locked{overflow:hidden}
+  h1,h2,h3,.display{font-family:'Oswald',sans-serif;letter-spacing:.01em;color:var(--ink);text-transform:uppercase}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  [id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
+  .accent{color:var(--red)}
+  ::selection{background:var(--red);color:#fff}
+
+  /* fundo vivo */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(700px 500px at 12% -5%,rgba(241,3,3,.18),transparent 60%),
+      radial-gradient(600px 500px at 92% 8%,rgba(60,90,200,.14),transparent 62%),
+      radial-gradient(900px 700px at 50% 110%,rgba(241,3,3,.10),transparent 65%);
+    animation:drift 22s ease-in-out infinite alternate;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @keyframes drift{to{transform:translate3d(0,-40px,0) scale(1.08)}}
+
+  /* barra de progresso do scroll */
+  .progress{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--red),#ff6b3d);z-index:70}
+
+  /* ---------- SPLASH ---------- */
+  .splash{
+    position:fixed;inset:0;z-index:200;background:#08080a;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:26px;
+    transition:opacity .6s ease,visibility .6s ease;
+  }
+  .splash::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(600px 400px at 50% 50%,rgba(241,3,3,.20),transparent 65%);
+  }
+  .splash.hide{opacity:0;visibility:hidden}
+  .splash-logo{
+    position:relative;font-family:'Oswald',sans-serif;font-weight:700;color:#fff;
+    font-size:clamp(30px,7vw,72px);letter-spacing:.06em;white-space:nowrap;
+    transform-origin:left center;will-change:transform,opacity;
+  }
+  .splash-logo .ch{display:inline-block;opacity:0;transform:translateY(24px) rotateX(-60deg);filter:blur(6px)}
+  .splash-logo .ch.on{animation:chIn .55s cubic-bezier(.2,.8,.25,1) forwards}
+  .splash-logo .sp{width:.32em}
+  @keyframes chIn{to{opacity:1;transform:none;filter:blur(0)}}
+  .splash-bar{position:relative;width:190px;height:2px;background:rgba(255,255,255,.12);overflow:hidden;border-radius:2px}
+  .splash-bar i{position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+  .splash.go .splash-bar{opacity:0;transition:opacity .3s}
+  .splash.go .splash-logo{transition:transform 1s cubic-bezier(.75,0,.18,1)}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    position:relative;overflow:hidden;
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;
+    padding:14px 26px;border-radius:999px;border:1px solid transparent;
+    cursor:pointer;transition:transform .18s ease,background .25s ease,border-color .25s ease,color .25s ease,box-shadow .25s ease;
+    white-space:nowrap;
+  }
+  .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35),transparent 70%);transform:translateX(-120%);transition:transform .6s ease}
+  .btn:hover::after{transform:translateX(120%)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 10px 30px -12px rgba(241,3,3,.9)}
+  .btn-red:hover{background:#ff1b1b;box-shadow:0 16px 40px -14px rgba(241,3,3,1)}
+  .btn-line{background:rgba(255,255,255,.04);color:#fff;border-color:var(--line-2);backdrop-filter:blur(8px)}
+  .btn-line:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+  .btn svg{width:17px;height:17px;flex:none;position:relative;z-index:1}
+  .btn span,.btn{z-index:0}
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,12,.62);
+    backdrop-filter:blur(16px) saturate(140%);
+    border-bottom:1px solid var(--line);
+    transition:background .3s ease,height .3s ease;
+  }
+  header.nav.solid{background:rgba(8,8,10,.92)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
+  .logo{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;letter-spacing:.06em;color:#fff;display:inline-block}
+  .logo b{color:var(--red)}
+  .nav-logo{opacity:0;transition:opacity .35s ease}
+  .nav-logo.show{opacity:1}
+  .nav-links{display:flex;gap:34px;font-size:13.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.7);font-family:'Oswald',sans-serif}
+  .nav-links a{position:relative;padding:4px 0}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:100% 50%;transition:transform .3s ease}
+  .nav-links a:hover{color:#fff}
+  .nav-links a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  @media(max-width:900px){.nav-links{display:none}.nav-cta .btn-line{display:none}}
+
+  /* ---------- Hero slider ---------- */
+  .hero{position:relative;height:88vh;min-height:580px;overflow:hidden;background:#0a0a0c}
+  .slide{
+    position:absolute;inset:0;opacity:0;visibility:hidden;
+    transition:opacity .7s ease;
+    display:flex;align-items:flex-end;
+  }
+  .slide.active{opacity:1;visibility:visible;z-index:1}
+  .slide .bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;transform:scale(1.06);transition:transform 8s ease-out}
+  .slide.active .bg{transform:scale(1)}
+  .slide .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,6,8,.9) 0%,rgba(6,6,8,.55) 45%,rgba(6,6,8,.2) 100%)}
+  .slide .bg::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,var(--bg) 0%,transparent 32%)}
+  .slide .watermark{
+    position:absolute;right:-2%;top:8%;z-index:0;
+    font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(120px,22vw,300px);
+    color:rgba(255,255,255,.05);line-height:.8;letter-spacing:-.02em;pointer-events:none;white-space:nowrap;
+  }
+  .slide-inner{position:relative;z-index:2;width:100%;padding-bottom:88px}
+  .slide.active .slide-inner>*{animation:up .8s cubic-bezier(.2,.8,.25,1) backwards}
+  .slide.active .slide-inner>*:nth-child(1){animation-delay:.05s}
+  .slide.active .slide-inner>*:nth-child(2){animation-delay:.14s}
+  .slide.active .slide-inner>*:nth-child(3){animation-delay:.23s}
+  .slide.active .slide-inner>*:nth-child(4){animation-delay:.32s}
+  .slide.active .slide-inner>*:nth-child(5){animation-delay:.41s}
+  @keyframes up{from{opacity:0;transform:translateY(28px)}}
+  .slide .cat-eyebrow{display:inline-block;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#fff;border-left:3px solid var(--red);padding-left:12px;margin-bottom:20px}
+  .slide h1{font-size:clamp(40px,6.8vw,92px);font-weight:700;line-height:.96;color:#fff;max-width:16ch;text-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .slide .tagline{color:rgba(255,255,255,.82);font-size:clamp(16px,1.7vw,20px);max-width:44ch;margin:20px 0 8px;font-weight:400}
+  .slide .price-line{font-family:'Oswald',sans-serif;color:#fff;font-size:20px;font-weight:500;margin:6px 0 26px}
+  .slide .price-line b{font-weight:700;font-size:28px;background:linear-gradient(90deg,#fff,#ffb3b3);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .slide-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-arrows{position:absolute;z-index:5;right:28px;bottom:36px;display:flex;gap:10px}
+  .hero-arrows button{
+    width:52px;height:52px;border-radius:50%;border:1px solid var(--line-2);
+    background:rgba(255,255,255,.06);backdrop-filter:blur(10px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .25s,border-color .25s,transform .25s;
+  }
+  .hero-arrows button:hover{background:var(--red);border-color:var(--red);transform:scale(1.08)}
+  .hero-arrows svg{width:22px;height:22px}
+  .hero-dots{position:absolute;z-index:5;left:28px;bottom:48px;display:flex;gap:9px}
+  .hero-dots span{width:34px;height:3px;background:rgba(255,255,255,.25);cursor:pointer;transition:background .25s,width .25s;border-radius:3px}
+  .hero-dots span.on{background:var(--red);width:56px}
+  @media(max-width:640px){
+    .hero{height:auto;min-height:0;padding-bottom:70px}
+    .slide{position:relative;opacity:1;visibility:visible;display:none;min-height:76vh}
+    .slide.active{display:flex}
+    .hero-dots{bottom:20px}
+    .hero-arrows{bottom:14px}
+  }
+
+  /* sound button */
+  .sound-btn{
+    display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    padding:13px 20px;border-radius:999px;border:1px solid var(--line-2);
+    background:rgba(255,255,255,.06);color:#fff;transition:background .25s,border-color .25s,color .25s,transform .2s;
+  }
+  .sound-btn:hover{border-color:#fff;transform:translateY(-2px)}
+  .sound-btn .ico{width:16px;height:16px;display:flex;align-items:center;justify-content:center}
+  .sound-btn.playing{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 0 0 rgba(241,3,3,.55);animation:pulse 1.6s ease-out infinite}
+  @keyframes pulse{to{box-shadow:0 0 0 16px rgba(241,3,3,0)}}
+  .sound-btn .bars{display:none;gap:2px;align-items:flex-end;height:14px}
+  .sound-btn.playing .bars{display:inline-flex}
+  .sound-btn.playing .play-ico{display:none}
+  .sound-btn .bars i{width:3px;background:currentColor;animation:eq .9s ease-in-out infinite}
+  .sound-btn .bars i:nth-child(1){height:6px;animation-delay:0s}
+  .sound-btn .bars i:nth-child(2){height:14px;animation-delay:.15s}
+  .sound-btn .bars i:nth-child(3){height:9px;animation-delay:.3s}
+  @keyframes eq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+  /* ---------- Category chips ---------- */
+  .chips-bar{background:rgba(16,16,19,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);position:sticky;top:var(--nav-h);z-index:40}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:16px 0;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:none;font-family:'Oswald',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;
+    padding:10px 22px;border-radius:999px;cursor:pointer;color:rgba(255,255,255,.68);
+    background:rgba(255,255,255,.03);border:1px solid var(--line);transition:all .2s ease;white-space:nowrap;
+  }
+  .chip:hover{color:#fff;border-color:var(--line-2);transform:translateY(-2px)}
+  .chip.active{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 10px 26px -12px rgba(241,3,3,.9)}
+  @media(max-width:900px){.chips-bar{top:0;position:relative}}
+
+  /* ---------- Secondary filters ---------- */
+  .subfilters{background:rgba(255,255,255,.02);border-bottom:1px solid var(--line)}
+  .subfilters-inner{display:flex;align-items:center;gap:20px;padding:20px 0;flex-wrap:wrap}
+  .subfilters .lbl{font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .field select{
+    appearance:none;background:var(--panel);color:var(--ink);
+    border:1px solid var(--line);border-radius:999px;padding:11px 38px 11px 16px;
+    font-family:'Inter';font-size:14px;cursor:pointer;min-width:170px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2383838f' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;transition:border-color .25s ease,background-color .25s ease;
+  }
+  .field select:hover{border-color:var(--line-2)}
+  .field select:focus{outline:none;border-color:var(--red)}
+  .field select option{background:var(--panel);color:var(--ink)}
+  .filter-reset{
+    margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--muted);
+    border-radius:999px;padding:12px 22px;font-family:'Oswald';font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+    transition:color .25s,border-color .25s,background .25s;
+  }
+  .filter-reset:hover{color:#fff;border-color:var(--red);background:var(--red-soft)}
+  @media(max-width:760px){.subfilters .lbl{display:none}.filter-reset{margin-left:0}.field select{min-width:0;width:100%}.field{flex:1 1 45%}}
+
+  /* ---------- Sections ---------- */
+  section.block{padding:88px 0}
+  .sec-head{margin-bottom:44px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(30px,3.8vw,48px);font-weight:700;line-height:1}
+  .sec-head h2::after{content:"";display:block;width:64px;height:3px;background:var(--red);margin-top:14px;border-radius:3px}
+  .sec-head p{color:var(--muted);font-size:15.5px;margin-top:12px;max-width:56ch;text-transform:none;font-family:'Inter'}
+  .count-pill{color:var(--ink-2);font-size:13px;font-weight:600;font-family:'Oswald';letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:8px 18px;background:rgba(255,255,255,.03)}
+
+  /* ---------- Car grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+  .car{
+    position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .3s cubic-bezier(.2,.8,.25,1),box-shadow .3s ease,border-color .3s ease;
+  }
+  .car::before{
+    content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:var(--radius);
+    background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(241,3,3,.16),transparent 60%);
+    opacity:0;transition:opacity .3s ease;
+  }
+  .car:hover::before{opacity:1}
+  .car:hover{transform:translateY(-8px);box-shadow:0 30px 60px -30px rgba(0,0,0,.9);border-color:var(--line-2)}
+  .car-img{
+    position:relative;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
+    padding:22px;text-align:center;overflow:hidden;
+    border-bottom:1px solid var(--line);
+    background-size:cover;background-position:center;
+    transition:transform .5s cubic-bezier(.2,.8,.25,1);
+  }
+  .car:hover .car-img{transform:scale(1.05)}
+  .car-img .wm{position:absolute;right:-6%;bottom:-24%;font-family:'Oswald';font-weight:700;font-size:150px;color:rgba(255,255,255,.05);line-height:.8;letter-spacing:-.02em;pointer-events:none;white-space:nowrap}
+  .car-img .brand-mark{position:absolute;top:14px;left:16px;font-family:'Oswald';font-weight:600;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.8);text-transform:uppercase}
+  .car-img .yr{position:absolute;top:12px;right:14px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);border:1px solid var(--line-2);font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;color:#fff;font-family:'Oswald';letter-spacing:.03em}
+  .car-img .cname{position:relative;font-family:'Oswald';font-weight:700;font-size:24px;color:#fff;line-height:1.05;letter-spacing:.01em;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+  .badge-excl{position:absolute;bottom:14px;left:16px;background:var(--red);color:#fff;font-family:'Oswald';font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(241,3,3,1)}
+  .car-body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1;position:relative;z-index:2}
+  .car-cat{font-family:'Oswald';font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+  .car-name{font-family:'Oswald';font-weight:700;font-size:21px;color:var(--ink);text-transform:uppercase;line-height:1.05;margin-top:-4px}
+  .car-ver{color:var(--muted);font-size:13.5px;min-height:20px}
+  .car-specs{display:flex;gap:10px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+  .car-specs span{border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:rgba(255,255,255,.02)}
+  .car-specs b{color:var(--ink);font-weight:600}
+  .car-sound{margin-top:2px}
+  .sound-btn.card{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--ink);padding:9px 16px;font-size:12px}
+  .sound-btn.card:hover{border-color:var(--line-2)}
+  .sound-btn.card.playing{background:var(--red);border-color:var(--red);color:#fff}
+  .car-foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+  .car-price small{display:block;color:var(--muted);font-size:11px;font-weight:500;font-family:'Inter';letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+  .car-price .val{font-family:'Oswald';font-weight:700;font-size:25px;color:#fff}
+  .car-more{font-family:'Oswald';font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line-2);padding:10px 18px;border-radius:999px;transition:background .25s,color .25s,border-color .25s}
+  .car:hover .car-more{background:var(--red);border-color:var(--red);color:#fff}
+
+  .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);font-size:16px;border:1px dashed var(--line);border-radius:var(--radius)}
+
+  /* ---------- Destaques ---------- */
+  .destaques{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:900px){.dgrid{grid-template-columns:1fr}}
+  .dcard{
+    position:relative;border-radius:var(--radius);overflow:hidden;min-height:380px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:30px;transition:transform .3s cubic-bezier(.2,.8,.25,1),box-shadow .3s ease;color:#fff;
+    border:1px solid var(--line);
+  }
+  .dcard:hover{transform:translateY(-8px);box-shadow:0 34px 70px -34px rgba(241,3,3,.55)}
+  .dcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 20%,rgba(0,0,0,.85));z-index:0}
+  .dcard>*{position:relative;z-index:1}
+  .dcard .dwm{position:absolute;right:-4%;top:6%;z-index:0;font-family:'Oswald';font-weight:700;font-size:120px;color:rgba(255,255,255,.07);line-height:.8;letter-spacing:-.02em;transition:transform .5s ease}
+  .dcard:hover .dwm{transform:translateX(-10px)}
+  .dcard .dtag{align-self:flex-start;font-family:'Oswald';font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 14px;border-radius:999px;margin-bottom:auto}
+  .dcard h3{font-size:28px;font-weight:700;margin-top:14px;color:#fff}
+  .dcard .dsub{color:rgba(255,255,255,.78);font-size:14px;margin:6px 0 14px}
+  .dcard .dprice{font-family:'Oswald';font-weight:700;font-size:27px;color:#fff}
+
+  /* ---------- Trust strip ---------- */
+  .trust{padding:10px 0 0}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .trust-item{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:34px 24px;text-align:center;transition:transform .3s ease,border-color .3s ease}
+  .trust-item:hover{transform:translateY(-6px);border-color:var(--red)}
+  .trust-item .ti-n{font-family:'Oswald';font-weight:700;font-size:36px;color:#fff}
+  .trust-item .ti-l{color:var(--muted);font-size:13.5px;margin-top:6px}
+  @media(max-width:700px){.trust-grid{grid-template-columns:1fr 1fr}}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{padding:0}
+  .cta-box{
+    background:linear-gradient(140deg,#17171c,#0c0c0f);color:#fff;padding:64px 48px;
+    display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+    position:relative;overflow:hidden;border-radius:22px;margin:88px 0;border:1px solid var(--line);
+  }
+  .cta-box::before{content:"";position:absolute;top:-40%;right:-4%;width:420px;height:420px;background:radial-gradient(circle,rgba(241,3,3,.32),transparent 70%);animation:drift 14s ease-in-out infinite alternate}
+  .cta-box h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;position:relative;color:#fff}
+  .cta-box p{color:rgba(255,255,255,.72);margin-top:10px;max-width:46ch;position:relative}
+  .cta-box .cta-actions{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+
+  /* ---------- Footer ---------- */
+  footer{background:rgba(0,0,0,.5);border-top:1px solid var(--line);color:rgba(255,255,255,.7);padding:64px 0 40px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:44px}
+  .foot-grid .logo{font-size:24px;margin-bottom:14px}
+  .foot-grid p{color:rgba(255,255,255,.55);font-size:14.5px;max-width:38ch}
+  .foot-col h4{font-family:'Oswald';font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
+  .foot-col a{display:block;color:rgba(255,255,255,.7);font-size:14.5px;margin-bottom:10px;transition:color .25s,transform .25s}
+  .foot-col a:hover{color:#fff;transform:translateX(4px)}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:rgba(255,255,255,.4);font-size:13px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr;gap:30px}}
+
+  /* Floating WhatsApp */
+  .wa-float{position:fixed;bottom:24px;right:24px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.7);transition:transform .25s}
+  .wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(37,211,102,.6);animation:pulse 2.4s ease-out infinite}
+  .wa-float:hover{transform:scale(1.1) rotate(-6deg)}
+  .wa-float svg{width:30px;height:30px;position:relative}
+
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.8,.25,1),transform .7s cubic-bezier(.2,.8,.25,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .car,.dcard,.wa-float,.btn,.slide,.trust-item{transition:none}
+    .sound-btn .bars i,.wa-float::before,body::before,.cta-box::before{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body class="locked">
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div class="splash-logo" id="splash-logo"></div>
+  <div class="splash-bar"><i id="splash-bar-fill"></i></div>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo nav-logo" id="nav-logo">AUTO<b>CAR</b> MOTORS</a>
+    <nav class="nav-links">
+      <a href="#estoque">Estoque</a>
+      <a href="#destaques">Destaques</a>
+      <a href="#sobre">A loja</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#estoque" class="btn btn-line">Ver estoque</a>
+      <a href="https://wa.me/5592994322026" target="_blank" rel="noopener" class="btn btn-red">WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="top" aria-label="Destaques do estoque">
+  <div id="slides"></div>
+  <div class="hero-dots" id="hero-dots"></div>
+  <div class="hero-arrows">
+    <button id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button id="next" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<!-- CATEGORY CHIPS -->
+<div class="chips-bar" id="estoque">
+  <div class="wrap">
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<!-- SECONDARY FILTERS -->
+<div class="subfilters">
+  <div class="wrap subfilters-inner">
+    <span class="lbl">Refinar:</span>
+    <div class="field">
+      <label for="f-marca">Marca</label>
+      <select id="f-marca"><option value="">Todas as marcas</option></select>
+    </div>
+    <div class="field">
+      <label for="f-ano">Ano a partir de</label>
+      <select id="f-ano">
+        <option value="">Qualquer ano</option>
+        <option value="2026">2026+</option>
+        <option value="2024">2024+</option>
+        <option value="2022">2022+</option>
+        <option value="2020">2020+</option>
+        <option value="2017">2017+</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-preco">Preço máximo</label>
+      <select id="f-preco">
+        <option value="">Sem limite</option>
+        <option value="80000">Até R$ 80 mil</option>
+        <option value="120000">Até R$ 120 mil</option>
+        <option value="160000">Até R$ 160 mil</option>
+        <option value="250000">Até R$ 250 mil</option>
+        <option value="500000">Até R$ 500 mil</option>
+      </select>
+    </div>
+    <button class="filter-reset" id="f-reset">Limpar filtros</button>
+  </div>
+</div>
+
+<!-- ESTOQUE -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2>Estoque completo</h2>
+        <p>Filtre por categoria, marca, ano e faixa de preço. Todos os valores à vista.</p>
+      </div>
+      <span class="count-pill" id="count"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust" id="sobre">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div class="trust-item reveal"><div class="ti-n">32</div><div class="ti-l">unidades disponíveis</div></div>
+      <div class="trust-item reveal"><div class="ti-n">Manaus</div><div class="ti-l">atendimento local (AM)</div></div>
+      <div class="trust-item reveal"><div class="ti-n">Laudo</div><div class="ti-l">cautelar em cada veículo</div></div>
+      <div class="trust-item reveal"><div class="ti-n">Troca</div><div class="ti-l">avaliamos o seu na hora</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DESTAQUES -->
+<section class="block destaques" id="destaques">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2>Os mais exclusivos do pátio</h2>
+        <p>Três máquinas para quem não abre mão de presença e engenharia.</p>
+      </div>
+    </div>
+    <div class="dgrid">
+      <a href="https://wa.me/5592994322026?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Porsche%20718%20Cayman" target="_blank" rel="noopener" class="dcard reveal" style="background:linear-gradient(150deg,#3a0f10,#141416)">
+        <span class="dwm">718</span>
+        <span class="dtag">Esportivo</span>
+        <h3>Porsche 718 Cayman</h3>
+        <div class="dsub">2.0 PDK · 2019 · 22.000 km</div>
+        <div class="dprice">R$ 489.900</div>
+      </a>
+      <a href="https://wa.me/5592994322026?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Jaguar%20F-Pace" target="_blank" rel="noopener" class="dcard reveal" style="background:linear-gradient(150deg,#12252e,#141416)">
+        <span class="dwm">F-PACE</span>
+        <span class="dtag">SUV esportivo</span>
+        <h3>Jaguar F-Pace</h3>
+        <div class="dsub">3.0 V6 Supercharged R-Sport · 2017</div>
+        <div class="dprice">R$ 159.900</div>
+      </a>
+      <a href="https://wa.me/5592994322026?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Audi%20Q7" target="_blank" rel="noopener" class="dcard reveal" style="background:linear-gradient(150deg,#20222a,#141416)">
+        <span class="dwm">Q7</span>
+        <span class="dtag">7 lugares</span>
+        <h3>Audi Q7</h3>
+        <div class="dsub">3.0 V6 TDI Performance · 2019</div>
+        <div class="dprice">R$ 199.900</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band" id="contato">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div>
+        <h2>Achou o seu? Fale com a gente agora.</h2>
+        <p>Respondemos rápido no WhatsApp, agendamos test-drive e avaliamos seu usado na troca.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="https://wa.me/5592994322026" target="_blank" rel="noopener" class="btn btn-red">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.16L2 22l4.95-1.3A9.9 9.9 0 1 0 12.04 2Zm0 18a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-2.94.77.78-2.86-.2-.3A8.1 8.1 0 1 1 12.04 20Zm4.44-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.5.58.19 1.1.16 1.51.1.46-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+          Chamar no WhatsApp
+        </a>
+        <a href="#estoque" class="btn btn-line">Voltar ao estoque</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo">AUTO<b>CAR</b> MOTORS</div>
+        <p>Revenda de veículos premium e novos em Manaus. Estoque curado, procedência garantida e atendimento direto.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Loja</h4>
+        <a href="#">Av. Andre Araujo, 227 — Adrianópolis</a>
+        <a href="#">Manaus — AM</a>
+        <a href="#">Seg a Sex: 8h às 18h | Sáb: 8h às 16h</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <a href="https://wa.me/5592994322026" target="_blank" rel="noopener">WhatsApp: (92) 99432-2026</a>
+        <a href="https://instagram.com/automaismotors_" target="_blank" rel="noopener">Instagram @automaismotors_</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Automais Motors. Todos os direitos reservados.</span>
+      <span>Valores e disponibilidade sujeitos a alteração sem aviso prévio.</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5592994322026" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.16L2 22l4.95-1.3A9.9 9.9 0 1 0 12.04 2Zm0 18a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-2.94.77.78-2.86-.2-.3A8.1 8.1 0 1 1 12.04 20Zm4.44-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.5.58.19 1.1.16 1.51.1.46-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+</a>
+
+<script>
+// ---------- Estoque (32 veículos) ----------
+// year: menor ano do modelo (filtro). yearLabel: texto exibido.
+// cat: categoria. sound: arquivo de motor (só esportivos/premium).
+const VEHICLES = [
+  {brand:"AUDI", name:"Audi A4", ver:"2.0 TFSI Prestige", year:2021, yearLabel:"2021", km:"57.267", price:144900, cat:"Sedã", sound:"audi-turbo.mp3", img:"audi-a4.jpg"},
+  {brand:"AUDI", name:"Audi Q3", ver:"1.4 35 TFSI Prestige Plus", year:2020, yearLabel:"2020", km:"69.898", price:142900, cat:"SUV", img:"audi-q3.jpg"},
+  {brand:"AUDI", name:"Audi Q7", ver:"3.0 V6 TDI Performance", year:2019, yearLabel:"2019", km:"43.391", price:199900, cat:"SUV", excl:true, img:"audi-q7.jpg"},
+  {brand:"BMW", name:"BMW 320i", ver:"2.0 M Sport Flex", year:2018, yearLabel:"2018", km:"54.500", price:129900, cat:"Sedã", sound:"bmw-turbo.mp3", img:"bmw-320i-2018.jpg"},
+  {brand:"BMW", name:"BMW 320i", ver:"2.0 M Sport", year:2024, yearLabel:"2024", km:"28.000", price:289900, cat:"Sedã", sound:"bmw-turbo.mp3", img:"bmw-320i-2024.jpg"},
+  {brand:"CHERY", name:"Chery Tiggo 5X Pro", ver:"1.5 Turbo", year:2024, yearLabel:"2024/25", km:"27.825", price:119900, cat:"SUV", img:"chery-tiggo5x.jpg"},
+  {brand:"CHEVROLET", name:"Chevrolet Equinox", ver:"1.5 Premier AWD", year:2024, yearLabel:"2024", km:"14.071", price:159900, cat:"SUV", img:"chevrolet-equinox.jpg"},
+  {brand:"CHEVROLET", name:"Chevrolet Montana", ver:"1.2 Turbo RS", year:2023, yearLabel:"2023/24", km:"45.777", price:109900, cat:"Picape", img:"chevrolet-montana.jpg"},
+  {brand:"CHEVROLET", name:"Chevrolet S10", ver:"2.8 High Country 4x4", year:2024, yearLabel:"2024/25", km:"19.757", price:219000, cat:"Picape", img:"chevrolet-s10.jpg"},
+  {brand:"FIAT", name:"Fiat Fiorino", ver:"1.4 Endurance", year:2023, yearLabel:"2023/24", km:"48.629", price:84900, cat:"Utilitário", img:"fiat-fiorino.jpg"},
+  {brand:"FORD", name:"Ford Ranger", ver:"3.0 V6 Limited Plus 4x4", year:2025, yearLabel:"2025/26", km:"31.364", price:274900, cat:"Picape", img:"ford-ranger.jpg"},
+  {brand:"HONDA", name:"Honda CB 300F Twister", ver:"Moto · 0 km", year:2026, yearLabel:"2026", km:"0", price:25900, cat:"Moto", img:"honda-cb300f.jpg"},
+  {brand:"HONDA", name:"Honda City", ver:"1.5 EXL CVT", year:2024, yearLabel:"2024", km:"12.178", price:119900, cat:"Sedã", img:"honda-city-exl.jpg"},
+  {brand:"HONDA", name:"Honda City", ver:"1.5 Touring CVT", year:2024, yearLabel:"2024", km:"19.103", price:124900, cat:"Sedã", img:"honda-city-touring.jpg"},
+  {brand:"HONDA", name:"Honda Civic", ver:"1.5 Turbo Touring", year:2020, yearLabel:"2020/21", km:"77.780", price:149900, cat:"Sedã", img:"honda-civic.jpg"},
+  {brand:"HONDA", name:"Honda HR-V", ver:"1.5 EXL CVT", year:2023, yearLabel:"2023/24", km:"24.783", price:139900, cat:"SUV", img:"honda-hrv.jpg"},
+  {brand:"JAGUAR", name:"Jaguar F-Pace", ver:"3.0 V6 Supercharged R-Sport", year:2017, yearLabel:"2017", km:"57.177", price:159900, cat:"SUV", excl:true, sound:"jaguar-v6.mp3", img:"jaguar-fpace.jpg"},
+  {brand:"JEEP", name:"Jeep Renegade", ver:"1.3 T270 Longitude", year:2023, yearLabel:"2023/24", km:"47.299", price:102900, cat:"SUV", img:"jeep-renegade.jpg"},
+  {brand:"MITSUBISHI", name:"Mitsubishi Triton", ver:"2.4 Biturbo HPE 4x4", year:2026, yearLabel:"2026/27", km:"2.000", price:259900, cat:"Picape", img:"mitsubishi-triton.jpg"},
+  {brand:"NISSAN", name:"Nissan Sentra", ver:"2.0 Exclusive Premium", year:2024, yearLabel:"2024/25", km:"13.814", price:149900, cat:"Sedã", img:"nissan-sentra.jpg"},
+  {brand:"NISSAN", name:"Nissan Versa", ver:"1.6 Sense Xtronic", year:2024, yearLabel:"2024/25", km:"12.881", price:99900, cat:"Sedã", img:"nissan-versa.jpg"},
+  {brand:"PORSCHE", name:"Porsche 718 Cayman", ver:"2.0 PDK", year:2019, yearLabel:"2019", km:"22.000", price:489900, cat:"Esportivo", excl:true, sound:"porsche-flat4.mp3", img:"porsche-718.jpg"},
+  {brand:"TOYOTA", name:"Toyota Corolla", ver:"2.0 XEI", year:2020, yearLabel:"2020/21", km:"80.800", price:114900, cat:"Sedã", img:"toyota-corolla.jpg"},
+  {brand:"TOYOTA", name:"Toyota Hilux", ver:"2.8 SRX Plus 4x4", year:2026, yearLabel:"2026", km:"0", price:309900, cat:"Picape", img:"toyota-hilux.jpg"},
+  {brand:"TOYOTA", name:"Toyota Hilux SW4", ver:"2.8 SRX 4x4", year:2023, yearLabel:"2023/24", km:"44.000", price:324000, cat:"SUV", img:"toyota-hilux-sw4.jpg"},
+  {brand:"VW", name:"VW Nivus", ver:"1.0 200 TSI Sense", year:2025, yearLabel:"2025/26", km:"9.696", price:104900, cat:"SUV", img:"vw-nivus.jpg"},
+  {brand:"VW", name:"VW Polo", ver:"1.0 Track", year:2024, yearLabel:"2024/25", km:"17.433", price:75900, cat:"Hatch", img:"vw-polo-1.jpg"},
+  {brand:"VW", name:"VW Polo", ver:"1.0 Track", year:2025, yearLabel:"2025/26", km:"0", price:79900, cat:"Hatch", img:"vw-polo-2.jpg"},
+  {brand:"VW", name:"VW Polo", ver:"1.0 Track", year:2024, yearLabel:"2024/25", km:"52.869", price:74900, cat:"Hatch", img:"vw-polo-3.jpg"},
+  {brand:"VW", name:"VW T-Cross", ver:"1.0 200 TSI Comfortline", year:2025, yearLabel:"2025", km:"31.096", price:132900, cat:"SUV", img:"vw-tcross-comfortline.jpg"},
+  {brand:"VW", name:"VW T-Cross", ver:"1.4 250 TSI Highline", year:2025, yearLabel:"2025/26", km:"6.258", price:159900, cat:"SUV", img:"vw-tcross-highline.jpg"},
+  {brand:"VW", name:"VW Taos", ver:"1.4 250 TSI Comfortline", year:2022, yearLabel:"2022", km:"61.342", price:117900, cat:"SUV", img:"vw-taos.jpg"},
+];
+
+const CATS = ["Todos","SUV","Sedã","Hatch","Picape","Esportivo","Utilitário","Moto"];
+const WA = "https://wa.me/5592994322026";
+const brl = n => "R$ " + n.toLocaleString("pt-BR");
+const waLink = v => WA + "?text=" + encodeURIComponent("Olá, tenho interesse no "+v.name+" "+v.ver+" ("+v.yearLabel+")");
+const reduced = matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+// gradiente escuro variando o tom por marca (fallback sem foto)
+function grad(brand){
+  let h=0; for(const c of brand) h=(h*31+c.charCodeAt(0))%360;
+  return `linear-gradient(150deg, #1c1c22, hsl(${h} 22% 12%))`;
+}
+
+// ---------- SPLASH: letra por letra + voo até o logo do menu ----------
+(function(){
+  const splash=document.getElementById("splash");
+  const logoEl=document.getElementById("splash-logo");
+  const navLogo=document.getElementById("nav-logo");
+  const bar=document.getElementById("splash-bar-fill");
+  const TEXT="AutoCar Motors";
+
+  // monta letra a letra (MAIS em vermelho, igual ao logo do menu)
+  logoEl.innerHTML=[...TEXT].map((c,i)=>{
+    if(c===" ") return '<span class="ch sp"></span>';
+    const red = i>=4 && i<=6; // "Car"
+    return `<span class="ch"${red?' style="color:var(--red)"':''}>${c}</span>`;
+  }).join("");
+  const chars=[...logoEl.querySelectorAll(".ch")];
+
+  function finish(){
+    splash.classList.add("hide");
+    document.body.classList.remove("locked");
+    navLogo.classList.add("show");
+    setTimeout(()=>splash.remove(),700);
+  }
+
+  if(reduced){ navLogo.classList.add("show"); splash.remove(); document.body.classList.remove("locked"); return; }
+
+  // 1) letras aparecem
+  chars.forEach((ch,i)=>setTimeout(()=>ch.classList.add("on"), 90*i));
+  requestAnimationFrame(()=>bar.style.transform="scaleX(1)");
+
+  const revealDone = 90*chars.length + 550;
+
+  // 2) logo voa suavemente até a posição do logo do menu
+  setTimeout(()=>{
+    const fs=el=>parseFloat(getComputedStyle(el).fontSize);
+    const from=logoEl.getBoundingClientRect();
+    const to=navLogo.getBoundingClientRect();
+    // escala pelo tamanho da fonte (as caixas têm line-height diferente)
+    const scale=fs(navLogo)/fs(logoEl);
+    // transform-origin: left center -> alinhar borda esquerda e centro vertical
+    const dx=to.left-from.left;
+    const dy=(to.top+to.height/2)-(from.top+from.height/2);
+    splash.classList.add("go");
+    requestAnimationFrame(()=>{
+      logoEl.style.transform=`translate(${dx}px,${dy}px) scale(${scale})`;
+    });
+    splash.style.background="rgba(8,8,10,0)";
+    splash.style.transition="background .9s ease, opacity .4s ease .75s, visibility .4s ease .75s";
+    setTimeout(finish, 950);
+  }, revealDone+200);
+})();
+
+// Rolagem: nativa do navegador. Links de âncora usam o scroll-behavior:smooth do CSS.
+
+// ---------- Barra de progresso + nav sólida ----------
+const progressEl=document.getElementById("progress"), navEl=document.getElementById("nav");
+addEventListener("scroll",()=>{
+  const max=document.documentElement.scrollHeight-innerHeight;
+  progressEl.style.transform=`scaleX(${max?scrollY/max:0})`;
+  navEl.classList.toggle("solid",scrollY>40);
+},{passive:true});
+
+// ---------- Sistema de som ----------
+let curAudio=null, curBtn=null;
+function stopSound(){
+  if(curAudio){curAudio.pause();curAudio.currentTime=0;}
+  if(curBtn)curBtn.classList.remove("playing");
+  curAudio=null;curBtn=null;
+}
+function playSound(file, btn){
+  if(curBtn===btn){stopSound();return;}   // clicar de novo = parar
+  stopSound();                            // para o anterior
+  curAudio=new Audio("sounds/"+file);
+  curBtn=btn; btn.classList.add("playing");
+  curAudio.addEventListener("ended", stopSound);
+  curAudio.play().catch(()=>stopSound()); // se falhar, reseta estado
+}
+function soundBtnHTML(file, variant){
+  return `<button class="sound-btn ${variant}" data-sound="${file}" type="button" aria-label="Ouvir som do motor">
+    <span class="ico"><span class="play-ico">🔊</span><span class="bars"><i></i><i></i><i></i></span></span>
+    <span class="txt">Ouvir motor</span>
+  </button>`;
+}
+
+// ---------- Hero slider (3 slides, manual, sem autoplay) ----------
+const HERO = [
+  {brand:"PORSCHE", cat:"Esportivo", name:"Porsche 718 Cayman", wm:"718", img:"porsche-718.jpg",
+   tag:"Para quem não aceita menos que o extraordinário.", price:489900, sound:"porsche-flat4.mp3",
+   v:VEHICLES.find(x=>x.name==="Porsche 718 Cayman")},
+  {brand:"TOYOTA", cat:"Picape", name:"Toyota Hilux SW4", wm:"SW4", img:"toyota-hilux-sw4.jpg",
+   tag:"Feita para dominar qualquer terreno, com o conforto que você merece.", price:324000, sound:null,
+   v:VEHICLES.find(x=>x.name==="Toyota Hilux SW4")},
+  {brand:"AUDI", cat:"SUV", name:"Audi Q7", wm:"Q7", img:"audi-q7.jpg",
+   tag:"Presença que se sente antes mesmo de você chegar.", price:199900, sound:null,
+   v:VEHICLES.find(x=>x.name==="Audi Q7")},
+];
+
+function slideHTML(s, i){
+  return `<div class="slide ${i===0?'active':''}" data-i="${i}">
+    <div class="bg" style="background-image:linear-gradient(120deg,rgba(0,0,0,.2),rgba(0,0,0,.55)),url('img/${s.img}');background-color:#141416"></div>
+    <span class="watermark">${s.wm}</span>
+    <div class="wrap slide-inner">
+      <span class="cat-eyebrow">${s.cat} · Manaus-AM</span>
+      <h1>${s.name}</h1>
+      <p class="tagline">${s.tag}</p>
+      <div class="price-line">A partir de <b>${brl(s.price)}</b></div>
+      <div class="slide-cta">
+        <a href="${waLink(s.v)}" target="_blank" rel="noopener" class="btn btn-red">Tenho interesse
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#estoque" class="btn btn-line">Ver estoque</a>
+        ${s.sound?soundBtnHTML(s.sound,"sb-hero"):""}
+      </div>
+    </div>
+  </div>`;
+}
+
+const slidesEl=document.getElementById("slides");
+const dotsEl=document.getElementById("hero-dots");
+slidesEl.innerHTML=HERO.map(slideHTML).join("");
+dotsEl.innerHTML=HERO.map((_,i)=>`<span class="${i===0?'on':''}" data-i="${i}"></span>`).join("");
+let heroI=0;
+const slideEls=[...slidesEl.querySelectorAll(".slide")];
+const dotEls=[...dotsEl.querySelectorAll("span")];
+function goSlide(i){
+  stopSound();                       // troca de slide para o som
+  heroI=(i+HERO.length)%HERO.length;
+  slideEls.forEach((el,k)=>el.classList.toggle("active",k===heroI));
+  dotEls.forEach((el,k)=>el.classList.toggle("on",k===heroI));
+}
+document.getElementById("prev").onclick=()=>goSlide(heroI-1);
+document.getElementById("next").onclick=()=>goSlide(heroI+1);
+dotEls.forEach(d=>d.onclick=()=>goSlide(+d.dataset.i));
+addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight")goSlide(heroI+1);
+  if(e.key==="ArrowLeft")goSlide(heroI-1);
+});
+
+// ---------- Chips de categoria ----------
+let activeCat="Todos";
+const chipsEl=document.getElementById("chips");
+chipsEl.innerHTML=CATS.map(c=>`<button class="chip ${c==='Todos'?'active':''}" data-cat="${c}" type="button">${c}</button>`).join("");
+chipsEl.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
+  activeCat=ch.dataset.cat;
+  chipsEl.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===ch));
+  render();
+});
+
+// ---------- Selects secundários ----------
+const marcas=[...new Set(VEHICLES.map(v=>v.brand))].sort();
+const selMarca=document.getElementById("f-marca");
+marcas.forEach(m=>{const o=document.createElement("option");o.value=m;o.textContent=m.charAt(0)+m.slice(1).toLowerCase();selMarca.appendChild(o);});
+
+const grid=document.getElementById("grid");
+const countEl=document.getElementById("count");
+const fMarca=document.getElementById("f-marca"), fAno=document.getElementById("f-ano"), fPreco=document.getElementById("f-preco");
+
+function cardHTML(v,i){
+  const imgStyle = v.img
+    ? `background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.7)),url('img/${v.img}')`
+    : `background:${grad(v.brand)}`;
+  return `
+  <article class="car reveal" style="transition-delay:${Math.min(i,8)*45}ms">
+    <div class="car-img" style="${imgStyle}">
+      ${v.img?'':`<span class="wm">${v.brand}</span>`}
+      <span class="brand-mark">${v.brand}</span>
+      <span class="yr">${v.yearLabel}</span>
+      <span class="cname">${v.name}</span>
+      ${v.excl?'<span class="badge-excl">Exclusivo</span>':''}
+    </div>
+    <div class="car-body">
+      <div class="car-cat">${v.cat}</div>
+      <div class="car-name">${v.name}</div>
+      <div class="car-ver">${v.ver}</div>
+      <div class="car-specs">
+        <span>Ano <b>${v.yearLabel}</b></span>
+        <span>${v.km==='0'?'<b>0 km</b>':'<b>'+v.km+'</b> km'}</span>
+      </div>
+      ${v.sound?`<div class="car-sound">${soundBtnHTML(v.sound,"card")}</div>`:""}
+      <div class="car-foot">
+        <div class="car-price"><small>A partir de</small><span class="val">${brl(v.price)}</span></div>
+        <a class="car-more" href="${waLink(v)}" target="_blank" rel="noopener">Ver mais</a>
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(){
+  stopSound(); // cards são recriados; solta qualquer som ativo
+  const m=fMarca.value, a=fAno.value?+fAno.value:0, p=fPreco.value?+fPreco.value:Infinity;
+  const list=VEHICLES.filter(v =>
+    (activeCat==="Todos"||v.cat===activeCat) &&
+    (!m||v.brand===m) && v.year>=a && v.price<=p);
+  countEl.textContent=list.length+(list.length===1?" veículo":" veículos");
+  grid.innerHTML=list.length
+    ? list.map(cardHTML).join("")
+    : '<div class="empty">Nenhum veículo encontrado com esses filtros. Ajuste a busca ou fale conosco no WhatsApp.</div>';
+  observeReveals();
+}
+
+[fMarca,fAno,fPreco].forEach(el=>el.addEventListener("change",render));
+document.getElementById("f-reset").addEventListener("click",()=>{
+  fMarca.value=fAno.value=fPreco.value="";
+  activeCat="Todos";
+  chipsEl.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x.dataset.cat==="Todos"));
+  render();
+});
+
+// delegação: qualquer botão de som (hero ou card)
+document.addEventListener("click", e=>{
+  const b=e.target.closest(".sound-btn");
+  if(b) playSound(b.dataset.sound, b);
+});
+
+// brilho seguindo o cursor nos cards
+document.addEventListener("pointermove", e=>{
+  const c=e.target.closest(".car");
+  if(!c) return;
+  const r=c.getBoundingClientRect();
+  c.style.setProperty("--mx",(e.clientX-r.left)+"px");
+  c.style.setProperty("--my",(e.clientY-r.top)+"px");
+});
+
+// ---------- Scroll reveal ----------
+let io;
+function observeReveals(){
+  if(!io){
+    io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});
+    },{threshold:.12});
+  }
+  document.querySelectorAll(".reveal:not(.in)").forEach(el=>io.observe(el));
+}
+
+render();
+observeReveals();
+
+// ---------- self-check ----------
+console.assert(VEHICLES.length===32, "esperado 32 veículos, obtido "+VEHICLES.length);
+console.assert(VEHICLES.filter(v=>v.excl).length===3, "esperado 3 exclusivos");
+console.assert(VEHICLES.filter(v=>v.sound).length===5, "esperado 5 veículos com som, obtido "+VEHICLES.filter(v=>v.sound).length);
+console.assert(VEHICLES.every(v=>CATS.includes(v.cat)), "categoria inválida em algum veículo");
+console.assert(brl(489900)==="R$ 489.900", "formatação BRL incorreta: "+brl(489900));
+</script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ORFÈVE — Alta Joalheria</title>
+<meta name="description" content="Ateliê de alta joalheria. Peças em ouro 18k e diamantes lapidados sob supervisão própria, produzidas em série curta e assinadas uma a uma.">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="canonical" href="https://orfeve.com.br/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="ORFÈVE">
+<meta property="og:title" content="ORFÈVE — Alta Joalheria">
+<meta property="og:description" content="Ouro 18k, diamantes lapidados sob supervisão própria, série curta. Um ateliê antes de uma loja.">
+<meta property="og:image" content="assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@200;300;400;500&display=swap">
+<link rel="preload" as="video" href="assets/video/hero-01.mp4">
+<link rel="stylesheet" href="assets/css/site.css">
+<noscript><style>
+  .rv,.edi__over,.hero__p,.hero__txt .eyebrow,.hero__txt .lnk{opacity:1;transform:none}
+  .hero__h .ln>span{transform:none}
+</style></noscript>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JewelryStore",
+  "name": "ORFÈVE",
+  "description": "Ateliê de alta joalheria em ouro 18k e diamantes.",
+  "url": "https://orfeve.com.br/",
+  "image": "https://orfeve.com.br/assets/img/og.jpg",
+  "priceRange": "$$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Haddock Lobo, 1626 — Jardins",
+    "addressLocality": "São Paulo",
+    "addressRegion": "SP",
+    "addressCountry": "BR"
+  }
+}
+</script>
+</head>
+
+<body id="topo">
+
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+<!-- ─────────────────────────────────────────────  faixa institucional -->
+<div class="bar">
+  <div class="bar__in">
+    <span>Exclusividade em cada detalhe</span>
+    <span class="bar__sep" aria-hidden="true"></span>
+    <span>Atendimento privado sob agendamento</span>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────  header -->
+<header class="hd" id="hd">
+  <div class="hd__in">
+
+    <a class="brand" href="#topo" aria-label="ORFÈVE — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 22 9.2 12 22 2 9.2Z" stroke="currentColor" stroke-width=".9"/><path d="M2 9.2h20M12 2 8.4 9.2 12 22M12 2l3.6 7.2L12 22" stroke="currentColor" stroke-width=".5"/></svg>
+      </span>
+      <span class="brand__word">ORFÈVE</span>
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#topo">Início</a></li>
+        <li><a href="#colecoes">Coleções</a></li>
+        <li><a href="#joias">Joias</a></li>
+        <li><a href="#marca">A Marca</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+
+    <div class="hd__act">
+      <button class="ico" id="btBusca" aria-label="Buscar peças" aria-expanded="false" aria-controls="busca">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.4" stroke="currentColor" stroke-width="1"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <a class="ico ico--ig" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram da ORFÈVE">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.6" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="1"/><circle cx="17.2" cy="6.8" r=".95" fill="currentColor"/></svg>
+      </a>
+      <button class="burger" id="btMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- ─────────────────────────────────────────────  busca -->
+<div class="busca" id="busca" hidden>
+  <div class="busca__in">
+    <label class="busca__lb" for="buscaInput">Buscar</label>
+    <input id="buscaInput" type="search" placeholder="anel, colar, notte…" autocomplete="off" spellcheck="false">
+    <button class="busca__x" id="btBuscaX" aria-label="Fechar busca">Fechar</button>
+  </div>
+  <p class="busca__hint" id="buscaHint" role="status"></p>
+</div>
+
+<!-- ─────────────────────────────────────────────  menu mobile -->
+<div class="menu" id="menu" hidden>
+  <nav class="menu__nav" aria-label="Menu">
+    <a href="#topo"><i>01</i>Início</a>
+    <a href="#colecoes"><i>02</i>Coleções</a>
+    <a href="#joias"><i>03</i>Joias</a>
+    <a href="#marca"><i>04</i>A Marca</a>
+    <a href="#experiencia"><i>05</i>Experiência</a>
+    <a href="#contato"><i>06</i>Contato</a>
+  </nav>
+  <div class="menu__ft">
+    <span>Rua Haddock Lobo, 1626 — Jardins, São Paulo</span>
+    <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div>
+
+<main id="conteudo">
+
+<!-- ─────────────────────────────────────────────  hero -->
+<section class="hero" id="hero" aria-label="Coleção Notte">
+  <div class="hero__stage">
+
+    <div class="hero__media">
+      <video class="hero__v is-on" id="v1" muted playsinline preload="auto"
+             poster="assets/video/hero-01.jpg" aria-hidden="true" tabindex="-1">
+        <source src="assets/video/hero-01.mp4" type="video/mp4">
+      </video>
+      <video class="hero__v" id="v2" muted playsinline preload="none"
+             poster="assets/video/hero-02.jpg" aria-hidden="true" tabindex="-1">
+        <source src="assets/video/hero-02.mp4" type="video/mp4">
+      </video>
+      <span class="hero__veil" aria-hidden="true"></span>
+    </div>
+
+    <div class="hero__txt">
+      <p class="eyebrow eyebrow--light">Coleção Notte · Série curta</p>
+      <h1 class="hero__h">
+        <span class="ln"><span>O que não se explica,</span></span>
+        <span class="ln"><span><em>se veste.</em></span></span>
+      </h1>
+      <p class="hero__p">Ouro 18k e diamantes lapidados sob nossa supervisão. Quarenta e duas peças por ano — nenhuma a mais.</p>
+      <a class="lnk lnk--light" href="#joias">Ver as peças</a>
+    </div>
+
+    <span class="hero__cue" aria-hidden="true"><i></i>role</span>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  manifesto -->
+<section class="mani" id="marca">
+  <div class="wrap">
+    <p class="eyebrow rv">Ateliê ORFÈVE — desde 1998</p>
+    <h2 class="mani__h rv">Cada peça nasce da mesma pergunta: o que sobra depois que se retira tudo o que era desnecessário?</h2>
+    <div class="mani__cols">
+      <p class="rv">Somos um ateliê antes de sermos uma loja. Desenhamos pouco, produzimos menos e assinamos apenas aquilo que atravessaria trinta anos de uso e chegaria inteiro à segunda geração.</p>
+      <p class="rv">Nenhuma peça sai daqui sem passar pela mão de quem a desenhou. É lento, é caro, e é a única forma que conhecemos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  coleções -->
+<section class="cols" id="colecoes" aria-label="Coleções">
+
+  <article class="col rv">
+    <a class="col__img" href="#joias" aria-label="Explorar a coleção Lume">
+      <img src="assets/img/colecao-lume.webp" alt="Aro largo em ouro sobre tecido escuro, iluminado por um único facho de luz" width="1500" height="2000" loading="lazy" decoding="async">
+    </a>
+    <div class="col__txt">
+      <p class="eyebrow">Coleção 01</p>
+      <h3>Lume</h3>
+      <p>A menor quantidade de metal possível ao redor da maior quantidade de luz.</p>
+      <a class="lnk" href="#joias">Explorar coleção</a>
+    </div>
+  </article>
+
+  <article class="col col--flip rv">
+    <a class="col__img" href="#joias" aria-label="Explorar a coleção Notte">
+      <img src="assets/img/editorial-retrato.webp" alt="Modelo de perfil usando colar, brincos longos e anel de esmeralda em diamantes" width="1200" height="2133" loading="lazy" decoding="async">
+    </a>
+    <div class="col__txt">
+      <p class="eyebrow">Coleção 02</p>
+      <h3>Notte</h3>
+      <p>Feita para o instante exato em que a sala inteira se vira.</p>
+      <a class="lnk" href="#joias">Explorar coleção</a>
+    </div>
+  </article>
+
+  <article class="col rv">
+    <a class="col__img" href="#joias" aria-label="Explorar a coleção Origem">
+      <img src="assets/img/colecao-origem.webp" alt="Mão com aliança discreta apoiada no ombro, fotografia em preto e branco" width="1500" height="2250" loading="lazy" decoding="async">
+    </a>
+    <div class="col__txt">
+      <p class="eyebrow">Coleção 03</p>
+      <h3>Origem</h3>
+      <p>Duas alianças, uma medida, nenhum enfeite. O resto é com vocês.</p>
+      <a class="lnk" href="#joias">Explorar coleção</a>
+    </div>
+  </article>
+
+</section>
+
+<!-- ─────────────────────────────────────────────  joias (grid interativo) -->
+<section class="joias" id="joias">
+  <div class="wrap joias__hd">
+    <p class="eyebrow rv">Peças</p>
+    <h2 class="h2 rv">Quatro peças<br>desenhadas este ano.</h2>
+    <p class="joias__hint rv">Onde houver mais de uma vista, o cursor percorre a peça</p>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <article class="peca peca--w7 rv" data-nome="Solitário Lume I" data-col="Lume">
+      <figure class="ang ang--wide ang--dark">
+        <img class="on" src="assets/img/peca-anel.webp" alt="Anel solitário Lume I, diamante central em aro de ouro rosé cercado por pavê, sobre veludo preto" width="1400" height="933" loading="lazy" decoding="async">
+      </figure>
+      <div class="peca__txt">
+        <h3>Solitário Lume I</h3>
+        <p class="peca__col">Coleção Lume</p>
+        <p class="peca__d">Seis garras, nenhuma sombra sobre a pedra.</p>
+        <p class="peca__m">Ouro rosé e branco 18k · Diamante 1,20 ct · Lapidação brilhante</p>
+        <a class="lnk" href="#experiencia">Descobrir a peça</a>
+      </div>
+    </article>
+
+    <article class="peca peca--w5 peca--tall rv" data-nome="Brincos Cascata" data-col="Notte">
+      <figure class="ang ang--dark" data-angles="assets/img/peca-brincos-01.webp|assets/img/peca-brincos-02.webp"
+              data-alt="Brincos Cascata vistos de frente e de três quartos">
+        <img class="on" src="assets/img/peca-brincos-01.webp" alt="Brincos Cascata em ouro branco com diamantes em cascata, sobre seda escura" width="1400" height="2100" loading="lazy" decoding="async">
+      </figure>
+      <div class="peca__txt">
+        <h3>Brincos Cascata</h3>
+        <p class="peca__col">Coleção Notte</p>
+        <p class="peca__d">O movimento é parte do desenho, não um efeito dele.</p>
+        <p class="peca__m">Ouro branco 18k · 214 diamantes · 7,4 g o par</p>
+        <a class="lnk" href="#experiencia">Descobrir a peça</a>
+      </div>
+    </article>
+
+    <article class="peca peca--w6 rv" data-nome="Bracelete Solar" data-col="Lume">
+      <figure class="ang" data-angles="assets/img/peca-pulseira-01.webp|assets/img/peca-pulseira-02.webp"
+              data-alt="Bracelete Solar visto deitado e de perfil">
+        <img class="on" src="assets/img/peca-pulseira-01.webp" alt="Bracelete Solar em ouro 18k com quatro pedras de citrino em linha" width="1400" height="2100" loading="lazy" decoding="async">
+      </figure>
+      <div class="peca__txt">
+        <h3>Bracelete Solar</h3>
+        <p class="peca__col">Coleção Lume</p>
+        <p class="peca__d">Rígido por fora, articulado onde ninguém vê.</p>
+        <p class="peca__m">Ouro 18k · Quatro citrinos lapidados · Fecho invisível</p>
+        <a class="lnk" href="#experiencia">Descobrir a peça</a>
+      </div>
+    </article>
+
+    <article class="peca peca--w6 rv" data-nome="Colar Notte" data-col="Notte">
+      <figure class="ang">
+        <img class="on" src="assets/img/peca-colar.webp" alt="Colar Notte em ouro branco com pingentes de diamante, usado sobre a pele" width="1400" height="2120" loading="lazy" decoding="async">
+      </figure>
+      <div class="peca__txt">
+        <h3>Colar Notte</h3>
+        <p class="peca__col">Coleção Notte</p>
+        <p class="peca__d">Desenhado para a curva do pescoço — não para a vitrine.</p>
+        <p class="peca__m">Ouro branco 18k · Franja articulada · 41 cm</p>
+        <a class="lnk" href="#experiencia">Descobrir a peça</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  editorial / modelos -->
+<section class="edi" aria-label="Editorial">
+  <figure class="edi__big rv">
+    <img src="assets/img/editorial-01.webp" alt="Modelo em luz baixa usando colar, pulseiras e anéis de ouro" width="1900" height="2850" loading="lazy" decoding="async">
+    <figcaption class="edi__over">Precisão é uma forma de beleza.</figcaption>
+  </figure>
+
+  <div class="edi__pair">
+    <figure class="rv">
+      <img src="assets/img/editorial-02.webp" alt="Composição de peças em ouro sobre pedra clara" width="1300" height="1949" loading="lazy" decoding="async">
+    </figure>
+    <figure class="rv">
+      <img src="assets/img/editorial-03.webp" alt="Colar de gala sobre fundo escuro, retrato em contraluz" width="1300" height="1625" loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  filme -->
+<section class="film" aria-label="Filme da coleção Notte">
+  <video class="film__v" id="filmV" muted loop playsinline preload="none"
+         poster="assets/video/detalhe.jpg" aria-hidden="true" tabindex="-1">
+    <source src="assets/video/detalhe.mp4" type="video/mp4">
+  </video>
+  <div class="film__txt">
+    <p class="eyebrow eyebrow--light rv">Notte · Filme</p>
+    <h2 class="film__h rv">Uma tomada.<br>Sem retoque.</h2>
+    <a class="lnk lnk--light rv" href="#experiencia">Agendar visualização</a>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  seleção -->
+<section class="sel" aria-label="Peças selecionadas">
+  <div class="wrap">
+    <p class="eyebrow rv">Seleção do ateliê</p>
+  </div>
+
+  <div class="sel__row rv">
+    <figure class="sel__im sel__im--a">
+      <img src="assets/img/selecao-01.webp" alt="Par de brincos de louro em diamantes sobre seda azul-escura" width="1500" height="1875" loading="lazy" decoding="async">
+    </figure>
+    <div class="sel__tx">
+      <h3>A pedra decide<br>o desenho.</h3>
+      <p>Compramos o diamante antes de desenhar a peça. Nunca o contrário. É por isso que dois solitários Lume nunca são idênticos — e por isso não conseguimos fazer mais de quarenta e dois por ano.</p>
+      <a class="lnk" href="#experiencia">Sobre a lapidação</a>
+    </div>
+  </div>
+
+  <div class="sel__row sel__row--flip rv">
+    <figure class="sel__im sel__im--b">
+      <img src="assets/img/selecao-02.webp" alt="Aliança gravada repousada sobre uma página impressa" width="1500" height="1000" loading="lazy" decoding="async">
+    </figure>
+    <div class="sel__tx">
+      <h3>Ouro que<br>não pesa.</h3>
+      <p>Trabalhamos a liga em espessura mínima até que a aliança some da mão de quem usa. O peso é a última coisa que alguém deveria lembrar de uma joia.</p>
+      <a class="lnk" href="#experiencia">Ver a coleção Origem</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  experiência -->
+<section class="exp" id="experiencia">
+  <div class="wrap">
+    <p class="eyebrow rv">A experiência</p>
+    <h2 class="h2 rv">Recebemos uma cliente por vez.</h2>
+
+    <ol class="exp__l">
+      <li class="rv"><span>01</span><h3>Conversa</h3><p>Uma hora, sem vitrine e sem catálogo. Entendemos a ocasião, a mão, a rotina — e o que a peça terá de suportar.</p></li>
+      <li class="rv"><span>02</span><h3>Desenho</h3><p>Três estudos à mão em papel vegetal. Você escolhe um, riscamos os outros dois.</p></li>
+      <li class="rv"><span>03</span><h3>Bancada</h3><p>De seis a doze semanas. Você acompanha por imagens em cada etapa, se quiser.</p></li>
+      <li class="rv"><span>04</span><h3>Entrega</h3><p>Certificado, laudo gemológico e ajuste vitalício. A peça volta ao ateliê sempre que precisar.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────  cta -->
+<section class="cta" aria-label="Agendamento">
+  <figure class="cta__bg" aria-hidden="true">
+    <img src="assets/img/cta.webp" alt="" width="1800" height="2520" loading="lazy" decoding="async">
+  </figure>
+  <div class="cta__in">
+    <h2 class="cta__h rv">Marque uma visita ao ateliê.</h2>
+    <p class="rv">Jardins, São Paulo. De terça a sábado, mediante agendamento.</p>
+    <a class="btn rv" href="mailto:atelie@orfeve.com.br?subject=Agendamento%20de%20visita">Agendar atendimento</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ─────────────────────────────────────────────  footer -->
+<footer class="ft" id="contato">
+  <div class="ft__in">
+
+    <div class="ft__brand">
+      <span class="brand__word brand__word--big">ORFÈVE</span>
+      <p>Alta joalheria<br>São Paulo · desde 1998</p>
+    </div>
+
+    <nav class="ft__nav" aria-label="Rodapé">
+      <div>
+        <h4>Coleções</h4>
+        <ul><li><a href="#joias">Lume</a></li><li><a href="#joias">Notte</a></li><li><a href="#joias">Origem</a></li></ul>
+      </div>
+      <div>
+        <h4>Ateliê</h4>
+        <ul><li><a href="#marca">A marca</a></li><li><a href="#experiencia">Experiência</a></li><li><a href="#experiencia">Ajuste vitalício</a></li></ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:atelie@orfeve.com.br">atelie@orfeve.com.br</a></li>
+          <li><a href="tel:+551130000000">+55 11 3000 0000</a></li>
+          <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Endereço</h4>
+        <p>Rua Haddock Lobo, 1626<br>Jardins — São Paulo, SP<br>Ter a sáb, com hora marcada</p>
+      </div>
+    </nav>
+
+    <div class="ft__end">
+      <span>© 2026 ORFÈVE</span>
+      <span>Todas as peças acompanham laudo gemológico</span>
+    </div>
+
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LOGO ANIMADA (master editável) — Victor Hugo Redação
+
+  Este arquivo é a fonte da geometria usada pela animação de abertura do site.
+  Edite aqui (Inkscape, Illustrator, ou como texto) e depois rode:
+
+      node landing-page/dev/sync-logo.mjs
+
+  para aplicar as mudanças em landing-page/js/splash.js.
+
+  Camada "referencia" = logo oficial a 35% de opacidade, só para guiar o ajuste
+  (o sync ignora essa camada; pode ocultar/apagar à vontade).
+
+  IMPORTANTE: não renomeie os id= dos elementos — o sync usa eles para mapear.
+-->
+<svg viewBox="0 0 1254 1000" width="1254" height="1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none">
+
+  <!-- referência: logo oficial (ignorada pelo sync) -->
+  <image id="referencia" href="logo-sem-fundo.png" xlink:href="logo-sem-fundo.png"
+    x="38" y="233" width="1194" height="727" opacity="0.35"/>
+
+  <!-- V e acento -->
+  <path id="v" d="M 45 265 L 198 265 L 368 712 L 543 314 L 635 300 L 458 830 L 318 830 Z" fill="#0e306b"/>
+  <path id="acento" d="M 569 250 L 714 250 L 695 295 L 557 282 Z" fill="#0e306b"/>
+
+  <!-- corpo do lápis (traço animado) -->
+  <path id="trace" stroke="#0e306b" stroke-width="85" stroke-linecap="round" stroke-linejoin="round"
+    d="M 430 553 C 439 553, 467 552, 482 551 C 497 550, 506 549, 518 547 C 530 545, 542 545, 554 542 C 566 538, 578 533, 589 527 C 600 521, 610 513, 619 505 C 628 496, 637 486, 644 476 C 650 465, 655 453, 658 441 C 661 429, 663 417, 662 405 C 660 393, 658 380, 652 370 C 646 359, 636 348, 626 342 C 616 336, 603 333, 591 332 C 579 332, 566 334, 556 340 C 545 345, 534 354, 527 364 C 519 373, 514 385, 510 397 C 505 409, 502 421, 500 433 C 499 446, 498 459, 498 472 C 498 484, 498 495, 499 509 C 500 523, 503 540, 504 554 C 506 568, 508 580, 509 593 C 510 606, 512 617, 513 629 C 514 641, 516 653, 517 665 C 518 677, 520 689, 521 701 C 522 713, 522 725, 525 737 C 528 749, 530 762, 536 772 C 542 783, 552 793, 563 799 C 573 805, 587 808, 599 809 C 611 810, 625 808, 636 804 C 647 799, 659 791, 667 782 C 676 773, 682 761, 687 749 C 692 737, 696 725, 699 713 C 702 701, 704 689, 707 677 C 709 665, 712 653, 714 641 C 715 629, 717 617, 718 605 C 719 593, 721 581, 722 569 C 723 557, 724 545, 726 533 C 728 521, 728 509, 732 497 C 736 485, 742 473, 750 464 C 758 454, 768 445, 779 440 C 790 435, 804 433, 816 433 C 828 433, 842 436, 852 441 C 863 447, 874 457, 880 467 C 886 477, 889 490, 892 502 C 894 515, 893 528, 892 540 C 892 553, 890 565, 889 577 C 888 589, 886 601, 885 613 C 884 625, 882 637, 881 649 C 880 661, 878 673, 877 685 C 876 697, 874 709, 873 721 C 872 733, 870 745, 873 757 C 876 769, 882 781, 890 791 C 897 801, 908 810, 919 816 C 930 822, 944 826, 956 828 C 969 830, 982 830, 994 827 C 1006 825, 1018 820, 1030 814 C 1041 808, 1051 800, 1060 791 C 1070 782, 1078 772, 1085 761 C 1092 750, 1098 738, 1103 726 C 1108 714, 1114 698, 1117 686 C 1120 674, 1121 660, 1122 655"/>
+
+  <!-- cone da ponta (fica sob o miolo branco) -->
+  <path id="ponta-cone" d="M 1138 544 Q 1151 532 1160 550 C 1170 573, 1177 612, 1179 647 L 1070 654 C 1082 611, 1104 571, 1138 544 Z" fill="#0e306b"/>
+
+  <!-- miolo branco (mesmo d do trace; o sync copia do #trace) -->
+  <path id="trace-inner" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+    d="M 430 553 C 439 553, 467 552, 482 551 C 497 550, 506 549, 518 547 C 530 545, 542 545, 554 542 C 566 538, 578 533, 589 527 C 600 521, 610 513, 619 505 C 628 496, 637 486, 644 476 C 650 465, 655 453, 658 441 C 661 429, 663 417, 662 405 C 660 393, 658 380, 652 370 C 646 359, 636 348, 626 342 C 616 336, 603 333, 591 332 C 579 332, 566 334, 556 340 C 545 345, 534 354, 527 364 C 519 373, 514 385, 510 397 C 505 409, 502 421, 500 433 C 499 446, 498 459, 498 472 C 498 484, 498 495, 499 509 C 500 523, 503 540, 504 554 C 506 568, 508 580, 509 593 C 510 606, 512 617, 513 629 C 514 641, 516 653, 517 665 C 518 677, 520 689, 521 701 C 522 713, 522 725, 525 737 C 528 749, 530 762, 536 772 C 542 783, 552 793, 563 799 C 573 805, 587 808, 599 809 C 611 810, 625 808, 636 804 C 647 799, 659 791, 667 782 C 676 773, 682 761, 687 749 C 692 737, 696 725, 699 713 C 702 701, 704 689, 707 677 C 709 665, 712 653, 714 641 C 715 629, 717 617, 718 605 C 719 593, 721 581, 722 569 C 723 557, 724 545, 726 533 C 728 521, 728 509, 732 497 C 736 485, 742 473, 750 464 C 758 454, 768 445, 779 440 C 790 435, 804 433, 816 433 C 828 433, 842 436, 852 441 C 863 447, 874 457, 880 467 C 886 477, 889 490, 892 502 C 894 515, 893 528, 892 540 C 892 553, 890 565, 889 577 C 888 589, 886 601, 885 613 C 884 625, 882 637, 881 649 C 880 661, 878 673, 877 685 C 876 697, 874 709, 873 721 C 872 733, 870 745, 873 757 C 876 769, 882 781, 890 791 C 897 801, 908 810, 919 816 C 930 822, 944 826, 956 828 C 969 830, 982 830, 994 827 C 1006 825, 1018 820, 1030 814 C 1041 808, 1051 800, 1060 791 C 1070 782, 1078 772, 1085 761 C 1092 750, 1098 738, 1103 726 C 1108 714, 1114 698, 1117 686 C 1120 674, 1121 660, 1122 655"/>
+
+  <!-- seta branca dentro da ponta -->
+  <path id="ponta-seta" d="M 1131 570 L 1090 627 L 1117 632 L 1131 610 L 1146 631 L 1166 620 Z" fill="#ffffff"/>
+
+  <!-- borracha (centrada em y=553, a mesma linha do corpo do lápis) -->
+  <rect id="borracha-halo" x="326" y="508" width="104" height="90" rx="14" fill="#ffffff"/>
+  <rect id="borracha-laranja" x="334" y="519" width="52" height="68" rx="10" fill="#d34a15"/>
+  <rect id="borracha-ferrolho" x="384" y="517" width="46" height="72" rx="8" fill="#ffffff" stroke="#0e306b" stroke-width="9"/>
+
+  <!-- REDAÇÃO -->
+  <defs>
+    <path id="redacaoArc" d="M 856 962 A 340 340 0 0 0 1251 758"/>
+  </defs>
+  <text id="redacao" fill="#1a1a1a" font-family="Poppins, 'Segoe UI', Arial, sans-serif"
+    font-weight="800" font-size="88" letter-spacing="4">
+    <textPath href="#redacaoArc" xlink:href="#redacaoArc">REDAÇÃO</textPath>
+  </text>
+</svg>

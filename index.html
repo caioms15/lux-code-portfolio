@@ -142,6 +142,31 @@ section{padding-block:clamp(60px,8vw,110px)}
 .case-body h3{font-family:var(--display);font-weight:700;font-size:20px}
 .case-body .cat{font-family:var(--mono);font-size:11.5px;color:var(--gold-2);margin-top:11px;letter-spacing:.02em}
 .case-body .cdesc{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-top:9px}
+
+/* card clicavel + visualizador embutido */
+.case[data-projeto]{cursor:pointer}
+.case[data-projeto] .thumb::after{content:'Abrir projeto';position:absolute;inset:auto auto 12px 14px;z-index:2;
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#000;background:var(--gold);
+  padding:6px 12px;border-radius:99px;opacity:0;transform:translateY(6px);transition:.3s var(--ease)}
+.case[data-projeto]:hover .thumb::after,.case[data-projeto]:focus-visible .thumb::after{opacity:1;transform:none}
+.case[data-projeto] .thumb{position:relative}
+
+#viewer{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:var(--bg)}
+#viewer.on{display:flex}
+body.locked{overflow:hidden}
+.vbar{display:flex;align-items:center;gap:16px;padding:11px var(--gut);border-bottom:1px solid var(--line);
+  background:var(--bg-2);flex-shrink:0}
+.vbar button,.vbar a{font-family:var(--sans);font-size:13px;color:var(--ink-2);background:none;border:0;
+  cursor:pointer;display:flex;align-items:center;gap:7px;transition:color .25s}
+.vbar button:hover,.vbar a:hover{color:var(--gold)}
+.vbar .vsep{width:1px;height:20px;background:var(--line)}
+.vbar .vtit{min-width:0}
+.vbar .vtit b{font-family:var(--display);font-weight:700;font-size:14px;display:block;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.vbar .vtit span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.vbar .vfull{margin-left:auto}
+#viewer iframe{flex:1;width:100%;border:0;background:#fff}
+@media(max-width:620px){.vbar .vtit span{display:none}}
 .pill{font-family:var(--mono);font-size:10.5px;color:var(--gold);border:1px solid var(--line-2);border-radius:100px;padding:5px 10px;white-space:nowrap;flex:none}
 
 /* cta */
@@ -456,7 +481,7 @@ footer a.fl:hover{color:var(--gold)}
     </div>
 
     <div class="grid" id="grid">
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/joalheria-orfeve/index.html">
         <div class="thumb"><img src="shots/orfeve.png" alt="Orfève — site de alta joalheria" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Orfève</h3><span class="pill">Visibilidade</span></div>
@@ -464,7 +489,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">Site feito para vender percepção antes de vender peça. Dois vídeos se revezam no topo em sequência, e nas joias o cursor percorre a peça, que troca de ângulo conforme o movimento do mouse — no celular, com o dedo.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/hamburgueria-brasa/index.html">
         <div class="thumb"><img src="shots/brasa.png" alt="Brasa 66 — hamburgueria artesanal" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Brasa 66</h3><span class="pill">Visibilidade</span></div>
@@ -472,7 +497,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">O hambúrguer se monta na tela conforme a pessoa rola a página: são 85 quadros trocados quadro a quadro, sem vídeo. A montagem vira o próprio argumento de venda do produto.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/venda-de-carros/index.html">
         <div class="thumb"><img src="shots/vendacarros.png" alt="AutoCar Motors — concessionária" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>AutoCar Motors</h3><span class="pill">Visibilidade</span></div>
@@ -480,7 +505,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">Landing page para uma concessionária: coloca o estoque em destaque, valoriza cada veículo com fotos e informações e leva o cliente direto ao WhatsApp da loja para fechar negócio.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/nasser-coutinho/index.html">
         <div class="thumb"><img src="shots/nasser.png" alt="Nasser & Coutinho — arquitetura" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Nasser &amp; Coutinho</h3><span class="pill">Visibilidade</span></div>
@@ -488,7 +513,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">Site institucional de um escritório de arquitetura e engenharia. Apresenta a empresa e seus projetos com uma imagem sólida e profissional, passando autoridade para conquistar novos clientes.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/psicologa-ana/Ana Maria - Landing Page.html">
         <div class="thumb"><img src="shots/ana.png" alt="Ana Maria Psicóloga — landing page" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Ana Maria · Psicóloga</h3><span class="pill">Visibilidade</span></div>
@@ -496,7 +521,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">Landing page de uma psicóloga especializada em avaliação de TEA e TDAH. Explica os atendimentos com acolhimento e clareza e facilita o contato e o agendamento pelo WhatsApp.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/modelos-bar/index.html">
         <div class="thumb"><img src="shots/ambar.png" alt="Âmbar — bar de autor" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Âmbar</h3><span class="pill">Visibilidade</span></div>
@@ -504,7 +529,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">Estrutura de apresentação criada para um cliente de São Paulo: a página de um bar de autor, com identidade elegante e sofisticada, pensada para valorizar a experiência da casa e as reservas.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/drytech-manaus/index.html">
         <div class="thumb"><img src="shots/drytech.png" alt="Dry Tech — estética automotiva" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Dry Tech</h3><span class="pill">Visibilidade</span></div>
@@ -512,7 +537,7 @@ footer a.fl:hover{color:var(--gold)}
           <p class="cdesc">Landing page de uma empresa de estética automotiva. Apresenta os serviços de forma direta e leva o cliente ao agendamento, destacando cuidado e resultado no visual do carro.</p>
         </div>
       </div>
-      <div class="case" data-pillar="visibilidade">
+      <div class="case" data-pillar="visibilidade" data-projeto="projetos/vitor-hugo/landing-page/index.html">
         <div class="thumb"><img src="shots/vitorhugo.png" alt="Victor Hugo Redação — curso de redação" loading="lazy"></div>
         <div class="case-body">
           <div class="cb-head"><h3>Victor Hugo Redação</h3><span class="pill">Visibilidade</span></div>
@@ -572,6 +597,58 @@ btns.forEach(b=>b.onclick=()=>{
   const f=b.dataset.f;
   cases.forEach(c=>c.classList.toggle('hide',f!=='all'&&!c.dataset.pillar.split(' ').includes(f)));
 });
+</script>
+<!-- VISUALIZADOR DE PROJETO (mesma aba) -->
+<div id="viewer" aria-hidden="true">
+  <div class="vbar">
+    <button type="button" id="vback" aria-label="Voltar ao portfólio">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M5 12l6-6M5 12l6 6"/></svg>
+      Voltar
+    </button>
+    <div class="vsep"></div>
+    <div class="vtit"><b id="vnome"></b><span id="vcat"></span></div>
+    <a class="vfull" id="vfull" href="#" target="_blank" rel="noopener" title="Abrir em tela cheia (nova aba)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 3h7v7M21 3l-9 9M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
+      Tela cheia
+    </a>
+  </div>
+  <iframe id="vframe" title="Projeto" src="about:blank"></iframe>
+</div>
+
+<script>
+(function(){
+  const viewer=document.getElementById('viewer'), frame=document.getElementById('vframe'),
+        vnome=document.getElementById('vnome'), vcat=document.getElementById('vcat'), vfull=document.getElementById('vfull');
+
+  // Estado no hash: voltar do navegador e link direto funcionam de graça,
+  // inclusive abrindo o arquivo direto (file://), onde pushState trava.
+  function abrir(card){
+    const url=encodeURI(card.dataset.projeto);
+    vnome.textContent=card.querySelector('h3').textContent;
+    vcat.textContent=card.querySelector('.cat').textContent;
+    vfull.href=url;
+    if(frame.getAttribute('src')!==url) frame.src=url;
+    viewer.classList.add('on'); viewer.setAttribute('aria-hidden','false'); document.body.classList.add('locked');
+  }
+  function fechar(){
+    viewer.classList.remove('on'); viewer.setAttribute('aria-hidden','true'); document.body.classList.remove('locked');
+    frame.src='about:blank';
+  }
+  function sincronizar(){
+    if(!location.hash.startsWith('#ver/')) return fechar();
+    const card=document.querySelector('.case[data-projeto="'+decodeURI(location.hash.slice(5))+'"]');
+    card?abrir(card):fechar();
+  }
+
+  document.getElementById('grid').addEventListener('click',e=>{
+    const card=e.target.closest('.case[data-projeto]');
+    if(card) location.hash='ver/'+encodeURI(card.dataset.projeto);
+  });
+  document.getElementById('vback').onclick=()=>history.back();
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&viewer.classList.contains('on'))history.back()});
+  addEventListener('hashchange',sincronizar);
+  sincronizar();
+})();
 </script>
 </body>
 </html>

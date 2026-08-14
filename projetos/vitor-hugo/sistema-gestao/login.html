@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — Victor Hugo Redação</title>
+  <link rel="icon" href="../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="css/sistema.css">
+</head>
+<body class="login">
+
+  <a class="login-voltar" href="../landing-page/index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    Voltar ao site
+  </a>
+
+  <div class="login-card">
+    <img class="logo" src="../assets/media/marca/logo-sem-fundo.png" alt="Victor Hugo Redação">
+    <h1 id="loginTitulo">Área do Aluno</h1>
+    <p class="sub">Victor Hugo Redação — ENEM, MACRO, SIS e PSC</p>
+
+    <div class="login-abas" role="tablist">
+      <button type="button" class="login-aba ativa" id="abaAluno" onclick="trocarAba('aluno')">Sou aluno</button>
+      <button type="button" class="login-aba" id="abaProfessor" onclick="trocarAba('professor')">Sou professor</button>
+    </div>
+
+    <!-- Aba aluno -->
+    <form id="formAluno" onsubmit="entrarAluno(event)">
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" value="carina.moura@aluno.vhredacao.com.br" autocomplete="off">
+      </div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" value="carina2026">
+      </div>
+      <button type="submit" class="btn btn-accent btn-block btn-lg">Entrar</button>
+      <p class="login-rodape">
+        Esqueceu a senha? <a href="#" onclick="return false">Recuperar acesso</a>
+      </p>
+    </form>
+
+    <!-- Aba professor -->
+    <form id="formProfessor" hidden onsubmit="entrarProfessor(event)">
+      <div class="campo">
+        <label for="perfilProf">Professor</label>
+        <select id="perfilProf">
+          <option value="victor">Victor Hugo — professor titular</option>
+          <option value="convidado">Rafael Nunes — professor convidado</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="senhaProf">Senha</label>
+        <input type="password" id="senhaProf" value="vh2026">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">Entrar no painel</button>
+      <p class="login-rodape">
+        O professor titular gerencia as turmas exibidas no site; convidados têm acesso somente leitura.
+      </p>
+    </form>
+  </div>
+
+  <script>
+    const PERFIS_PROF = {
+      victor: { id: "victor", nome: "Victor Hugo", iniciais: "VH", papel: "Professor titular", dono: true },
+      convidado: { id: "convidado", nome: "Rafael Nunes", iniciais: "RN", papel: "Professor convidado", dono: false },
+    };
+
+    function trocarAba(qual) {
+      const aluno = qual === "aluno";
+      document.getElementById("formAluno").hidden = !aluno;
+      document.getElementById("formProfessor").hidden = aluno;
+      document.getElementById("abaAluno").classList.toggle("ativa", aluno);
+      document.getElementById("abaProfessor").classList.toggle("ativa", !aluno);
+      document.getElementById("loginTitulo").textContent = aluno ? "Área do Aluno" : "Painel do Professor";
+    }
+
+    function entrarAluno(e) {
+      e.preventDefault();
+      window.location.href = "aluno/dashboard.html";
+    }
+
+    function entrarProfessor(e) {
+      e.preventDefault();
+      const perfil = PERFIS_PROF[document.getElementById("perfilProf").value];
+      try { localStorage.setItem("vh_sessao_prof", JSON.stringify(perfil)); } catch (_) {}
+      window.location.href = "admin/dashboard.html";
+    }
+  </script>
+</body>
+</html>

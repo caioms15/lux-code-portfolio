@@ -1,0 +1,222 @@
+/* ===== Literatura — easter eggs descobríveis =====
+   Camada literária discreta (js/literatura.js): citações verificadas do
+   cânone brasileiro e de autores da Amazônia, servidas como repertório
+   sociocultural. Nada aqui compete com os CTAs. */
+
+/* ===== Marca-texto da marca ===== */
+
+::selection {
+  background: var(--laranja);
+  color: var(--azul-profundo);
+}
+
+.section-dark ::selection,
+.ambiente ::selection,
+.hero ::selection {
+  background: #ff8a4c;
+  color: var(--grafite);
+}
+
+/* ===== Ficha de repertório (card compartilhado: toast, notas ✎, estante) ===== */
+
+.vh-ficha {
+  position: fixed;
+  z-index: 95;
+  max-width: 350px;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  box-shadow: var(--sombra-forte);
+  padding: 18px 20px 16px;
+  color: var(--grafite);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.vh-ficha-toast {
+  left: 24px;
+  bottom: 24px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.35s var(--ease-out-quint), transform 0.35s var(--ease-out-quint);
+}
+
+.vh-ficha-toast.vh-visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vh-ficha-estante {
+  top: 92px;
+  right: 24px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s var(--ease-out-quint), transform 0.3s var(--ease-out-quint);
+}
+
+.vh-ficha-estante.vh-visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vh-ficha-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--laranja-escuro);
+  margin-bottom: 10px;
+}
+
+.vh-ficha-citacao {
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.vh-ficha-fonte {
+  color: var(--cinza-texto);
+  font-size: 0.82rem;
+  font-style: normal;
+}
+
+.vh-ficha-uso {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--borda);
+  color: var(--azul);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.vh-ficha-fechar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--cinza-texto);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.vh-ficha-fechar:hover {
+  background: var(--azul-suave);
+  color: var(--azul);
+}
+
+/* ===== Notas de lápis ✎ nos cantos das seções ===== */
+
+.professor { position: relative; }
+
+.vh-nota-secao {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 19px;
+  color: currentColor;
+  opacity: 0.32;
+  transition: opacity 0.15s ease;
+}
+
+.vh-nota-secao:hover,
+.vh-nota-secao:focus-visible {
+  opacity: 0.85;
+}
+
+.section-dark .vh-nota-secao { color: #ff8a4c; }
+.section-white .vh-nota-secao { color: var(--azul); }
+
+/* Popover da nota: card absoluto dentro da seção, alinhado ao glifo */
+.vh-nota-popover {
+  position: absolute;
+  top: 62px;
+  right: 22px;
+  z-index: 3;
+  width: min(330px, calc(100vw - 44px));
+}
+
+/* ===== O poeta sob a assinatura (faixa ambiente) ===== */
+
+.ambiente-assinatura {
+  cursor: pointer;
+  display: inline-block;
+  border-bottom: 1px dotted rgba(255, 138, 76, 0.65);
+  padding-bottom: 2px;
+}
+
+.vh-xara {
+  display: grid;
+  grid-template-rows: 0fr;
+  max-width: 640px;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-quart), grid-template-rows 0.3s var(--ease-out-quart);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.vh-xara-inner {
+  overflow: hidden;
+}
+
+.vh-xara-inner > p {
+  margin-top: 14px;
+}
+
+.vh-xara .vh-xara-fonte {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.ambiente-inner.vh-xara-aberta .vh-xara {
+  opacity: 1;
+  grid-template-rows: 1fr;
+}
+
+/* ===== Reduced motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .vh-ficha-toast,
+  .vh-ficha-estante {
+    transform: none;
+    transition: opacity 0.01ms;
+  }
+
+  .vh-xara {
+    transition: none;
+  }
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+  .vh-ficha-toast {
+    left: 16px;
+    right: 90px; /* nunca cobre o botão flutuante de WhatsApp */
+    bottom: 16px;
+    max-width: none;
+  }
+
+  .vh-ficha-estante {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+}

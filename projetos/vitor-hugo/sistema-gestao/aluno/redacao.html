@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Redações — Área do Aluno | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="aluno" data-pagina="redacao" data-titulo="Minhas Redações" data-subtitulo="Envie, acompanhe e veja suas correções">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina pagina-larga">
+
+      <!-- Ação de envio -->
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+        <div>
+          <h2 class="secao-titulo" style="margin:0">Correção mais recente</h2>
+          <p style="color:var(--cinza-texto);font-size:0.9rem">Tema: <span id="tema-atual"></span></p>
+        </div>
+        <button class="btn btn-accent" onclick="abrirModal('modal-envio')">Enviar nova redação</button>
+      </div>
+
+      <!-- Folha corrigida + espelho -->
+      <div class="grid grid-folha" style="margin-bottom:28px" id="grid-correcao">
+        <div class="card">
+          <h3 class="card-titulo">Folha corrigida</h3>
+          <p class="card-sub">Correção do Prof. Victor Hugo sobre a sua folha</p>
+          <div id="folha"></div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3 class="card-titulo">Espelho de correção</h3>
+            <p class="card-sub">Nota por competência (0 a 200)</p>
+            <div id="espelho"></div>
+            <div class="nota-final" style="margin-top:18px">
+              <div class="num" id="nota-final"></div>
+              <div class="leg">Nota final</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-titulo">Comentários do professor</h3>
+            <div class="comentarios-lista" id="comentarios" style="margin-top:12px"></div>
+            <p style="margin-top:16px;padding:14px;background:var(--azul-suave);border-radius:10px;font-size:0.9rem;color:var(--azul-escuro)" id="resumo-prof"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Histórico de envios -->
+      <div class="card">
+        <h3 class="card-titulo">Histórico de envios</h3>
+        <p class="card-sub">Todas as redações enviadas nesta turma</p>
+        <table class="tabela">
+          <thead>
+            <tr><th>Tema</th><th>Enviada em</th><th>Status</th><th>Nota</th></tr>
+          </thead>
+          <tbody id="historico"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal de envio -->
+  <div class="modal-overlay" id="modal-envio">
+    <div class="modal">
+      <button class="modal-fechar" onclick="fecharModal('modal-envio')">&times;</button>
+      <h3 class="modal-titulo">Enviar redação</h3>
+      <p class="modal-sub">Fotografe a folha manuscrita e anexe abaixo. O professor recebe na fila de correção.</p>
+
+      <label class="dropzone" id="dropzone" for="arquivo-redacao">
+        <span id="dz-icone"></span>
+        <div>Clique para escolher a foto da sua redação</div>
+        <div style="font-size:0.8rem">JPG ou PNG, folha inteira e legível</div>
+        <div class="nome-arquivo" id="nome-arquivo"></div>
+      </label>
+      <input type="file" id="arquivo-redacao" accept="image/*" style="display:none" onchange="arquivoEscolhido(this)">
+
+      <div class="progresso" id="progresso"><div class="progresso-fill" id="progresso-fill"></div></div>
+
+      <button class="btn btn-accent btn-block" id="btn-enviar" onclick="enviarRedacao()">Enviar para correção</button>
+    </div>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script src="../js/folha.js"></script>
+  <script>
+    const corrigida = DADOS.envios[0];
+    document.getElementById("tema-atual").textContent = corrigida.tema;
+    document.getElementById("dz-icone").innerHTML = IC.upload;
+
+    // Folha + overlay de marcações
+    renderFolha(document.getElementById("folha"), DADOS.folha, "../../assets/media/sistema/");
+
+    // Espelho de competências
+    document.getElementById("espelho").innerHTML = DADOS.competencias.map(c => {
+      const nota = corrigida.competencias[c.id];
+      return `<div class="barra-linha">
+        <div class="barra-topo"><span class="rot">${c.rotulo} · ${c.nome}</span><span class="val">${nota}</span></div>
+        <div class="barra-trilho"><div class="barra-fill" style="width:${(nota / 200) * 100}%"></div></div>
+      </div>`;
+    }).join("");
+    document.getElementById("nota-final").textContent = corrigida.notaFinal;
+
+    // Comentários (ligados aos balões da folha por realce recíproco)
+    document.getElementById("comentarios").innerHTML = DADOS.folha.comentarios.map(c => `
+      <div class="comentario" data-n="${c.n}" onmouseenter="realcarComentario(${c.n},true)" onmouseleave="realcarComentario(${c.n},false)">
+        <div class="num">${c.n}</div>
+        <div>
+          <div class="comp">${c.comp}</div>
+          <div class="txt">${c.texto}</div>
+        </div>
+      </div>`).join("");
+    document.getElementById("resumo-prof").textContent = DADOS.folha.resumoProfessor;
+
+    // Histórico
+    const CHIP = { corrigida: "chip-ok", aguardando: "chip-aguardando", "em-correcao": "chip-aguardando" };
+    const ROT = { corrigida: "Corrigida", aguardando: "Aguardando correção", "em-correcao": "Em correção" };
+    function linhaHistorico(e) {
+      return `<tr>
+        <td>${e.tema}</td>
+        <td>${e.dataEnvio}</td>
+        <td><span class="chip ${CHIP[e.status]}">${ROT[e.status]}</span></td>
+        <td class="nota-cell">${e.notaFinal != null ? e.notaFinal : "—"}</td>
+      </tr>`;
+    }
+    document.getElementById("historico").innerHTML = DADOS.envios.map(linhaHistorico).join("");
+
+    // ===== Upload simulado =====
+    let arquivoOk = false;
+    function arquivoEscolhido(input) {
+      if (input.files && input.files[0]) {
+        arquivoOk = true;
+        document.getElementById("nome-arquivo").textContent = "📎 " + input.files[0].name;
+      }
+    }
+    function enviarRedacao() {
+      if (!arquivoOk) {
+        mostrarToast("Escolha a foto da redação primeiro.", "info");
+        return;
+      }
+      const barra = document.getElementById("progresso");
+      const fill = document.getElementById("progresso-fill");
+      const btn = document.getElementById("btn-enviar");
+      barra.classList.add("ativo");
+      btn.disabled = true;
+      let p = 0;
+      const t = setInterval(() => {
+        p += 8 + Math.round(p / 10);
+        if (p >= 100) {
+          p = 100; clearInterval(t);
+          setTimeout(() => {
+            fecharModal("modal-envio");
+            mostrarToast("Redação enviada! Aguardando correção do professor.", "ok");
+            // nova linha no topo do histórico (só em memória)
+            const nova = { tema: DADOS.temaDaSemana.titulo, dataEnvio: "17/07/2026", status: "aguardando", notaFinal: null };
+            document.getElementById("historico").insertAdjacentHTML("afterbegin", linhaHistorico(nova));
+            // reset do modal
+            barra.classList.remove("ativo"); fill.style.width = "0";
+            btn.disabled = false; arquivoOk = false;
+            document.getElementById("nome-arquivo").textContent = "";
+            document.getElementById("arquivo-redacao").value = "";
+          }, 350);
+        }
+        fill.style.width = Math.min(p, 100) + "%";
+      }, 160);
+    }
+  </script>
+</body>
+</html>

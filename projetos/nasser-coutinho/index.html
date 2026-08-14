@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nasser &amp; Coutinho — Arquitetura</title>
+  <meta name="description" content="Nasser & Coutinho Arquitetura — Projetos arquitetônicos residenciais, comerciais, industriais e institucionais. Construção, reformas e manutenção predial." />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <!-- ⚠ CONFIGURAR ANTES DE PUBLICAR: substituir o domínio placeholder abaixo (canonical, og:url, og:image, twitter:image, JSON-LD "url"/"image") pelo domínio real do site. -->
+  <link rel="canonical" href="https://www.example.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Nasser & Coutinho Arquitetura" />
+  <meta property="og:title" content="Nasser & Coutinho — Arquitetura" />
+  <meta property="og:description" content="Projetos arquitetônicos autorais em Manaus — do traço à obra entregue, com precisão técnica e sensibilidade estética." />
+  <meta property="og:url" content="https://www.example.com/" />
+  <!-- ⚠ Imagem social: assets/logo.jpg é um placeholder temporário (é o logo, não um card social). Recomenda-se criar uma imagem dedicada 1200x630px em assets/og-image.jpg e trocar a referência abaixo. -->
+  <meta property="og:image" content="https://www.example.com/assets/logo.jpg" />
+  <meta property="og:image:width" content="828" />
+  <meta property="og:image:height" content="828" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nasser & Coutinho — Arquitetura" />
+  <meta name="twitter:description" content="Projetos arquitetônicos autorais em Manaus — do traço à obra entregue, com precisão técnica e sensibilidade estética." />
+  <meta name="twitter:image" content="https://www.example.com/assets/logo.jpg" />
+
+  <!-- Tipografia elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- JSON-LD — LocalBusiness / ProfessionalService.
+       ⚠ Campos marcados [PREENCHER] são placeholders explícitos: não há dado real
+       confirmado no projeto para eles. Telefone reaproveita o número de WhatsApp
+       já publicado nesta página (não é invenção). Preencher e remover os
+       colchetes antes de publicar. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Nasser & Coutinho Arquitetura",
+    "description": "Projetos arquitetônicos residenciais, comerciais, industriais e institucionais. Construção, reformas e manutenção predial.",
+    "url": "https://www.example.com/",
+    "image": "https://www.example.com/assets/logo.jpg",
+    "telephone": "+55 92 98159-3615",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[PREENCHER: endereço completo]",
+      "addressLocality": "Manaus",
+      "addressRegion": "AM",
+      "postalCode": "[PREENCHER: CEP]",
+      "addressCountry": "BR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "[PREENCHER]",
+      "longitude": "[PREENCHER]"
+    },
+    "taxID": "[PREENCHER: CNPJ]",
+    "sameAs": [
+      "https://instagram.com/nassercoutinhoarquitetura",
+      "https://wa.me/5592981593615"
+    ]
+  }
+  </script>
+  <noscript>
+    <style>
+      /* Sem JavaScript: nunca deixe o splash cobrir a página */
+      #splash { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .nav__brand .monogram--sm, .nav__brandtext { opacity: 1 !important; }
+    </style>
+  </noscript>
+</head>
+<body>
+
+  <!-- ============ SPLASH SCREEN ============ -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__logo" id="splashLogo">
+      <div class="monogram monogram--lg">
+        <span class="mono-n" id="monoN">N</span>
+        <span class="mono-c" id="monoC">C</span>
+      </div>
+      <div class="wordmark">
+        <span class="wordmark__word" style="--i:0">NASSER</span>
+        <span class="wordmark__amp" style="--i:1">&amp;</span>
+        <span class="wordmark__word" style="--i:2">COUTINHO</span>
+      </div>
+      <div class="subwordmark">
+        <span class="rule"></span>
+        <span class="subwordmark__text">ARQUITETURA</span>
+        <span class="rule"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top" aria-label="Início">
+      <div class="monogram monogram--sm" id="navLogo">
+        <span class="mono-n">N</span>
+        <span class="mono-c">C</span>
+      </div>
+      <div class="nav__brandtext">
+        <span class="nav__name">NASSER &amp; COUTINHO</span>
+        <span class="nav__sub">ARQUITETURA</span>
+      </div>
+    </a>
+
+    <nav class="nav__links" id="navLinks">
+      <a href="#equipe">Equipe</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <a class="nav__cta" href="https://wa.me/5592981593615" target="_blank" rel="noopener">Fale conosco</a>
+
+    <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  </header>
+
+  <!-- ============ CONTEÚDO ============ -->
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- ---------- HERO / BANNER ---------- -->
+    <section class="hero">
+      <div class="hero__media">
+        <!-- ⚠ poster="assets/logo.jpg" é um placeholder temporário (o logo, não um frame do vídeo).
+             Ideal: extrair um frame real do vídeo para um JPEG de ~1920px de largura.
+             Sem autoplay no HTML de propósito — script.js decide se reproduz, conforme
+             tela/conexão (ver seção "HERO VIDEO" em script.js). -->
+        <video class="hero__video" muted loop playsinline preload="metadata" poster="assets/logo.jpg">
+          <source src="assets/banner.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__tint"></div>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow reveal">Arquitetura • Engenharia • Construção</p>
+        <h1 class="hero__title">
+          <span class="reveal" style="--d:.1s">Espaços que</span>
+          <span class="reveal hero__title--accent" style="--d:.25s">traduzem essência</span>
+        </h1>
+        <p class="hero__lead reveal" style="--d:.4s">
+          Projetos arquitetônicos autorais em Manaus — do traço à obra entregue,
+          com precisão técnica e sensibilidade estética.
+        </p>
+        <div class="hero__actions reveal" style="--d:.55s">
+          <a href="#equipe" class="btn btn--solid">Conheça a equipe</a>
+          <a href="#servicos" class="btn btn--ghost">Nossos serviços</a>
+        </div>
+      </div>
+
+      <a href="#equipe" class="hero__scroll" aria-label="Rolar">
+        <span>rolar</span>
+        <span class="hero__scroll-line"></span>
+      </a>
+    </section>
+
+    <!-- ---------- EQUIPE / PROFISSIONAIS ---------- -->
+    <section class="team" id="equipe">
+      <div class="section-head reveal">
+        <span class="section-head__kicker">Quem assina cada projeto</span>
+        <h2 class="section-head__title">Nossa Equipe</h2>
+        <p class="section-head__desc">
+          Dois arquitetos e um engenheiro civil unindo visão criativa e
+          rigor técnico em cada metro construído.
+        </p>
+      </div>
+
+      <!--
+        PENDÊNCIA DE CONTEÚDO — dados reais da equipe ainda não fornecidos.
+        Nomes, cargos e fotos abaixo são placeholders temporários (sem dados inventados).
+        Para publicar a foto real de um membro quando disponível:
+          1. Salvar a imagem em assets/equipe/ (ex.: assets/equipe/nome-sobrenome.jpg)
+          2. Dentro de .member__photo, adicionar:
+             <img src="assets/equipe/nome-sobrenome.jpg" alt="Nome Sobrenome" />
+          3. Remover o <span class="member__placeholder"> e o atributo data-photo-pending
+          4. Substituir o texto de .member__name pelo nome real
+      -->
+      <div class="team__grid">
+        <article class="member reveal" style="--d:.05s">
+          <div class="member__photo" data-photo-pending="true">
+            <div class="member__frame"></div>
+            <span class="member__placeholder">Foto em breve</span>
+          </div>
+          <h3 class="member__name">Nome do Arquiteto <!-- PENDENTE: substituir pelo nome real --></h3>
+          <p class="member__role">Arquiteto &amp; Urbanista</p>
+          <span class="member__line"></span>
+        </article>
+
+        <article class="member member--center reveal" style="--d:.18s">
+          <div class="member__photo" data-photo-pending="true">
+            <div class="member__frame"></div>
+            <span class="member__placeholder">Foto em breve</span>
+          </div>
+          <h3 class="member__name">Nome da Arquiteta <!-- PENDENTE: substituir pelo nome real --></h3>
+          <p class="member__role">Arquiteta &amp; Urbanista</p>
+          <span class="member__line"></span>
+        </article>
+
+        <article class="member reveal" style="--d:.31s">
+          <div class="member__photo" data-photo-pending="true">
+            <div class="member__frame"></div>
+            <span class="member__placeholder">Foto em breve</span>
+          </div>
+          <h3 class="member__name">Nome do Engenheiro <!-- PENDENTE: substituir pelo nome real --></h3>
+          <p class="member__role">Engenheiro Civil</p>
+          <span class="member__line"></span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ---------- SERVIÇOS ---------- -->
+    <section class="services" id="servicos">
+      <div class="section-head section-head--light reveal">
+        <span class="section-head__kicker">O que fazemos</span>
+        <h2 class="section-head__title">Serviços</h2>
+      </div>
+
+      <ul class="services__list">
+        <li class="service reveal" style="--d:.05s"><span class="service__num">01</span><span class="service__name">Residencial</span></li>
+        <li class="service reveal" style="--d:.1s"><span class="service__num">02</span><span class="service__name">Comercial</span></li>
+        <li class="service reveal" style="--d:.15s"><span class="service__num">03</span><span class="service__name">Industrial</span></li>
+        <li class="service reveal" style="--d:.2s"><span class="service__num">04</span><span class="service__name">Institucional</span></li>
+        <li class="service reveal" style="--d:.25s"><span class="service__num">05</span><span class="service__name">Construção</span></li>
+        <li class="service reveal" style="--d:.3s"><span class="service__num">06</span><span class="service__name">Reformas</span></li>
+        <li class="service reveal" style="--d:.35s"><span class="service__num">07</span><span class="service__name">Manutenção Predial</span></li>
+      </ul>
+    </section>
+
+    <!-- ---------- SOBRE ---------- -->
+    <section class="about" id="sobre">
+      <div class="about__inner">
+        <div class="about__logo reveal">
+          <img src="assets/logo.jpg" alt="Nasser & Coutinho Arquitetura" />
+        </div>
+        <div class="about__text">
+          <span class="section-head__kicker reveal">Nossa essência</span>
+          <h2 class="about__title reveal" style="--d:.1s">Do conceito abstrato à forma habitável.</h2>
+          <p class="reveal" style="--d:.2s">
+            Na Nasser &amp; Coutinho, cada linha nasce de uma escuta atenta. Traduzimos
+            desejos, rotinas e territórios em arquitetura atemporal — minimalista na
+            forma, generosa na experiência.
+          </p>
+          <p class="reveal" style="--d:.3s">
+            Assinamos o processo por inteiro: concepção, projeto executivo,
+            acompanhamento de obra e entrega. Uma única equipe, do primeiro esboço
+            à chave na porta.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- CONTATO ---------- -->
+    <section class="contact" id="contato">
+      <div class="contact__inner reveal">
+        <span class="section-head__kicker">Vamos conversar</span>
+        <h2 class="contact__title">Seu próximo projeto<br />começa por aqui.</h2>
+        <a href="https://wa.me/5592981593615" target="_blank" rel="noopener" class="btn btn--solid btn--lg">Falar no WhatsApp</a>
+        <a href="https://instagram.com/nassercoutinhoarquitetura" target="_blank" rel="noopener" class="contact__ig">@nassercoutinhoarquitetura</a>
+      </div>
+    </section>
+
+    <!-- ---------- FOOTER ---------- -->
+    <footer class="footer">
+      <div class="monogram monogram--sm footer__logo">
+        <span class="mono-n">N</span>
+        <span class="mono-c">C</span>
+      </div>
+      <p class="footer__name">NASSER &amp; COUTINHO ARQUITETURA</p>
+      <p class="footer__copy">© 2026 · Manaus, AM · Todos os direitos reservados</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

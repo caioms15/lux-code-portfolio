@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financeiro — Área do Aluno | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="aluno" data-pagina="financeiro" data-titulo="Financeiro" data-subtitulo="Suas mensalidades da Turma 2026">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+
+      <div class="grid grid-3" style="margin-bottom:24px">
+        <div class="card metrica"><span class="rotulo">Mensalidade</span><span class="valor" id="m-valor"></span></div>
+        <div class="card metrica"><span class="rotulo">Parcelas pagas</span><span class="valor" id="m-pagas"></span></div>
+        <div class="card metrica"><span class="rotulo">Em aberto</span><span class="valor alerta" id="m-aberto"></span></div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-titulo">Suas parcelas</h3>
+        <p class="card-sub">Turma 2026 — 12 parcelas</p>
+        <table class="tabela">
+          <thead>
+            <tr><th>Mês</th><th>Vencimento</th><th>Valor</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="parcelas"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal Pix -->
+  <div class="modal-overlay" id="modal-pix">
+    <div class="modal" style="text-align:center">
+      <button class="modal-fechar" onclick="fecharModal('modal-pix')">&times;</button>
+      <h3 class="modal-titulo">Pagar com Pix</h3>
+      <p class="modal-sub" id="pix-sub"></p>
+      <div id="pix-qr-area"></div>
+      <div class="pix-chave">
+        <code id="pix-chave"></code>
+        <button class="btn btn-secondary btn-sm" onclick="copiarPix()">Copiar</button>
+      </div>
+      <p style="font-size:0.8rem;color:var(--cinza-texto);margin-top:14px">Após o pagamento, a confirmação aparece em até 1 hora.</p>
+    </div>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    const pagas = DADOS.parcelas.filter(p => p.status === "paga").length;
+    const aberto = DADOS.parcelas.filter(p => p.status === "aberta").length;
+    document.getElementById("m-valor").textContent = formatarBRL(DADOS.mensalidade);
+    document.getElementById("m-pagas").textContent = pagas + "/12";
+    document.getElementById("m-aberto").textContent = formatarBRL(aberto * DADOS.mensalidade);
+
+    const CHIP = { paga: ["chip-ok", "Paga"], aberta: ["chip-aberto", "Em aberto"], futura: ["chip-neutro", "A vencer"] };
+    document.getElementById("parcelas").innerHTML = DADOS.parcelas.map((p, i) => {
+      const [cls, rot] = CHIP[p.status];
+      const acao = p.status === "aberta"
+        ? `<button class="btn btn-accent btn-sm" onclick="abrirPix(${i})">Pagar com Pix</button>`
+        : (p.status === "paga" ? `<span style="font-size:0.8rem;color:var(--cinza-texto)">pago em ${p.pagoEm}</span>` : "");
+      return `<tr>
+        <td style="font-weight:600">${p.mes}</td>
+        <td>${p.vencimento}</td>
+        <td>${formatarBRL(p.valor)}</td>
+        <td><span class="chip ${cls}">${rot}</span></td>
+        <td style="text-align:right">${acao}</td>
+      </tr>`;
+    }).join("");
+
+    function abrirPix(i) {
+      const p = DADOS.parcelas[i];
+      document.getElementById("pix-sub").textContent = p.mes + " — " + formatarBRL(p.valor);
+      document.getElementById("pix-chave").textContent = DADOS.pixChave;
+      document.getElementById("pix-qr-area").innerHTML = qrFake();
+      abrirModal("modal-pix");
+    }
+    function copiarPix() {
+      const txt = DADOS.pixChave;
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(() => {});
+      mostrarToast("Código Pix copiado!", "ok");
+    }
+
+    // QR fake determinístico (grid pseudo-aleatório, sem lib)
+    function qrFake() {
+      const n = 21, cell = 8, quiet = 8, size = n * cell + quiet * 2;
+      let rects = "";
+      let seed = 7;
+      const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+      const finder = (ox, oy) => {
+        let s = "";
+        for (let y = 0; y < 7; y++) for (let x = 0; x < 7; x++) {
+          const borda = x === 0 || x === 6 || y === 0 || y === 6;
+          const miolo = x >= 2 && x <= 4 && y >= 2 && y <= 4;
+          if (borda || miolo) s += `<rect x="${quiet + (ox + x) * cell}" y="${quiet + (oy + y) * cell}" width="${cell}" height="${cell}"/>`;
+        }
+        return s;
+      };
+      for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+        const inFinder = (x < 8 && y < 8) || (x > 12 && y < 8) || (x < 8 && y > 12);
+        if (inFinder) continue;
+        if (rnd() > 0.52) rects += `<rect x="${quiet + x * cell}" y="${quiet + y * cell}" width="${cell}" height="${cell}"/>`;
+      }
+      rects += finder(0, 0) + finder(14, 0) + finder(0, 14);
+      return `<svg class="pix-qr" viewBox="0 0 ${size} ${size}"><rect width="${size}" height="${size}" fill="#fff"/><g fill="var(--grafite)">${rects}</g></svg>`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Professor — Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="admin" data-pagina="dashboard" data-titulo="Painel do Professor" data-subtitulo="Visão geral da turma e da fila de correção">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+
+      <!-- Métricas -->
+      <div class="grid grid-4" id="metricas" style="margin-bottom:24px"></div>
+
+      <!-- Fila de correção -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <h3 class="card-titulo">Fila de correção</h3>
+            <p class="card-sub">Redações aguardando sua correção</p>
+          </div>
+          <a href="correcao.html" class="btn btn-accent">Começar a corrigir</a>
+        </div>
+        <table class="tabela" style="margin-top:12px">
+          <thead><tr><th>Aluno</th><th>Turma</th><th>Tema</th><th>Recebida em</th><th>Prioridade</th><th></th></tr></thead>
+          <tbody id="fila"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    document.getElementById("metricas").innerHTML = DADOS.metricasAdmin.map(m => `
+      <div class="card metrica">
+        <span class="valor ${m.alerta ? "alerta" : ""}">${m.valor}</span>
+        <span class="rotulo">${m.rotulo}</span>
+      </div>`).join("");
+
+    const PRIO = { alta: ["chip-aberto", "Alta"], normal: ["chip-aguardando", "Normal"], baixa: ["chip-neutro", "Baixa"] };
+    document.getElementById("fila").innerHTML = DADOS.filaCorrecao.map((f, i) => {
+      const [cls, rot] = PRIO[f.prioridade];
+      const acao = i === 0
+        ? `<a href="correcao.html" class="btn btn-secondary btn-sm">Corrigir</a>`
+        : `<span style="font-size:0.8rem;color:var(--cinza-texto)">na fila</span>`;
+      return `<tr>
+        <td style="font-weight:600">${f.aluno}</td>
+        <td>${f.turma}</td>
+        <td>${f.tema}</td>
+        <td>${f.recebidaEm}</td>
+        <td><span class="chip ${cls}">${rot}</span></td>
+        <td style="text-align:right">${acao}</td>
+      </tr>`;
+    }).join("");
+  </script>
+</body>
+</html>

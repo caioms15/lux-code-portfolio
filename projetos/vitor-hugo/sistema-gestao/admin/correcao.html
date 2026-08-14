@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correção — Painel do Professor | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="admin" data-pagina="correcao" data-titulo="Corrigir redação" data-subtitulo="Marque a folha e atribua as notas por competência">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina pagina-larga">
+
+      <div style="margin-bottom:16px">
+        <span class="chip chip-aguardando" id="aluno-chip"></span>
+        <span style="color:var(--cinza-texto);font-size:0.9rem;margin-left:8px" id="tema-chip"></span>
+      </div>
+
+      <div class="grid grid-correcao">
+        <!-- Folha + ferramentas -->
+        <div class="card">
+          <h3 class="card-titulo">Folha do aluno</h3>
+          <p class="card-sub">Selecione uma ferramenta e marque diretamente sobre o texto</p>
+
+          <div class="toolbar" id="toolbar">
+            <button class="ferramenta ativa" data-f="caneta" onclick="selFerramenta(this)"><span id="ic-caneta"></span> Caneta</button>
+            <button class="ferramenta" data-f="marcatexto" onclick="selFerramenta(this)"><span id="ic-marca"></span> Marca-texto</button>
+            <button class="ferramenta" data-f="sublinhar" onclick="selFerramenta(this)"><span id="ic-sub"></span> Sublinhar</button>
+            <button class="ferramenta" data-f="comentario" onclick="selFerramenta(this)"><span id="ic-com"></span> Comentário</button>
+          </div>
+
+          <div id="folha"></div>
+          <p style="font-size:0.8rem;color:var(--cinza-texto);margin-top:10px">As marcações abaixo já foram feitas nesta folha. Passe o mouse nos números para ver o comentário.</p>
+        </div>
+
+        <!-- Notas por competência -->
+        <div>
+          <div class="card">
+            <h3 class="card-titulo">Notas por competência</h3>
+            <p class="card-sub">Arraste para ajustar (0 a 200)</p>
+            <div id="sliders"></div>
+            <div class="nota-final" style="margin-top:8px">
+              <div class="num" id="nota-total"></div>
+              <div class="leg">Nota final</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-titulo">Comentário geral</h3>
+            <textarea id="coment-geral" style="width:100%;min-height:96px;border:1.5px solid var(--borda);border-radius:10px;padding:12px;font-family:var(--fonte-corpo);font-size:0.9rem;resize:vertical"></textarea>
+            <button class="btn btn-accent btn-block" style="margin-top:14px" onclick="concluir()">Concluir correção e enviar ao aluno</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script src="../js/folha.js"></script>
+  <script>
+    const envio = DADOS.envios[0];
+    const aluno = DADOS.filaCorrecao[0];
+    document.getElementById("aluno-chip").textContent = aluno.aluno;
+    document.getElementById("tema-chip").textContent = envio.tema;
+    document.getElementById("ic-caneta").innerHTML = IC.caneta;
+    document.getElementById("ic-marca").innerHTML = IC.marcatexto;
+    document.getElementById("ic-sub").innerHTML = IC.sublinhar;
+    document.getElementById("ic-com").innerHTML = IC.comentario;
+    document.getElementById("coment-geral").value = DADOS.folha.resumoProfessor;
+
+    // Folha (mesmas marcações do aluno)
+    renderFolha(document.getElementById("folha"), DADOS.folha, "../../assets/media/sistema/");
+
+    // Ferramenta ativa (só aparência funcional — não desenha)
+    function selFerramenta(btn) {
+      document.querySelectorAll(".ferramenta").forEach(f => { f.classList.remove("ativa"); f.setAttribute("aria-pressed", "false"); });
+      btn.classList.add("ativa"); btn.setAttribute("aria-pressed", "true");
+      document.getElementById("folha-wrap").classList.add("editando");
+    }
+
+    // Sliders de nota com soma ao vivo
+    const comp = DADOS.competencias;
+    document.getElementById("sliders").innerHTML = comp.map(c => {
+      const v = envio.competencias[c.id];
+      return `<div class="slider-nota">
+        <div class="topo"><span class="rot">${c.rotulo} · ${c.nome}</span><span class="val" id="val-${c.id}">${v}</span></div>
+        <input type="range" min="0" max="200" step="20" value="${v}" data-c="${c.id}" oninput="atualizarNota()">
+      </div>`;
+    }).join("");
+
+    function atualizarNota() {
+      let total = 0;
+      document.querySelectorAll('#sliders input[type="range"]').forEach(inp => {
+        const v = parseInt(inp.value, 10);
+        document.getElementById("val-" + inp.dataset.c).textContent = v;
+        total += v;
+      });
+      document.getElementById("nota-total").textContent = total;
+    }
+    atualizarNota();
+
+    function concluir() {
+      mostrarToast("Correção enviada para " + aluno.aluno.split(" ")[0] + "!", "ok");
+    }
+  </script>
+</body>
+</html>

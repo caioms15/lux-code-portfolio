@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BRASA 66 — Hamburgueria Artesanal</title>
+<!-- primeiro quadro da montagem: adianta o que o banner desenha antes de tudo -->
+<link rel="preload" href="assets/quadros/g/q001.webp" as="image" media="(min-width:560px)" />
+<link rel="preload" href="assets/quadros/p/q001.webp" as="image" media="(max-width:559px)" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 210 56">
+      <!-- selo -->
+      <circle cx="28" cy="28" r="27" fill="#d4260f"/>
+      <circle cx="28" cy="28" r="22.5" fill="none" stroke="#ffc01f" stroke-width="1.2"/>
+      <g fill="#fff1dc">
+        <path d="M28 10c2.6 2.3.9 4.1 2.1 5.5 1 1.1 2.6.4 2.4-1.6 1.7 1.7 2.4 3.8 1.4 5.5-1.1 2.2-4.3 2.7-6.4 1.3-2.3-1.5-2.6-4.8-1.4-6.9.5-1 1.4-1.8 1.9-3.8Z"/>
+        <path d="M19.5 27.4c0-2.7 3.8-4.2 8.5-4.2s8.5 1.5 8.5 4.2h-17Z"/>
+        <rect x="19" y="28.6" width="18" height="2.4" rx="1.2"/>
+        <path d="M19.5 32.4h17c0 2.4-3.4 3.8-8.5 3.8s-8.5-1.4-8.5-3.8Z"/>
+      </g>
+      <text x="28" y="45.5" text-anchor="middle" font-family="Georgia,serif" font-size="9"
+            font-weight="700" letter-spacing="1.4" fill="#ffc01f">1966</text>
+      <!-- assinatura -->
+      <text x="66" y="26" font-family="Georgia,serif" font-size="23" font-weight="700"
+            letter-spacing="3.4" fill="currentColor">BRASA</text>
+      <rect x="66" y="31" width="137" height="1.4" fill="#ffc01f"/>
+      <text x="66" y="43" font-family="Segoe UI,sans-serif" font-size="6.2"
+            font-weight="700" letter-spacing="2.4" fill="#d4260f">HAMBURGUERIA ARTESANAL</text>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="nav__topo">
+    <span>Ter a dom · Rua da Brasa, 66 — Vila Madalena</span>
+    <span>Chapa acesa até 00h · <a href="tel:+551140028966">(11) 4002-8966</a></span>
+  </div>
+  <div class="nav__bar">
+    <a class="nav__logo" href="#top" aria-label="BRASA 66, início">
+      <svg viewBox="0 0 210 56"><use href="#logo"/></svg>
+    </a>
+
+    <nav class="nav__links">
+      <div class="nav__item"><a href="#ingredientes">Ingredientes</a></div>
+
+      <div class="nav__item nav__item--drop">
+        <a href="#menu">Menu <i class="seta"></i></a>
+        <div class="drop">
+          <p class="drop__titulo">Assinaturas da casa</p>
+          <a href="#menu"><span>Brasa Dupla</span><b>R$ 46</b></a>
+          <a href="#menu"><span>Bacon Bomba</span><b>R$ 49</b></a>
+          <a href="#menu"><span>Clássico 66</span><b>R$ 39</b></a>
+          <a href="#menu"><span>Cheddar Vulcão</span><b>R$ 52</b></a>
+          <a href="#menu"><span>Brioche Defumado</span><b>R$ 47</b></a>
+          <a href="#menu"><span>Onyx Negro</span><b>R$ 54</b></a>
+          <p class="drop__pe">Acompanhamentos a partir de R$ 19</p>
+        </div>
+      </div>
+
+      <div class="nav__item"><a href="#casa">A Casa</a></div>
+      <div class="nav__item"><a href="#visita">Visita</a></div>
+    </nav>
+
+    <a href="#visita" class="btn btn--vermelho nav__cta">Reservar mesa</a>
+  </div>
+</header>
+
+<!-- ============ BANNER: o scroll comanda o vídeo do hambúrguer ============ -->
+<section id="top" class="hero" aria-label="Banner">
+  <div class="hero__sticky">
+    <div class="hero__grid">
+      <div class="hero__text" id="heroTexto">
+        <p class="eyebrow eyebrow--brasa">Desde 1966 · Vila Madalena, São Paulo</p>
+        <h1>Aberto<br/><em>por dentro.</em></h1>
+        <div class="hero__captions">
+          <p class="cap is-on">É assim que ele chega à mesa: 200 g de blend selado na
+             brasa, cheddar derretido na chapa e bacon crocante entre dois pães brioche
+             assados aqui mesmo.</p>
+          <p class="cap">Role e ele se abre. Cada camada sai do lugar para você conferir,
+             uma a uma, o que existe entre o pão de cima e o de baixo.</p>
+          <p class="cap">Seis camadas, nenhuma escondida: pão da casa, bacon defumado 12 h,
+             cheddar de 12 meses, blend moído na hora, tomate italiano e alface do dia.
+             Nada congelado, nunca.</p>
+        </div>
+        <div class="hero__actions">
+          <a href="#menu" class="btn btn--brasa btn--lg">Ver o menu</a>
+          <a href="#visita" class="btn btn--linha btn--lg">Como chegar</a>
+        </div>
+        <dl class="hero__fatos">
+          <div><dt>200 g</dt><dd>de blend</dd></div>
+          <div><dt>260 °C</dt><dd>na chapa</dd></div>
+          <div><dt>9 min</dt><dd>até a mesa</dd></div>
+          <div><dt>0</dt><dd>congelados</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="painel">
+      <p class="painel__rotulo">O Clássico 66 · montagem</p>
+      <p class="painel__estado" id="estado">montado</p>
+      <div class="palco" id="palco">
+        <canvas id="tela" width="704" height="704" role="img"
+                aria-label="Hambúrguer que se desmonta camada a camada conforme a página desce"></canvas>
+      </div>
+      <p class="painel__carga" id="carga">0%</p>
+    </div>
+
+    <div class="hero__hint" id="hint"><span></span>role para abrir</div>
+    <div class="hero__progress"><i id="bar"></i></div>
+  </div>
+</section>
+
+<!-- ============ INGREDIENTES ============ -->
+<section id="ingredientes" class="bloco bloco--amarelo">
+  <header class="ingr__topo reveal">
+    <div>
+      <p class="eyebrow eyebrow--vermelho">Ingredientes</p>
+      <h2 class="h2">Nada congelado.<br/>Nunca foi, nunca vai ser.</h2>
+    </div>
+    <div class="ingr__texto">
+      <p class="lede">Cada camada que você viu fechar tem nome, origem e hora certa.
+         A carne é moída no início do turno, o pão sai do forno da casa e o hortifruti
+         chega de manhã — o que não é usado no dia não vira amanhã.</p>
+      <div class="selos">
+        <div class="selo"><b>Moída na hora</b><span>Duas vezes ao dia</span></div>
+        <div class="selo"><b>Pão da casa</b><span>Forno próprio, 6h</span></div>
+        <div class="selo"><b>Zero freezer</b><span>Nada congelado</span></div>
+        <div class="selo"><b>Hortifruti do dia</b><span>Direto do produtor</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabela reveal">
+    <div class="tabela__cab">
+      <span>Camada</span><span>O que é</span><span>Procedência</span>
+    </div>
+
+    <div class="linha">
+      <b class="linha__n">01</b>
+      <i class="linha__foto" style="background-image:url(assets/l-pao-topo.jpg);background-size:265%;background-position:50% 30%"></i>
+      <h3>Pão brioche</h3>
+      <p>Longa fermentação, gema e manteiga de verdade. Sai do forno todo dia às 6h e é selado na chapa antes de montar.</p>
+      <span class="linha__meta">Forno próprio</span>
+    </div>
+
+    <div class="linha">
+      <b class="linha__n">02</b>
+      <i class="linha__foto" style="background-image:url(assets/l-bacon.jpg);background-size:170%;background-position:50% 50%"></i>
+      <h3>Bacon defumado</h3>
+      <p>Barriga suína curada com sal grosso e defumada 12 horas em lenha de macieira, aqui mesmo na casa.</p>
+      <span class="linha__meta">Defumado na casa</span>
+    </div>
+
+    <div class="linha">
+      <b class="linha__n">03</b>
+      <i class="linha__foto" style="background-image:url(assets/l-queijo.jpg);background-size:240%;background-position:42% 62%;filter:saturate(1.8)"></i>
+      <h3>Cheddar maturado</h3>
+      <p>Doze meses de cura, cortado em fatia grossa na hora. Vai sobre a carne ainda na chapa, para derreter no ponto.</p>
+      <span class="linha__meta">12 meses de cura</span>
+    </div>
+
+    <div class="linha">
+      <b class="linha__n">04</b>
+      <i class="linha__foto" style="background-image:url(assets/l-carne.jpg);background-size:330%;background-position:22% 32%;filter:brightness(1.32) saturate(1.2)"></i>
+      <h3>Blend 200 g</h3>
+      <p>Costela, peito e acém em moagem grossa, feita no início de cada turno. Sela na brasa a 260 °C em três minutos.</p>
+      <span class="linha__meta">Moído no dia</span>
+    </div>
+
+    <div class="linha">
+      <b class="linha__n">05</b>
+      <i class="linha__foto" style="background-image:url(assets/l-tomate.jpg);background-size:210%;background-position:50% 46%"></i>
+      <h3>Tomate italiano</h3>
+      <p>Fatiado em 4 mm só quando o pedido entra, para não soltar água no pão nem perder o suco na chapa quente.</p>
+      <span class="linha__meta">Fatiado no pedido</span>
+    </div>
+
+    <div class="linha">
+      <b class="linha__n">06</b>
+      <i class="linha__foto" style="background-image:url(assets/l-alface.jpg);background-size:125%;background-position:50% 50%"></i>
+      <h3>Alface e cebola roxa</h3>
+      <p>Colhidas na véspera pelo produtor, lavadas três vezes e mantidas geladas até o momento exato de montar.</p>
+      <span class="linha__meta">Entrega diária</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section id="menu" class="bloco bloco--vermelho menu">
+  <header class="menu__head reveal">
+    <p class="eyebrow eyebrow--amarelo">Assinaturas</p>
+    <h2 class="h2 h2--claro">Seis motivos<br/>para vir hoje.</h2>
+    <p class="hintline">Passe o mouse em cada hambúrguer — ele muda de ângulo e abre a ficha.</p>
+  </header>
+
+  <div class="grid reveal">
+    <article class="item">
+      <div class="item__shot">
+        <img class="shot shot--a" src="assets/m1a.jpg" alt="Brasa Dupla visto de frente" loading="lazy"/>
+        <img class="shot shot--b" src="assets/m1b.jpg" alt="Brasa Dupla em outro ângulo" loading="lazy"/>
+        <span class="tag tag--amarelo">Mais pedido</span>
+        <div class="ficha">
+          <ul><li>2 × blend 100 g</li><li>Cheddar duplo</li><li>Cebola caramelizada</li></ul>
+          <span class="ficha__cta">Pedir agora</span>
+        </div>
+      </div>
+      <div class="item__row"><h3>Brasa Dupla</h3><span class="price">R$ 46</span></div>
+      <p>Dois blends de 100 g, cheddar duplo derretido na chapa, cebola caramelizada e molho da brasa.</p>
+    </article>
+
+    <article class="item">
+      <div class="item__shot">
+        <img class="shot shot--a" src="assets/m2a.jpg" alt="Bacon Bomba visto de frente" loading="lazy"/>
+        <img class="shot shot--b" src="assets/m2b.jpg" alt="Bacon Bomba em outro ângulo" loading="lazy"/>
+        <div class="ficha">
+          <ul><li>Blend 200 g</li><li>4 fatias de bacon</li><li>Picles agridoce</li></ul>
+          <span class="ficha__cta">Pedir agora</span>
+        </div>
+      </div>
+      <div class="item__row"><h3>Bacon Bomba</h3><span class="price">R$ 49</span></div>
+      <p>Blend 200 g, quatro fatias de bacon defumado 12 h, cheddar e picles agridoce.</p>
+    </article>
+
+    <article class="item">
+      <div class="item__shot">
+        <img class="shot shot--a" src="assets/m3a.jpg" alt="Clássico 66 visto de frente" loading="lazy"/>
+        <img class="shot shot--b" src="assets/m3b.jpg" alt="Clássico 66 em outro ângulo" loading="lazy"/>
+        <span class="tag">O original</span>
+        <div class="ficha">
+          <ul><li>Blend 180 g</li><li>Alface e tomate</li><li>Maionese da casa</li></ul>
+          <span class="ficha__cta">Pedir agora</span>
+        </div>
+      </div>
+      <div class="item__row"><h3>Clássico 66</h3><span class="price">R$ 39</span></div>
+      <p>A receita de 1966: alface, tomate italiano, queijo, cebola roxa e maionese da casa.</p>
+    </article>
+
+    <article class="item">
+      <div class="item__shot">
+        <img class="shot shot--a" src="assets/m4a.jpg" alt="Cheddar Vulcão visto de frente" loading="lazy"/>
+        <img class="shot shot--b" src="assets/m4b.jpg" alt="Cheddar Vulcão em outro ângulo" loading="lazy"/>
+        <div class="ficha">
+          <ul><li>Duplo smash</li><li>Cheddar escorrendo</li><li>Pão prensado</li></ul>
+          <span class="ficha__cta">Pedir agora</span>
+        </div>
+      </div>
+      <div class="item__row"><h3>Cheddar Vulcão</h3><span class="price">R$ 52</span></div>
+      <p>Duplo smash prensado com cheddar maturado escorrendo pelas laterais. Guardanapo incluso.</p>
+    </article>
+
+    <article class="item">
+      <div class="item__shot">
+        <img class="shot shot--a shot--baixo" src="assets/m5a.jpg" alt="Brioche Defumado visto de frente" loading="lazy"/>
+        <img class="shot shot--b shot--baixo" src="assets/m5b.jpg" alt="Brioche Defumado em outro ângulo" loading="lazy"/>
+        <div class="ficha">
+          <ul><li>Costela 8 h na brasa</li><li>Queijo prato</li><li>Mix de folhas</li></ul>
+          <span class="ficha__cta">Pedir agora</span>
+        </div>
+      </div>
+      <div class="item__row"><h3>Brioche Defumado</h3><span class="price">R$ 47</span></div>
+      <p>Costela desfiada na brasa por 8 h, queijo prato e mix de folhas no brioche amanteigado.</p>
+    </article>
+
+    <article class="item">
+      <div class="item__shot">
+        <img class="shot shot--a" src="assets/m6a.jpg" alt="Onyx Negro visto de frente" loading="lazy"/>
+        <img class="shot shot--b" src="assets/m6b.jpg" alt="Onyx Negro em outro ângulo" loading="lazy"/>
+        <span class="tag tag--brasa">Edição limitada</span>
+        <div class="ficha">
+          <ul><li>Pão de carvão ativado</li><li>Queijo brie</li><li>Geleia de pimenta</li></ul>
+          <span class="ficha__cta">Pedir agora</span>
+        </div>
+      </div>
+      <div class="item__row"><h3>Onyx Negro</h3><span class="price">R$ 54</span></div>
+      <p>Pão negro de carvão ativado, blend defumado, queijo brie e geleia de pimenta.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ BRASA ============ -->
+<section class="brasa reveal">
+  <div class="brasa__bg"></div>
+  <div class="brasa__inner">
+    <h2 class="h2 h2--claro">260&nbsp;°C. Nem um grau<br/>a menos.</h2>
+    <div class="stats">
+      <div class="stat"><b>200 g</b><span>de blend em cada disco</span></div>
+      <div class="stat"><b>12 h</b><span>de defumação do bacon</span></div>
+      <div class="stat"><b>9 min</b><span>do pedido à sua mesa</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACOMPANHAMENTOS ============ -->
+<section class="bloco bloco--brasa sides">
+  <h2 class="h2 h2--claro h2--center reveal">Não vem sozinho.</h2>
+  <div class="grid grid--3 reveal">
+    <article class="side">
+      <div class="side__shot"><img src="assets/s-onion.jpg" alt="Anéis de cebola empanados" loading="lazy"/></div>
+      <div class="side__row"><h3>Anéis de cebola</h3><span class="price">R$ 24</span></div>
+      <p>Cebola em rodela grossa, empanada na hora na farinha de milho.</p>
+    </article>
+    <article class="side">
+      <div class="side__shot"><img src="assets/s-fritas.jpg" alt="Batatas fritas rústicas" loading="lazy" style="object-position:26% 78%"/></div>
+      <div class="side__row"><h3>Fritas rústicas</h3><span class="price">R$ 19</span></div>
+      <p>Batata com casca, fritura dupla e sal de ervas da casa.</p>
+    </article>
+    <article class="side">
+      <div class="side__shot"><img src="assets/s-shake.jpg" alt="Milkshake de cookies" loading="lazy"/></div>
+      <div class="side__row"><h3>Shake de cookies</h3><span class="price">R$ 22</span></div>
+      <p>Sorvete de baunilha batido com cookie triturado e calda quente.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ A CASA ============ -->
+<section id="casa" class="bloco bloco--laranja casa reveal">
+  <div class="casa__text">
+    <p class="eyebrow eyebrow--brasa">A Casa</p>
+    <h2 class="h2">Chapa acesa,<br/>neon ligado.</h2>
+    <p class="lede">Vinte e dois lugares, uma chapa de ferro fundido à vista e o cheiro que
+       chega antes do pedido. Sem reserva para grupos acima de seis — a fila também faz parte.</p>
+    <a href="#visita" class="btn btn--brasa btn--lg">Quero uma mesa</a>
+  </div>
+  <div class="casa__shots">
+    <img src="assets/amb-neon.jpg" alt="Salão da hamburgueria com letreiro de neon" loading="lazy"/>
+    <img src="assets/amb-sign.jpg" alt="Letreiro de neon em forma de hambúrguer" loading="lazy"/>
+  </div>
+</section>
+
+<!-- ============ VISITA ============ -->
+<section id="visita" class="bloco bloco--bege visita">
+  <h2 class="h2 h2--center reveal">Venha ver de perto.</h2>
+  <div class="cards reveal">
+    <div class="card">
+      <h3>Endereço</h3>
+      <p>Rua da Brasa, 66 — Vila Madalena<br/>São Paulo · SP</p>
+    </div>
+    <div class="card">
+      <h3>Horários</h3>
+      <p>Ter a qui · 18h – 23h<br/>Sex e sáb · 12h – 00h<br/>Dom · 12h – 22h</p>
+    </div>
+    <div class="card">
+      <h3>Reservas</h3>
+      <p>(11) 4002-8966<br/>ola@brasa66.com.br</p>
+    </div>
+  </div>
+  <a href="tel:+551140028966" class="btn btn--vermelho btn--xl reveal">Ligar e reservar agora</a>
+</section>
+
+<footer class="footer">
+  <a class="nav__logo footer__logo" href="#top"><svg viewBox="0 0 210 56"><use href="#logo"/></svg></a>
+  <p>BRASA 66 Hamburgueria Artesanal · Rua da Brasa, 66 · São Paulo</p>
+  <small>Site de visitação. Fotos ilustrativas.</small>
+</footer>
+
+<script src="assets/lib/gsap.min.js"></script>
+<script src="assets/lib/ScrollTrigger.min.js"></script>
+<script src="js/quadros.js"></script>
+<script src="js/hamburguer.js"></script>
+<script src="js/pagina.js"></script>
+</body>
+</html>

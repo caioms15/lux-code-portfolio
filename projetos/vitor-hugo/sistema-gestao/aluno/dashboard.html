@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início — Área do Aluno | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="aluno" data-pagina="dashboard" data-titulo="Início" data-subtitulo="Seu painel de redação">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+
+      <!-- Saudação + tema da semana -->
+      <div class="card" style="background:linear-gradient(120deg,var(--azul) 0%,var(--azul-profundo) 100%);color:#fff;border:none;margin-bottom:24px">
+        <p class="eyebrow" style="color:#ff8a4c" id="saudacao"></p>
+        <h2 style="font-size:1.5rem;margin-bottom:14px" id="tema-titulo"></h2>
+        <p style="color:#c4cdf3;margin-bottom:18px" id="tema-obs"></p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a href="redacao.html" class="btn btn-accent">Enviar minha redação</a>
+          <span style="color:#b9c4ef;font-size:0.88rem" id="tema-prazo"></span>
+        </div>
+      </div>
+
+      <div class="grid grid-3" style="margin-bottom:24px">
+        <!-- Última redação -->
+        <div class="card">
+          <p class="card-sub">Última redação corrigida</p>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-family:var(--fonte-titulo);font-weight:700;font-size:2.6rem;color:var(--azul);line-height:1" id="ultima-nota"></span>
+            <span style="color:var(--cinza-texto)">/ 1000</span>
+          </div>
+          <div style="margin-top:10px"><span class="chip chip-ok">Corrigida</span></div>
+          <a href="redacao.html" class="btn btn-secondary btn-sm" style="margin-top:14px">Ver espelho</a>
+        </div>
+
+        <!-- Melhor posição -->
+        <div class="card">
+          <p class="card-sub">Sua posição na turma</p>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span style="font-family:var(--fonte-titulo);font-weight:700;font-size:2.6rem;color:var(--laranja);line-height:1">3º</span>
+            <span style="color:var(--cinza-texto)">lugar</span>
+          </div>
+          <p style="font-size:0.84rem;color:var(--cinza-texto);margin-top:10px">Entre 47 alunos ativos neste mês.</p>
+          <a href="ranking.html" class="btn btn-secondary btn-sm" style="margin-top:14px">Ver ranking</a>
+        </div>
+
+        <!-- Frequência -->
+        <div class="card">
+          <p class="card-sub">Frequência nas aulas</p>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span style="font-family:var(--fonte-titulo);font-weight:700;font-size:2.6rem;color:var(--ok);line-height:1" id="freq-pct"></span>
+          </div>
+          <p style="font-size:0.84rem;color:var(--cinza-texto);margin-top:10px" id="freq-detalhe"></p>
+          <a href="relatorios.html" class="btn btn-secondary btn-sm" style="margin-top:14px">Ver relatórios</a>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Evolução -->
+        <div class="card">
+          <h3 class="card-titulo">Sua evolução</h3>
+          <p class="card-sub">Nota final das últimas 5 redações</p>
+          <div id="sparkline"></div>
+        </div>
+
+        <!-- Próximas aulas -->
+        <div class="card">
+          <h3 class="card-titulo">Próximas aulas</h3>
+          <p class="card-sub">Presencial — Cristal Tower, Adrianópolis</p>
+          <div class="lista-blocos" id="aulas"></div>
+        </div>
+      </div>
+
+      <!-- Avisos -->
+      <div class="card" style="margin-top:24px">
+        <h3 class="card-titulo">Avisos do professor</h3>
+        <div class="lista-blocos" id="avisos" style="margin-top:14px"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    const a = DADOS.alunoLogado;
+    const ultimo = DADOS.envios[0];
+    document.getElementById("saudacao").textContent = "Olá, " + a.primeiroNome + "!";
+    document.getElementById("tema-titulo").textContent = DADOS.temaDaSemana.titulo;
+    document.getElementById("tema-obs").textContent = DADOS.temaDaSemana.obs;
+    document.getElementById("tema-prazo").textContent = "Prazo: " + DADOS.temaDaSemana.prazo;
+    document.getElementById("ultima-nota").textContent = ultimo.notaFinal;
+    document.getElementById("freq-pct").textContent = DADOS.frequencia.percentual + "%";
+    document.getElementById("freq-detalhe").textContent = DADOS.frequencia.presencas + " de " + DADOS.frequencia.total + " aulas presentes.";
+
+    // Sparkline SVG (evolução das notas — mais antigo à esquerda)
+    (function () {
+      const notas = DADOS.envios.map(e => e.notaFinal).reverse();
+      const W = 460, H = 150, pad = 24;
+      const min = 700, max = 1000;
+      const x = i => pad + (i * (W - 2 * pad)) / (notas.length - 1);
+      const y = v => H - pad - ((v - min) / (max - min)) * (H - 2 * pad);
+      const pts = notas.map((v, i) => [x(i), y(v)]);
+      const linha = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+      const area = linha + ` L ${x(notas.length - 1).toFixed(1)} ${H - pad} L ${pad} ${H - pad} Z`;
+      const dots = pts.map((p, i) =>
+        `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#fff" stroke="var(--azul)" stroke-width="2.5"/>` +
+        `<text x="${p[0].toFixed(1)}" y="${(p[1] - 12).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--azul)" font-family="Poppins,sans-serif">${notas[i]}</text>`
+      ).join("");
+      document.getElementById("sparkline").innerHTML =
+        `<svg class="sparkline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+          <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="var(--azul-claro)" stop-opacity="0.28"/>
+            <stop offset="1" stop-color="var(--azul-claro)" stop-opacity="0"/>
+          </linearGradient></defs>
+          <path d="${area}" fill="url(#g)"/>
+          <path d="${linha}" fill="none" stroke="var(--azul)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          ${dots}
+        </svg>`;
+    })();
+
+    // Próximas aulas
+    document.getElementById("aulas").innerHTML = DADOS.proximasAulas.map(au => `
+      <div class="bloco-item">
+        <div class="ic">${IC.aula}</div>
+        <div class="corpo">
+          <div class="t">${au.dia}, ${au.data} — ${au.hora}</div>
+          <div class="d">${au.assunto}</div>
+        </div>
+      </div>`).join("");
+
+    // Avisos
+    document.getElementById("avisos").innerHTML = DADOS.avisos.map(av => `
+      <div class="bloco-item">
+        <div class="ic">${IC.aviso}</div>
+        <div class="corpo">
+          <div class="t">${av.data}</div>
+          <div class="d">${av.texto}</div>
+        </div>
+      </div>`).join("");
+  </script>
+</body>
+</html>

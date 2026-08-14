@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materiais — Área do Aluno | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="aluno" data-pagina="materiais" data-titulo="Materiais" data-subtitulo="Apostilas, guias e aulas gravadas">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+      <div class="card">
+        <h3 class="card-titulo">Biblioteca do curso</h3>
+        <p class="card-sub">Baixe os materiais liberados para a sua turma</p>
+        <div class="lista-blocos" id="materiais" style="margin-top:14px"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    document.getElementById("materiais").innerHTML = DADOS.materiais.map((m, i) => `
+      <div class="bloco-item">
+        <div class="ic">${m.tipo === "video" ? IC.video : IC.pdf}</div>
+        <div class="corpo">
+          <div class="t">${m.titulo}</div>
+          <div class="d">${m.meta}</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="baixar(${i})">${m.tipo === "video" ? "Assistir" : "Baixar"}</button>
+      </div>`).join("");
+
+    function baixar(i) {
+      const m = DADOS.materiais[i];
+      mostrarToast((m.tipo === "video" ? "Abrindo: " : "Download iniciado: ") + m.titulo, "info");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turmas — Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="admin" data-pagina="turmas" data-titulo="Turmas" data-subtitulo="Turmas, dias e horários exibidos no formulário de matrícula do site">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+
+      <div class="banner-leitura" id="bannerLeitura" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Somente o professor titular (Victor Hugo) pode editar as turmas. Seu acesso é de visualização.
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <h3 class="card-titulo">Turmas do site</h3>
+            <p class="card-sub">O que você salvar aqui aparece no formulário "Quero minha vaga" da landing page</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" id="acoesTurmas">
+            <button class="btn btn-secondary btn-sm" onclick="restaurarPadrao()">Restaurar padrão</button>
+            <button class="btn btn-accent btn-sm" onclick="abrirEdicao(null)">Nova turma</button>
+          </div>
+        </div>
+        <table class="tabela" style="margin-top:12px">
+          <thead><tr><th>Turma</th><th>Dias</th><th>Horário</th><th>Foco</th><th>Vagas</th><th></th></tr></thead>
+          <tbody id="listaTurmas"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal de edição -->
+  <div class="modal-overlay" id="modalTurma">
+    <div class="modal">
+      <button class="modal-fechar" onclick="fecharModal('modalTurma')">&times;</button>
+      <h3 class="modal-titulo" id="modalTurmaTitulo">Editar turma</h3>
+      <p class="modal-sub">Essas informações aparecem no formulário de matrícula do site.</p>
+      <div class="campo">
+        <label for="tNome">Nome da turma</label>
+        <input type="text" id="tNome" placeholder="Ex.: ENEM Intensivo — Manhã">
+      </div>
+      <div class="campo">
+        <label for="tDias">Dias de aula</label>
+        <input type="text" id="tDias" placeholder="Ex.: Seg, Qua e Sex">
+      </div>
+      <div class="campo">
+        <label for="tHorario">Horário</label>
+        <input type="text" id="tHorario" placeholder="Ex.: 08h — 11h30">
+      </div>
+      <div class="campo">
+        <label for="tFoco">Foco</label>
+        <input type="text" id="tFoco" placeholder="Ex.: ENEM">
+      </div>
+      <div class="campo">
+        <label for="tVagas">Situação das vagas</label>
+        <select id="tVagas">
+          <option value="abertas">Vagas abertas</option>
+          <option value="poucas">Últimas vagas</option>
+          <option value="esgotada">Turma cheia</option>
+        </select>
+      </div>
+      <button class="btn btn-accent btn-block" onclick="salvarEdicao()">Salvar turma</button>
+    </div>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/turmas.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    const sessao = obterSessaoProfessor();
+    const podeEditar = sessao.dono === true;
+    let turmas = obterTurmas();
+    let editandoId = null; // null = nova turma
+
+    const CHIP_VAGAS = { abertas: "chip-ok", poucas: "chip-aberto", esgotada: "chip-neutro" };
+
+    function renderTurmas() {
+      document.getElementById("listaTurmas").innerHTML = turmas.map((t) => {
+        const st = TURMAS_STATUS[t.vagas] || { rotulo: t.vagas };
+        const acoes = podeEditar
+          ? `<button class="btn btn-secondary btn-sm" onclick="abrirEdicao('${t.id}')">Editar</button>
+             <button class="btn btn-ghost btn-sm" onclick="excluirTurma('${t.id}')">Excluir</button>`
+          : "";
+        return `<tr>
+          <td style="font-weight:600">${t.nome}</td>
+          <td>${t.dias}</td>
+          <td>${t.horario}</td>
+          <td>${t.foco}</td>
+          <td><span class="chip ${CHIP_VAGAS[t.vagas] || "chip-neutro"}">${st.rotulo}</span></td>
+          <td style="text-align:right;white-space:nowrap">${acoes}</td>
+        </tr>`;
+      }).join("");
+    }
+
+    function abrirEdicao(id) {
+      editandoId = id;
+      const t = id ? turmas.find((x) => x.id === id) : { nome: "", dias: "", horario: "", foco: "", vagas: "abertas" };
+      document.getElementById("modalTurmaTitulo").textContent = id ? "Editar turma" : "Nova turma";
+      document.getElementById("tNome").value = t.nome;
+      document.getElementById("tDias").value = t.dias;
+      document.getElementById("tHorario").value = t.horario;
+      document.getElementById("tFoco").value = t.foco;
+      document.getElementById("tVagas").value = t.vagas;
+      abrirModal("modalTurma");
+    }
+
+    function salvarEdicao() {
+      const nome = document.getElementById("tNome").value.trim();
+      if (!nome) { mostrarToast("Dê um nome à turma.", "info"); return; }
+      const dados = {
+        nome,
+        dias: document.getElementById("tDias").value.trim(),
+        horario: document.getElementById("tHorario").value.trim(),
+        foco: document.getElementById("tFoco").value.trim(),
+        vagas: document.getElementById("tVagas").value,
+      };
+      if (editandoId) {
+        const i = turmas.findIndex((x) => x.id === editandoId);
+        turmas[i] = { ...turmas[i], ...dados };
+      } else {
+        const slug = nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "turma";
+        let id = slug, n = 2;
+        while (turmas.some((x) => x.id === id)) id = slug + "-" + n++;
+        turmas.push({ id, ...dados });
+      }
+      salvarTurmas(turmas);
+      renderTurmas();
+      fecharModal("modalTurma");
+      mostrarToast(editandoId ? "Turma atualizada. O site já reflete a mudança." : "Turma criada. Ela já aparece no site.");
+    }
+
+    function excluirTurma(id) {
+      turmas = turmas.filter((x) => x.id !== id);
+      salvarTurmas(turmas);
+      renderTurmas();
+      mostrarToast("Turma removida do formulário do site.");
+    }
+
+    function restaurarPadrao() {
+      restaurarTurmasPadrao();
+      turmas = obterTurmas();
+      renderTurmas();
+      mostrarToast("Turmas restauradas para o padrão.");
+    }
+
+    if (!podeEditar) {
+      document.getElementById("bannerLeitura").hidden = false;
+      document.getElementById("acoesTurmas").hidden = true;
+    }
+    renderTurmas();
+  </script>
+</body>
+</html>

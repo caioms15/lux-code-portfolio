@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Âmbar — Bar de Autor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0b; --bg2:#101012; --gold:#c9a227; --gold2:#e8cf8b;
+  --txt:#e9e6e0; --mut:#8a857e; --line:rgba(201,162,39,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--txt);font-family:Inter,sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:300}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---------- CURSOR ---------- */
+#cur,#curDot{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;mix-blend-mode:difference}
+#cur{width:34px;height:34px;border:1px solid var(--gold2);transition:width .25s,height .25s,background .25s}
+#curDot{width:4px;height:4px;background:var(--gold2)}
+#cur.big{width:70px;height:70px;background:rgba(201,162,39,.12)}
+.trail{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9998;filter:blur(1px)}
+@media(hover:none){body{cursor:auto}#cur,#curDot{display:none}}
+
+/* ---------- SPLASH ---------- */
+#splash{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:38px;transition:opacity .9s ease,visibility .9s}
+#splash.out{opacity:0;visibility:hidden}
+.scene{position:relative;width:260px;height:280px}
+/* garrafa — boca fica no ponto (150,120), acima da borda do copo */
+.bottle{position:absolute;left:150px;top:-30px;margin-left:-28px;width:56px;height:150px;
+  transform-origin:bottom center;animation:pour 4.4s ease-in-out infinite}
+.bottle .body{position:absolute;top:0;left:0;width:56px;height:100px;border-radius:16px 16px 6px 6px;
+  background:linear-gradient(100deg,#241d15,#4a3a22 42%,#1a1510);border:1px solid rgba(232,207,139,.22);
+  box-shadow:inset -8px 0 14px rgba(0,0,0,.5)}
+.bottle .body::after{content:"";position:absolute;top:30px;left:8px;width:40px;height:34px;
+  border:1px solid rgba(232,207,139,.35);border-radius:2px;background:rgba(232,207,139,.05)}
+.bottle .neck{position:absolute;top:96px;left:20px;width:16px;height:44px;border-radius:0 0 3px 3px;
+  background:linear-gradient(100deg,#241d15,#4a3a22 42%,#1a1510);border:1px solid rgba(232,207,139,.18);border-top:none}
+.bottle .cap{position:absolute;top:138px;left:17px;width:22px;height:9px;border-radius:0 0 3px 3px;background:var(--gold)}
+@keyframes pour{
+  0%{transform:translate(-130px,-110px) rotate(8deg);opacity:0}
+  10%{opacity:1}
+  26%,62%{transform:translate(0,0) rotate(36deg);opacity:1}
+  84%,100%{transform:translate(-130px,-110px) rotate(8deg);opacity:0}}
+/* jato */
+.stream{position:absolute;top:122px;left:148px;width:3px;height:0;border-radius:2px;
+  background:linear-gradient(180deg,rgba(232,207,139,.15),var(--gold2));animation:stream 4.4s ease-in-out infinite}
+@keyframes stream{0%,29%{height:0;opacity:0}33%{opacity:1}35%,58%{height:56px;opacity:1}62%,100%{height:0;opacity:0}}
+/* copo */
+.glass{position:absolute;bottom:22px;left:104px;width:92px;height:104px;
+  border:1.5px solid rgba(233,230,224,.35);border-top:none;border-radius:4px 4px 30px 30px;overflow:hidden;
+  background:linear-gradient(100deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
+.liquid{position:absolute;bottom:0;left:0;width:100%;height:0;
+  background:linear-gradient(180deg,#d8a63a,#8e5c14);
+  animation:fill 4.4s ease-in-out infinite}
+@keyframes fill{0%,34%{height:0}60%,92%{height:70%}100%{height:0}}
+.liquid::before{content:"";position:absolute;top:-6px;left:0;width:200%;height:12px;border-radius:50%;
+  background:var(--gold2);opacity:.55;animation:wave 2.2s linear infinite}
+@keyframes wave{to{transform:translateX(-50%)}}
+.base{position:absolute;bottom:14px;left:94px;width:112px;height:8px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(201,162,39,.28),transparent 70%)}
+.splash-name{font-family:'Cormorant Garamond',serif;font-size:2.6rem;letter-spacing:.42em;
+  text-indent:.42em;color:var(--gold2);opacity:0;animation:fadeUp 1.2s ease .4s forwards}
+.splash-sub{font-size:.66rem;letter-spacing:.5em;text-indent:.5em;color:var(--mut);text-transform:uppercase;
+  opacity:0;animation:fadeUp 1.2s ease .9s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.bar{width:170px;height:1px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--gold);animation:load 4.2s ease forwards}
+@keyframes load{to{width:100%}}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;
+  padding:22px 6vw;backdrop-filter:blur(14px);background:rgba(10,10,11,.55);border-bottom:1px solid transparent;
+  transition:.4s}
+nav.stick{padding:14px 6vw;border-bottom-color:var(--line)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.32em;color:var(--gold2)}
+nav ul{display:flex;gap:34px;list-style:none;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+nav ul a{transition:.3s}nav ul a:hover{color:var(--gold2)}
+.btn{border:1px solid var(--gold);color:var(--gold2);padding:11px 24px;font-size:.68rem;letter-spacing:.22em;
+  text-transform:uppercase;transition:.35s;background:none;font-family:inherit}
+.btn:hover{background:var(--gold);color:#0a0a0b}
+@media(max-width:860px){nav ul{display:none}}
+
+/* ---------- HERO ---------- */
+header{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;
+  overflow:hidden;padding:150px 0 90px}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2000') center/cover;
+  filter:blur(3px) saturate(.9) brightness(.7);transform:scale(1.08)}
+.hero-grad{position:absolute;inset:0;
+  background:linear-gradient(90deg,#0a0a0b 0%,#0a0a0b 26%,rgba(10,10,11,.92) 42%,rgba(10,10,11,.45) 62%,rgba(10,10,11,.15) 100%)}
+.hero-grad2{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,.9),transparent 30%,transparent 65%,#0a0a0b)}
+.hero-txt{position:relative;z-index:3;padding:0 4vw 0 6vw;max-width:640px}
+.eyebrow{font-size:.66rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;
+  display:flex;align-items:center;gap:14px;line-height:1}
+.eyebrow::before{content:"";width:44px;height:1px;background:var(--gold);flex:none}
+.hero-txt h1{font-size:clamp(3rem,6.4vw,5.8rem);line-height:1.04;letter-spacing:-.01em}
+.hero-txt h1 em{font-style:italic;color:var(--gold2)}
+.hero-txt p{margin:28px 0 40px;color:var(--mut);font-size:1.02rem;line-height:1.85;max-width:440px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:46px;flex-wrap:wrap;margin-top:56px;padding-top:30px;
+  border-top:1px solid rgba(255,255,255,.07);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.hero-meta b{display:block;font-weight:400;margin-bottom:9px;letter-spacing:.3em;font-size:.6rem;color:var(--gold)}
+.hero-drink{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+.hero-drink img{width:78%;max-width:500px;height:min(72vh,620px);object-fit:cover;border-radius:2px;
+  box-shadow:0 40px 120px rgba(0,0,0,.8);filter:saturate(1.05)}
+.hero-tag{position:absolute;right:6vw;bottom:9vh;z-index:4;background:rgba(10,10,11,.78);backdrop-filter:blur(10px);
+  border:1px solid var(--line);padding:16px 22px}
+.hero-tag span{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.hero-tag h4{font-family:'Cormorant Garamond',serif;font-size:1.35rem;margin-top:5px}
+@media(max-width:900px){header{grid-template-columns:1fr;padding:110px 0 60px;min-height:auto;gap:40px}
+  .hero-drink img{height:46vh;width:88%}
+  .hero-tag{position:static;margin:0 6vw;display:inline-block}
+  .hero-meta{gap:26px}.hero-meta>div{min-width:44%}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:130px 6vw}
+.head{text-align:center;margin-bottom:70px}
+.head span{font-size:.64rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold)}
+.head h2{font-size:clamp(2.3rem,5vw,3.6rem);margin-top:16px}
+.head p{color:var(--mut);max-width:520px;margin:16px auto 0;line-height:1.8;font-size:.95rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;background:var(--line)}
+.card{background:var(--bg2);padding:0;overflow:hidden;position:relative;transition:.5s}
+.card img{width:100%;height:300px;object-fit:cover;filter:grayscale(.35) brightness(.75);transition:.7s}
+.card:hover img{filter:grayscale(0) brightness(.95);transform:scale(1.05)}
+.card-b{padding:28px 30px 34px}
+.card-b h3{font-size:1.6rem;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.card-b h3 i{font-style:normal;font-family:Inter;font-size:.85rem;color:var(--gold);letter-spacing:.1em}
+.card-b p{color:var(--mut);font-size:.86rem;line-height:1.75;margin-top:12px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1250px;margin:0 auto}
+.split img{height:560px;width:100%;object-fit:cover}
+.split h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.1}
+.split p{color:var(--mut);line-height:1.9;margin-top:24px;font-size:.95rem}
+.stats{display:flex;gap:46px;margin-top:44px;flex-wrap:wrap}
+.stats b{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--gold2);font-weight:400;display:block}
+.stats small{font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mut)}
+@media(max-width:900px){.split{grid-template-columns:1fr;gap:40px}.split img{height:340px}section{padding:90px 6vw}}
+
+.menu-list{max-width:900px;margin:0 auto}
+.item{display:flex;align-items:baseline;gap:18px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:.35s}
+.item:hover{padding-left:14px;border-bottom-color:var(--line)}
+.item h4{font-family:'Cormorant Garamond',serif;font-size:1.45rem;white-space:nowrap}
+.item .dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.15);transform:translateY(-4px)}
+.item .pr{color:var(--gold2);font-size:1rem}
+.item small{display:block;color:var(--mut);font-size:.78rem;margin-top:6px;letter-spacing:.04em}
+.tabs{display:flex;gap:10px;justify-content:center;margin-bottom:46px;flex-wrap:wrap}
+.tab{background:none;border:1px solid rgba(255,255,255,.1);color:var(--mut);padding:10px 22px;font-size:.66rem;
+  letter-spacing:.24em;text-transform:uppercase;font-family:inherit;transition:.35s;cursor:none}
+.tab.on,.tab:hover{border-color:var(--gold);color:var(--gold2)}
+
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.gal img{width:100%;height:230px;object-fit:cover;filter:grayscale(.5) brightness(.7);transition:.6s}
+.gal img:hover{filter:none;transform:scale(1.03)}
+@media(max-width:900px){.gal{grid-template-columns:repeat(2,1fr)}}
+
+.cta{text-align:center;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=2000') center/cover;
+  filter:blur(4px) brightness(.32);z-index:0}
+.cta>*{position:relative;z-index:2}
+
+footer{border-top:1px solid var(--line);padding:70px 6vw 40px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:44px}
+footer h5{font-size:.64rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+footer p,footer a{color:var(--mut);font-size:.86rem;line-height:2}
+footer a:hover{color:var(--gold2)}
+.copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.05);padding-top:26px;margin-top:20px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.7rem;letter-spacing:.14em;color:#55524d}
+
+.rev{opacity:0;transform:translateY(34px);transition:1s cubic-bezier(.16,1,.3,1)}
+.rev.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="scene">
+    <div class="bottle"><div class="cap"></div><div class="neck"></div><div class="body"></div></div>
+    <div class="stream"></div>
+    <div class="glass"><div class="liquid"></div></div>
+    <div class="base"></div>
+  </div>
+  <div style="text-align:center">
+    <div class="splash-name">ÂMBAR</div>
+    <div class="splash-sub" style="margin-top:12px">Bar de Autor · Desde 1998</div>
+  </div>
+  <div class="bar"><i></i></div>
+</div>
+
+<div id="cur"></div><div id="curDot"></div>
+
+<nav id="nav">
+  <div class="logo">ÂMBAR</div>
+  <ul>
+    <li><a href="#casa">A Casa</a></li>
+    <li><a href="#drinks">Autorais</a></li>
+    <li><a href="#carta">Carta</a></li>
+    <li><a href="#ambiente">Ambiente</a></li>
+  </ul>
+  <a href="#reserva" class="btn">Reservar</a>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-img"></div><div class="hero-grad"></div><div class="hero-grad2"></div>
+  <div class="hero-txt">
+    <div class="eyebrow">São Paulo · Jardins</div>
+    <h1>ÂMBAR<br><em>Bar de Autor</em></h1>
+    <p>Destilados raros, coquetelaria autoral e chopes de barril em um salão de luz baixa.
+       Uma casa para quem entende que a última dose é sempre a mais bem servida.</p>
+    <div class="hero-cta">
+      <a href="#reserva" class="btn">Reservar mesa</a>
+      <a href="#carta" class="btn" style="border-color:rgba(255,255,255,.16);color:var(--txt)">Ver a carta</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>Horário</b>Ter a Sáb · 18h — 02h</div>
+      <div><b>Endereço</b>R. Bela Cintra, 1420</div>
+      <div><b>Dress code</b>Smart casual</div>
+    </div>
+  </div>
+  <div class="hero-drink">
+    <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?q=80&w=1400" alt="Drink autoral">
+  </div>
+  <div class="hero-tag"><span>Assinatura da casa</span><h4>Old Fashioned Âmbar</h4></div>
+</header>
+
+<!-- DRINKS -->
+<section id="drinks">
+  <div class="head rev"><span>Coquetelaria</span><h2>Autorais da casa</h2>
+    <p>Seis criações fixas, revisadas a cada estação. Gelo esculpido, destilados selecionados e nada de pressa.</p></div>
+  <div class="grid">
+    <div class="card rev"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=900" alt="">
+      <div class="card-b"><h3>Old Fashioned Âmbar<i>R$ 58</i></h3>
+      <p>Bourbon envelhecido 12 anos, xarope de rapadura defumada, angostura e casca de laranja queimada.</p></div></div>
+    <div class="card rev"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=900" alt="">
+      <div class="card-b"><h3>Negroni Nero<i>R$ 54</i></h3>
+      <p>Gin london dry, vermute rosso italiano e bitter artesanal com toque de cacau torrado.</p></div></div>
+    <div class="card rev"><img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=900" alt="">
+      <div class="card-b"><h3>Fumaça de Cedro<i>R$ 62</i></h3>
+      <p>Mezcal, licor de pêra, limão siciliano e defumação de cedro liberada na taça.</p></div></div>
+    <div class="card rev"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=900" alt="">
+      <div class="card-b"><h3>Seda &amp; Cassis<i>R$ 49</i></h3>
+      <p>Vodka de trigo, cassis fresco, espuma de limão e um fio de champanhe brut.</p></div></div>
+    <div class="card rev"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=900" alt="">
+      <div class="card-b"><h3>Chope Âmbar<i>R$ 26</i></h3>
+      <p>Nossa red ale exclusiva, produzida em pequenos lotes. Puxada na temperatura certa, colarinho de dois dedos.</p></div></div>
+    <div class="card rev"><img src="https://images.unsplash.com/photo-1436076863939-06870fe779c2?q=80&w=900" alt="">
+      <div class="card-b"><h3>Reserva do Barman<i>R$ 74</i></h3>
+      <p>Dose única do rótulo da noite. Escolhido pelo bartender, servido sem carta e sem explicação prévia.</p></div></div>
+  </div>
+</section>
+
+<!-- CASA -->
+<section id="casa">
+  <div class="split">
+    <img class="rev" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1200" alt="Salão do bar">
+    <div class="rev">
+      <div class="eyebrow">A Casa</div>
+      <h2>Luz baixa,<br>madeira escura,<br><em style="color:var(--gold2);font-style:italic">tempo lento.</em></h2>
+      <p>O Âmbar nasceu de uma ideia simples: um balcão longo, uma prateleira honesta e ninguém com pressa de
+         virar mesa. Trabalhamos com destilados de pequenos produtores, gelo esculpido na casa e um cardápio de
+         petiscos pensado para acompanhar a dose — não para disputar com ela.</p>
+      <p>São 26 lugares no salão e oito no balcão. O balcão é por ordem de chegada.</p>
+      <div class="stats">
+        <div><b>340</b><small>Rótulos</small></div>
+        <div><b>26</b><small>Anos de casa</small></div>
+        <div><b>8</b><small>Lugares no balcão</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARTA -->
+<section id="carta" style="background:var(--bg2)">
+  <div class="head rev"><span>Carta</span><h2>Destilados &amp; Barril</h2></div>
+  <div class="tabs rev">
+    <button class="tab on" data-t="w">Whisky</button>
+    <button class="tab" data-t="g">Gin &amp; Vodka</button>
+    <button class="tab" data-t="c">Chopes</button>
+  </div>
+  <div class="menu-list rev" id="menu"></div>
+</section>
+
+<!-- GALERIA -->
+<section id="ambiente" style="padding-bottom:0">
+  <div class="head rev"><span>Ambiente</span><h2>O salão</h2></div>
+  <div class="gal rev">
+    <img src="https://images.unsplash.com/photo-1527281400683-1aae777175f8?q=80&w=800" alt="">
+    <img src="https://images.unsplash.com/photo-1541546006121-5c3bc5e8c7b9?q=80&w=800" alt="">
+    <img src="https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=800" alt="">
+    <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=800" alt="">
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="reserva">
+  <div class="head rev" style="margin-bottom:34px"><span>Reservas</span><h2>Guardamos sua mesa</h2>
+    <p>Reservas para até 6 pessoas pelo WhatsApp. Grupos maiores e eventos privados por e-mail.</p></div>
+  <div class="rev" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+    <a href="#" class="btn">WhatsApp · (11) 9 8000-0000</a>
+    <a href="#" class="btn" style="border-color:rgba(255,255,255,.2);color:var(--txt)">reservas@ambarbar.com.br</a>
+  </div>
+</section>
+
+<footer>
+  <div><div class="logo" style="margin-bottom:16px">ÂMBAR</div>
+    <p>Bar de autor. Destilados, coquetelaria e chope de barril desde 1998.</p></div>
+  <div><h5>Endereço</h5><p>R. Bela Cintra, 1420<br>Jardins · São Paulo — SP</p></div>
+  <div><h5>Horário</h5><p>Terça a quinta · 18h — 01h<br>Sexta e sábado · 18h — 02h<br>Domingo e segunda · fechado</p></div>
+  <div><h5>Siga</h5><p><a href="#">Instagram</a><br><a href="#">Untappd</a><br><a href="#">Spotify</a></p></div>
+  <div class="copy"><span>© 2026 Âmbar Bar de Autor</span><span>Beba com moderação · Venda proibida para menores de 18 anos</span></div>
+</footer>
+
+<script>
+// splash
+addEventListener('load',()=>setTimeout(()=>document.getElementById('splash').classList.add('out'),4400));
+
+// cursor + trail
+const cur=document.getElementById('cur'),dot=document.getElementById('curDot');
+let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
+addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  dot.style.transform=`translate(${mx-2}px,${my-2}px)`;
+  if(Math.random()>.55)trail(mx,my);
+});
+(function loop(){cx+=(mx-cx)*.14;cy+=(my-cy)*.14;
+  cur.style.transform=`translate(${cx-17}px,${cy-17}px)`;requestAnimationFrame(loop)})();
+function trail(x,y){const t=document.createElement('div');t.className='trail';
+  t.style.cssText+=`left:${x-3}px;top:${y-3}px;transition:opacity .7s,transform .7s`;
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>{t.style.opacity=0;t.style.transform=`translateY(${14+Math.random()*16}px) scale(.2)`});
+  setTimeout(()=>t.remove(),750);}
+document.querySelectorAll('a,button,.card,.gal img').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));});
+
+// smooth scroll (lerp) — desliga no mobile/touch e se o usuário pedir menos movimento
+if(matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+  let target=scrollY,run=false;
+  const max=()=>document.body.scrollHeight-innerHeight;
+  const clamp=v=>Math.max(0,Math.min(max(),v));
+  const tick=()=>{
+    const d=target-scrollY;
+    if(Math.abs(d)<.4){scrollTo(0,target);run=false;return}
+    scrollTo(0,scrollY+d*.11);requestAnimationFrame(tick);
+  };
+  const go=v=>{target=clamp(v);if(!run){run=true;requestAnimationFrame(tick)}};
+  addEventListener('wheel',e=>{e.preventDefault();go(target+e.deltaY)},{passive:false});
+  addEventListener('resize',()=>target=scrollY);
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.onclick=e=>{
+    const el=document.querySelector(a.getAttribute('href'));
+    if(!el)return; e.preventDefault(); go(scrollY+el.getBoundingClientRect().top-70);
+  });
+}
+
+// nav + reveal
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stick',scrollY>60));
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
+document.querySelectorAll('.rev').forEach(e=>io.observe(e));
+
+// menu
+const M={
+ w:[['Yamazaki 12 anos','Single malt japonês · dose 50ml','R$ 96'],
+    ['Lagavulin 16 anos','Islay, turfa intensa · dose 50ml','R$ 88'],
+    ['Macallan Double Cask','Speyside, barril de xerez · dose 50ml','R$ 78'],
+    ['Bourbon Reserva Âmbar','Engarrafado exclusivo para a casa · dose 50ml','R$ 64']],
+ g:[['Gin Botânico da Casa','Destilado com pimenta rosa e capim-limão','R$ 46'],
+    ['Monkey 47','Schwarzwald dry gin · com tônica premium','R$ 58'],
+    ['Vodka de Trigo Polonesa','Servida gelada, sem gelo, no cálice','R$ 42'],
+    ['Mezcal Espadín','Artesanal, Oaxaca · com laranja e sal de gusano','R$ 54']],
+ c:[['Chope Âmbar Red Ale','Rótulo exclusivo da casa · 400ml','R$ 26'],
+    ['Pilsen Tcheca Não Filtrada','Puxada em copo de cerâmica · 400ml','R$ 24'],
+    ['IPA Cítrica','Lúpulo americano, amargor médio · 400ml','R$ 28'],
+    ['Stout Nitro','Café e cacau, textura cremosa · 400ml','R$ 30']]};
+const box=document.getElementById('menu');
+const draw=k=>box.innerHTML=M[k].map(i=>
+  `<div class="item"><div><h4>${i[0]}</h4><small>${i[1]}</small></div><span class="dots"></span><span class="pr">${i[2]}</span></div>`).join('');
+draw('w');
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelector('.tab.on').classList.remove('on');b.classList.add('on');draw(b.dataset.t)});
+</script>
+</body>
+</html>

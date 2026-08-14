@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranking — Área do Aluno | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="aluno" data-pagina="ranking" data-titulo="Ranking da turma" data-subtitulo="Melhores notas de redação em julho">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+
+      <div class="card" style="margin-bottom:24px">
+        <h3 class="card-titulo">Pódio do mês</h3>
+        <p class="card-sub">Baseado na melhor nota de redação de julho</p>
+        <div class="podio" id="podio" style="margin-top:18px"></div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-titulo">Classificação completa</h3>
+        <p class="card-sub">Sua posição está destacada</p>
+        <table class="tabela" style="margin-top:8px">
+          <thead><tr><th>#</th><th>Aluno</th><th>Melhor nota</th></tr></thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    const r = DADOS.ranking;
+    const iniciais = nome => nome.split(" ").filter(Boolean).slice(0, 2).map(p => p[0]).join("").toUpperCase();
+
+    // Pódio: ordem visual 2 - 1 - 3
+    const topo3 = { 1: r[0], 2: r[1], 3: r[2] };
+    const ordem = [2, 1, 3];
+    const medalha = { 1: "🥇 1º", 2: "🥈 2º", 3: "🥉 3º" };
+    document.getElementById("podio").innerHTML = ordem.map(pos => {
+      const p = topo3[pos];
+      const eu = p.ehAluno ? ' style="outline:2px solid var(--laranja);outline-offset:2px"' : "";
+      return `<div class="podio-lugar podio-${pos}"${eu}>
+        <div class="medalha">${medalha[pos]}</div>
+        <div class="av">${iniciais(p.nome)}</div>
+        <div class="pnome">${p.ehAluno ? "Você" : p.nome.split(" ").slice(0, 2).join(" ")}</div>
+        <div class="pnota">${p.nota}</div>
+      </div>`;
+    }).join("");
+
+    // Lista completa
+    document.getElementById("lista").innerHTML = r.map(p => `
+      <tr class="ranking-linha ${p.ehAluno ? "eu" : ""}">
+        <td style="font-family:var(--fonte-titulo);font-weight:700;color:var(--cinza-texto)">${p.posicao}º</td>
+        <td style="display:flex;align-items:center;gap:10px">
+          <span class="avatar" style="width:32px;height:32px;font-size:0.75rem">${iniciais(p.nome)}</span>
+          <span style="font-weight:${p.ehAluno ? 700 : 500}">${p.nome}${p.ehAluno ? " (você)" : ""}</span>
+        </td>
+        <td class="nota-cell">${p.nota}</td>
+      </tr>`).join("");
+  </script>
+</body>
+</html>

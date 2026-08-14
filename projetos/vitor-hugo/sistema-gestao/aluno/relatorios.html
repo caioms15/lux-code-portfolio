@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios — Área do Aluno | Victor Hugo Redação</title>
+  <link rel="icon" href="../../assets/media/marca/logo-sem-fundo.png" type="image/png">
+  <link rel="stylesheet" href="../css/sistema.css">
+</head>
+<body class="app" data-area="aluno" data-pagina="relatorios" data-titulo="Relatórios" data-subtitulo="Sua evolução por competência e frequência">
+
+  <aside id="appSidebar"></aside>
+
+  <div class="conteudo">
+    <header id="appTopo"></header>
+
+    <main class="pagina">
+
+      <div class="grid grid-2" style="margin-bottom:24px">
+        <!-- Comparativo por competência -->
+        <div class="card">
+          <h3 class="card-titulo">Você × média da turma</h3>
+          <p class="card-sub">Nota na última redação por competência</p>
+          <div id="comparativo"></div>
+          <div style="display:flex;gap:18px;margin-top:16px;font-size:0.82rem;color:var(--cinza-texto)">
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:var(--azul)"></span> Você</span>
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#c9d2f2"></span> Média da turma</span>
+          </div>
+        </div>
+
+        <!-- Frequência + resumo -->
+        <div class="card">
+          <h3 class="card-titulo">Frequência</h3>
+          <p class="card-sub">Presença nas aulas presenciais</p>
+          <div style="text-align:center;padding:10px 0" id="freq-donut"></div>
+          <p style="text-align:center;color:var(--cinza-texto);font-size:0.9rem" id="freq-txt"></p>
+        </div>
+      </div>
+
+      <!-- Evolução por competência ao longo dos envios -->
+      <div class="card">
+        <h3 class="card-titulo">Evolução das notas</h3>
+        <p class="card-sub">Nota final ao longo das redações enviadas</p>
+        <div id="barras-evolucao" style="display:flex;align-items:flex-end;gap:18px;height:220px;padding-top:20px"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/dados.js"></script>
+  <script src="../js/sistema.js"></script>
+  <script>
+    const ultimo = DADOS.envios[0];
+
+    // Comparativo você x turma
+    document.getElementById("comparativo").innerHTML = DADOS.competencias.map(c => {
+      const eu = ultimo.competencias[c.id];
+      const turma = c.mediaTurma;
+      return `<div style="margin-bottom:18px">
+        <div class="barra-topo"><span class="rot">${c.rotulo} · ${c.nome}</span><span class="val">${eu}</span></div>
+        <div class="barra-trilho" style="margin-bottom:5px"><div class="barra-fill" style="width:${(eu/200)*100}%"></div></div>
+        <div class="barra-trilho" style="height:7px;background:#eef0f6"><div class="barra-fill" style="width:${(turma/200)*100}%;background:#c9d2f2"></div></div>
+      </div>`;
+    }).join("");
+
+    // Donut de frequência
+    (function () {
+      const pct = DADOS.frequencia.percentual;
+      const r = 52, c = 2 * Math.PI * r;
+      const off = c * (1 - pct / 100);
+      document.getElementById("freq-donut").innerHTML =
+        `<svg viewBox="0 0 140 140" style="width:150px;height:150px">
+          <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--azul-suave)" stroke-width="14"/>
+          <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--ok)" stroke-width="14" stroke-linecap="round"
+            stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 70 70)"/>
+          <text x="70" y="66" text-anchor="middle" font-size="28" font-weight="700" fill="var(--azul)" font-family="Poppins,sans-serif">${pct}%</text>
+          <text x="70" y="86" text-anchor="middle" font-size="11" fill="var(--cinza-texto)">presença</text>
+        </svg>`;
+      document.getElementById("freq-txt").textContent =
+        DADOS.frequencia.presencas + " de " + DADOS.frequencia.total + " aulas presentes neste semestre.";
+    })();
+
+    // Barras de evolução
+    const notas = DADOS.envios.map(e => ({ n: e.notaFinal, d: e.dataEnvio })).reverse();
+    const maxN = 1000;
+    document.getElementById("barras-evolucao").innerHTML = notas.map(o => `
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+        <span style="font-family:var(--fonte-titulo);font-weight:700;color:var(--azul)">${o.n}</span>
+        <div style="width:100%;max-width:60px;height:${(o.n/maxN)*100}%;background:linear-gradient(180deg,#3a53b0,var(--azul));border-radius:8px 8px 0 0;min-height:8px"></div>
+        <span style="font-size:0.76rem;color:var(--cinza-texto)">${o.d.slice(0,5)}</span>
+      </div>`).join("");
+  </script>
+</body>
+</html>

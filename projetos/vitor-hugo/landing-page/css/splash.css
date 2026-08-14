@@ -1,0 +1,86 @@
+/* ===== Splash de abertura — logo animada Victor Hugo ===== */
+
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 40%, #ffffff 0%, #eef1fb 60%, #dfe6fa 100%);
+  opacity: 1;
+  transition: opacity 0.47s ease;
+}
+
+#splash.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* trava o scroll enquanto o splash está ativo */
+body.splash-active {
+  overflow: hidden;
+}
+
+.splash-logo {
+  width: min(70vw, 620px);
+  height: auto;
+  overflow: visible;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* --- V e acento: aparecem DEPOIS que o lápis termina de escrever (via JS) --- */
+.splash-v,
+.splash-acento {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* --- traço do lápis: desenhado por stroke-dashoffset --- */
+.splash-trace {
+  fill: none;
+  stroke: #0e306b;
+  stroke-width: 85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.splash-trace-inner {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- borracha (início) aparece com o começo do traço --- */
+.splash-borracha {
+  opacity: 0;
+  animation: fade-in 0.17s ease 0.1s forwards;
+}
+
+/* --- ponta e REDAÇÃO: controladas via JS (aparecem no fim do desenho) --- */
+.splash-ponta,
+.splash-redacao {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* --- lápis viajando (a "cabeça" do traço) --- */
+.splash-pencil-head {
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-v, .splash-acento, .splash-borracha, .splash-ponta, .splash-redacao {
+    animation: none;
+    opacity: 1;
+  }
+}
